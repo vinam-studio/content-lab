@@ -1,21 +1,21 @@
-MIT License
+Copyright (c) 2026 VINAM STUDIO. All Rights Reserved.
 
-Copyright (c) 2026 vinam-studio
+FREE-TO-USE PROPRIETARY SOFTWARE LICENSE
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+1. OWNERSHIP AND COPYRIGHT
+This software, including its source code, design, user interface, structure, and associated documentation (the "Software"), is the sole and exclusive property of VINAM STUDIO ("Copyright Holder"). The Software is protected by copyright laws and international copyright treaties.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+2. GRANT OF FREE USE LICENSE
+Permission is hereby granted, free of charge, to any person or entity to access and use the Software as an end-user for personal or commercial purposes, solely through the official version provided by the Copyright Holder.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+3. RESTRICTIONS ON SOURCE CODE AND DISTRIBUTION
+Except for the end-user usage rights granted in Section 2, no permission is granted to any person or entity to:
+(a) Copy, reproduce, or download the source code for external deployment;
+(b) Modify, adapt, translate, reverse-engineer, or create derivative works based on the Software;
+(c) Distribute, publish, sublicense, sell, rent, or lease copies of the Software or its source code, in whole or in part, without the prior written consent of the Copyright Holder.
+
+4. VIEWING RIGHTS (GITHUB REPOSITORY)
+If this repository is hosted publicly on GitHub, permission is granted solely to view the source code on GitHub for inspection or informational purposes. Viewing the code does not grant any right to reuse or deploy the code.
+
+5. DISCLAIMER OF WARRANTY
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM OR IN CONNECTION WITH THE SOFTWARE.
