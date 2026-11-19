@@ -633,7 +633,7 @@
     .copy-status:empty { margin: 0; }
 
     .footer { padding-block: 14px 24px; color: var(--text-secondary); font-size: 12px; }
-    .credit { font: 700 11px/1 Arial, sans-serif; letter-spacing: .1em; }
+    .credit { margin-inline-start: auto; font: 700 11px/1 Arial, sans-serif; letter-spacing: .1em; }
 
     .masthead-tools { display: flex; align-items: center; gap: 10px; min-inline-size: 0; }
     .theme-chooser { position: relative; flex: none; }
@@ -724,12 +724,114 @@
     @media print {
       .brief { max-block-size: none; overflow: visible; }
     }
+    .labs-nav { display: flex; align-items: center; gap: 16px; direction: ltr; }
+    .labs-nav a {
+      padding-block: 7px;
+      border-bottom: 1px solid transparent;
+      color: var(--text-secondary);
+      text-decoration: none;
+      white-space: nowrap;
+      font: 600 13px/1.2 Arial, sans-serif;
+    }
+    .labs-nav a:hover, .labs-nav a[aria-current="page"] { color: var(--text); }
+    .labs-nav a[aria-current="page"] { border-color: var(--selection-border); }
+    .hero-tagline { font: 400 18px/1.65 var(--sans); color: var(--text-secondary); margin: 18px 0 0; }
+    .visual-intro-copy { max-width: 560px; padding-inline-end: 42px; margin: 0; color: var(--text-secondary); font-size: 14px; }
+    .visual-row { display: grid; grid-template-columns: 18px minmax(0, 1fr); column-gap: 8px; }
+    .visual-row > .number { align-self: start; padding-top: 7px; }
+    .visual-fields { display: grid; gap: 12px; }
+    .visual-field { min-inline-size: 0; }
+    .visual-conditional, .visual-radio { border: 0; padding: 0; margin: 0; min-inline-size: 0; }
+    .visual-conditional { display: grid; gap: 12px; }
+    .visual-conditional > .help { margin: 0; }
+    .visual-radio .choices { grid-template-columns: repeat(auto-fit, minmax(min(146px, 100%), 1fr)); }
+    .visual-radio .choice input:focus-visible + span { outline-offset: 2px; }
+    .visual-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .visual-picker { position: relative; }
+    .visual-picker summary, .visual-advanced > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-block-size: 46px;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      cursor: pointer;
+      list-style: none;
+    }
+    .visual-picker summary::-webkit-details-marker, .visual-advanced > summary::-webkit-details-marker { display: none; }
+    .visual-picker summary::after, .visual-advanced > summary::after {
+      content: "";
+      width: 7px;
+      height: 7px;
+      flex: 0 0 7px;
+      border: solid var(--text-secondary);
+      border-width: 0 1px 1px 0;
+      transform: rotate(45deg);
+      margin-block-start: -3px;
+    }
+    .visual-picker[open] summary::after, .visual-advanced[open] > summary::after { transform: rotate(225deg); margin-block-start: 3px; }
+    .visual-picker summary:hover, .visual-advanced > summary:hover { background: var(--surface-hover); }
+    .visual-picker[open] { z-index: 2; }
+    .visual-options {
+      position: absolute;
+      z-index: 1;
+      inset-inline: 0;
+      inset-block-start: calc(100% + 4px);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 6px;
+    }
+    .visual-option-list { max-block-size: min(290px, 42vh); overflow: auto; }
+    .visual-option {
+      display: block;
+      width: 100%;
+      min-height: 42px;
+      padding: 7px 10px;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      background: transparent;
+      text-align: start;
+      overflow-wrap: anywhere;
+    }
+    .visual-option:hover { background: var(--surface-hover); }
+    .visual-option[aria-pressed="true"] { background: var(--selection-bg); border-color: var(--selection-border); }
+    .visual-option:focus-visible { outline-offset: -2px; }
+    .visual-search { min-block-size: 42px; padding: 8px; margin-bottom: 5px; }
+    .visual-hint { min-block-size: 2.8em; margin-top: 8px; }
+    #visual-builder [aria-invalid="true"] { border-color: var(--focus-ring); }
+    .visual-advanced { margin-block: 0 24px; }
+    .visual-advanced > .help { margin: 9px 0 22px; }
+    #visual-preview:has(#visual-result[hidden]) { max-block-size: 260px; }
+    .visual-output { white-space: pre-wrap; text-align: start; unicode-bidi: plaintext; }
+    .visual-copy-fallback { position: fixed; inset: 0 auto auto 0; opacity: 0; inline-size: 1px; block-size: 1px; }
+    @media (max-width: 500px) {
+      .labs-nav { gap: 12px; }
+      .masthead:has(.labs-nav) .masthead-note { display: none; }
+      .visual-row > .number { padding-top: 6px; }
+      .visual-radio .choices { grid-template-columns: repeat(auto-fit, minmax(min(120px, 100%), 1fr)); }
+      .visual-pair { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 390px) {
+      .masthead { display: grid; grid-template-columns: 1fr auto; height: auto; min-height: 72px; row-gap: 0; }
+      .masthead .wordmark { grid-area: 1 / 1; justify-self: start; }
+      .masthead .masthead-tools { grid-area: 1 / 2; }
+      .labs-nav { grid-area: 2 / 1 / 3 / -1; }
+    }
+
   </style>
 </head>
 <body>
   <div class="shell">
     <header id="top" class="masthead">
-      <a class="wordmark" href="#top" dir="ltr" lang="en"><span class="mark" aria-hidden="true"></span>CONTENT LAB</a>
+      <a class="wordmark" href="#content-lab" dir="ltr" lang="en"><span class="mark" aria-hidden="true"></span>VINAM LABS</a>
+      <nav class="labs-nav" aria-label="כלי הסטודיו">
+        <a href="#content-lab" lang="en" aria-current="page">Content Lab</a>
+        <a href="#visual-lab" lang="en">Visual Lab</a>
+      </nav>
       <div class="masthead-tools">
         <span class="masthead-note">כלי לבניית בריף תוכן</span>
         <div class="theme-chooser" id="theme-chooser">
@@ -762,10 +864,11 @@
       </div>
     </header>
 
-    <main>
+    <main id="content-page">
       <div class="workspace">
         <section class="hero" aria-labelledby="title">
           <h1 id="title" lang="en" dir="ltr">Content Lab</h1>
+          <p class="hero-tagline">מרעיון לתוכן מדויק.</p>
         </section>
 
         <form id="builder" class="builder" aria-labelledby="builder-title" novalidate>
@@ -865,9 +968,356 @@
         </section>
       </div>
     </main>
+<main id="visual-page" hidden>
+  <div class="workspace">
+    <section class="hero" aria-labelledby="visual-title">
+      <h1 id="visual-title" lang="en" dir="ltr" tabindex="-1">Visual Lab</h1>
+      <p class="hero-tagline">מרעיון לתמונה מדויקת.</p>
+    </section>
+    <form class="builder" id="visual-builder" aria-labelledby="visual-builder-title" novalidate>
+      <div class="builder-head">
+        <div class="builder-heading">
+          <h2 class="workspace-title" id="visual-builder-title" tabindex="-1">בניית הפרומפט</h2>
+          <button class="intro-icon-button" id="visual-intro-toggle" type="button" aria-label="הצגת הסבר על השימוש במחולל" aria-controls="visual-intro" aria-expanded="true">
+                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="7"/><path d="M8.5 7.5v4.25"/><circle cx="8.5" cy="5.25" r=".65" fill="currentColor" stroke="none"/></svg>
+              </button>
+        </div>
+      </div>
+      <section class="builder-intro" id="visual-intro" aria-label="איך משתמשים במחולל">
+        <button class="intro-icon-button intro-close" id="visual-intro-close" type="button" aria-label="סגירת ההסבר"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true"><path d="m4 4 8 8m0-8-8 8"/></svg></button>
+        <p class="visual-intro-copy">מתארים מה רוצים ליצור, בוחרים סגנון והגדרות צילום, ומקבלים פרומפט מקצועי שמוכן להדבקה בכלי AI ליצירת תמונות. לא צריך ידע בצילום או בכתיבת פרומפטים.</p>
+      </section>
+      <div class="form-row visual-row"><span class="number" aria-hidden="true">01</span><div class="visual-fields"><div class="visual-field">
+   <span class="form-label" id="v-objective-label">מה יוצרים?</span>
+   <details class="visual-picker">
+     <summary id="v-objective" aria-labelledby="v-objective-label v-objective-value" aria-describedby="v-objective-hint v-objective-error"><span id="v-objective-value" class="visual-value" dir="auto">Product Photography</span></summary>
+     <div class="visual-options"><input type="search" class="field visual-search" aria-label="חיפוש במה יוצרים?" placeholder="חיפוש…"><div class="visual-option-list" role="group" aria-labelledby="v-objective-label"><button type="button" class="visual-option" data-value="product-photography" data-description="צילום מוצר מקצועי" aria-pressed="true" dir="auto">Product Photography</button><button type="button" class="visual-option" data-value="product-lifestyle" data-description="מוצר בסביבת שימוש" aria-pressed="false" dir="auto">Product Lifestyle</button><button type="button" class="visual-option" data-value="advertising-campaign" data-description="תמונה לקמפיין פרסומי" aria-pressed="false" dir="auto">Advertising Campaign</button><button type="button" class="visual-option" data-value="social-media-ad" data-description="מודעה לרשתות חברתיות" aria-pressed="false" dir="auto">Social Media Ad</button><button type="button" class="visual-option" data-value="editorial-photography" data-description="צילום מגזיני" aria-pressed="false" dir="auto">Editorial Photography</button><button type="button" class="visual-option" data-value="fashion-photography" data-description="צילום אופנה" aria-pressed="false" dir="auto">Fashion Photography</button><button type="button" class="visual-option" data-value="food-photography" data-description="צילום מזון" aria-pressed="false" dir="auto">Food Photography</button><button type="button" class="visual-option" data-value="interior-photography" data-description="צילום חלל" aria-pressed="false" dir="auto">Interior Photography</button><button type="button" class="visual-option" data-value="architectural-photography" data-description="צילום אדריכלי" aria-pressed="false" dir="auto">Architectural Photography</button><button type="button" class="visual-option" data-value="portrait" data-description="פורטרט" aria-pressed="false" dir="auto">Portrait</button><button type="button" class="visual-option" data-value="brand-lifestyle" data-description="תמונת לייפסטייל למותג" aria-pressed="false" dir="auto">Brand Lifestyle</button><button type="button" class="visual-option" data-value="conceptual-image" data-description="תמונה קונספטואלית" aria-pressed="false" dir="auto">Conceptual Image</button><button type="button" class="visual-option" data-value="service-visualization" data-description="המחשת שירות" aria-pressed="false" dir="auto">Service Visualization</button><button type="button" class="visual-option" data-value="poster" data-description="פוסטר" aria-pressed="false" dir="auto">Poster</button><button type="button" class="visual-option" data-value="website-hero" data-description="תמונת Hero לאתר" aria-pressed="false" dir="auto">Website Hero</button><button type="button" class="visual-option" data-value="background-image" data-description="תמונת רקע" aria-pressed="false" dir="auto">Background Image</button><button type="button" class="visual-option" data-value="product-mockup" data-description="הדמיית מוצר" aria-pressed="false" dir="auto">Product Mockup</button><button type="button" class="visual-option" data-value="packaging-mockup" data-description="הדמיית אריזה" aria-pressed="false" dir="auto">Packaging Mockup</button><button type="button" class="visual-option" data-value="3d-product-render" data-description="הדמיית מוצר תלת־ממדית" aria-pressed="false" dir="auto">3D Product Render</button><button type="button" class="visual-option" data-value="abstract-visual" data-description="תמונה מופשטת" aria-pressed="false" dir="auto">Abstract Visual</button><button type="button" class="visual-option" data-value="custom" data-description="" aria-pressed="false" dir="auto">אחר · כתיבה חופשית</button></div><p class="help visual-no-matches" hidden>אין תוצאות.</p></div>
+     <input type="hidden" name="objective" value="product-photography">
+   </details>
+   <p class="help visual-hint" id="v-objective-hint" aria-live="polite">צילום מוצר מקצועי</p>
+   <p class="error" id="v-objective-error" role="alert" hidden></p>
+ </div><fieldset class="visual-conditional" data-when="objective=custom" hidden disabled><div class="visual-field">
+   <label class="form-label" for="v-objectiveCustom">הגדרה אישית</label>
+   <input id="v-objectiveCustom" name="objectiveCustom" class="field" dir="auto" aria-describedby="v-objectiveCustom-error" placeholder="" type="text">
+   
+   <p class="error" id="v-objectiveCustom-error" role="alert" hidden></p>
+ </div></fieldset></div></div>
+<div class="form-row visual-row"><span class="number" aria-hidden="true">02</span><div class="visual-fields"><div class="visual-field">
+   <label class="form-label" for="v-subject">מה מציגים בתמונה?</label>
+   <textarea id="v-subject" name="subject" class="field" dir="auto" aria-describedby="v-subject-error" placeholder="למשל: בקבוק בושם יוקרתי מזכוכית כהה, עם פקק מתכתי..." required rows="3"></textarea>
+   
+   <p class="error" id="v-subject-error" role="alert" hidden></p>
+ </div></div></div>
+<div class="form-row visual-row"><span class="number" aria-hidden="true">03</span><div class="visual-fields"><div class="visual-field">
+   <label class="form-label" for="v-audience">למי התמונה מיועדת?</label>
+   <input id="v-audience" name="audience" class="field" dir="auto" aria-describedby="v-audience-error" placeholder="למשל: צעירים בגילאי 20–35 שאוהבים אופנה וטכנולוגיה" type="text">
+   
+   <p class="error" id="v-audience-error" role="alert" hidden></p>
+ </div></div></div>
+<div class="form-row visual-row"><span class="number" aria-hidden="true">04</span><div class="visual-fields"><div class="visual-field">
+   <span class="form-label" id="v-environment-label">איפה מתרחשת הסצנה?</span>
+   <details class="visual-picker">
+     <summary id="v-environment" aria-labelledby="v-environment-label v-environment-value" aria-describedby="v-environment-hint v-environment-error"><span id="v-environment-value" class="visual-value" dir="auto">Auto</span></summary>
+     <div class="visual-options"><input type="search" class="field visual-search" aria-label="חיפוש באיפה מתרחשת הסצנה?" placeholder="חיפוש…"><div class="visual-option-list" role="group" aria-labelledby="v-environment-label"><button type="button" class="visual-option" data-value="auto" data-description="סביבה המתאימה למוצר" aria-pressed="true" dir="auto">Auto</button><button type="button" class="visual-option" data-value="clean-studio" data-description="סטודיו נקי" aria-pressed="false" dir="auto">Clean Studio</button><button type="button" class="visual-option" data-value="white-studio" data-description="סטודיו לבן" aria-pressed="false" dir="auto">White Studio</button><button type="button" class="visual-option" data-value="dark-studio" data-description="סטודיו כהה" aria-pressed="false" dir="auto">Dark Studio</button><button type="button" class="visual-option" data-value="color-studio" data-description="סטודיו צבעוני" aria-pressed="false" dir="auto">Color Studio</button><button type="button" class="visual-option" data-value="modern-home" data-description="בית מודרני" aria-pressed="false" dir="auto">Modern Home</button><button type="button" class="visual-option" data-value="luxury-interior" data-description="חלל יוקרתי" aria-pressed="false" dir="auto">Luxury Interior</button><button type="button" class="visual-option" data-value="minimal-interior" data-description="חלל מינימליסטי" aria-pressed="false" dir="auto">Minimal Interior</button><button type="button" class="visual-option" data-value="office" data-description="משרד" aria-pressed="false" dir="auto">Office</button><button type="button" class="visual-option" data-value="creative-workspace" data-description="סביבת עבודה יצירתית" aria-pressed="false" dir="auto">Creative Workspace</button><button type="button" class="visual-option" data-value="urban-street" data-description="רחוב עירוני" aria-pressed="false" dir="auto">Urban Street</button><button type="button" class="visual-option" data-value="industrial-space" data-description="חלל תעשייתי" aria-pressed="false" dir="auto">Industrial Space</button><button type="button" class="visual-option" data-value="nature" data-description="טבע" aria-pressed="false" dir="auto">Nature</button><button type="button" class="visual-option" data-value="forest" data-description="יער" aria-pressed="false" dir="auto">Forest</button><button type="button" class="visual-option" data-value="desert" data-description="מדבר" aria-pressed="false" dir="auto">Desert</button><button type="button" class="visual-option" data-value="beach" data-description="חוף ים" aria-pressed="false" dir="auto">Beach</button><button type="button" class="visual-option" data-value="rooftop" data-description="גג אורבני" aria-pressed="false" dir="auto">Rooftop</button><button type="button" class="visual-option" data-value="restaurant" data-description="מסעדה" aria-pressed="false" dir="auto">Restaurant</button><button type="button" class="visual-option" data-value="caf" data-description="בית קפה" aria-pressed="false" dir="auto">Café</button><button type="button" class="visual-option" data-value="retail-store" data-description="חנות" aria-pressed="false" dir="auto">Retail Store</button><button type="button" class="visual-option" data-value="kitchen" data-description="מטבח" aria-pressed="false" dir="auto">Kitchen</button><button type="button" class="visual-option" data-value="bathroom" data-description="חדר רחצה" aria-pressed="false" dir="auto">Bathroom</button><button type="button" class="visual-option" data-value="gym" data-description="חדר כושר" aria-pressed="false" dir="auto">Gym</button><button type="button" class="visual-option" data-value="futuristic-environment" data-description="סביבה עתידנית" aria-pressed="false" dir="auto">Futuristic Environment</button><button type="button" class="visual-option" data-value="abstract-environment" data-description="סביבה מופשטת" aria-pressed="false" dir="auto">Abstract Environment</button><button type="button" class="visual-option" data-value="gradient-background" data-description="רקע גרדיאנט" aria-pressed="false" dir="auto">Gradient Background</button><button type="button" class="visual-option" data-value="seamless-background" data-description="רקע רציף" aria-pressed="false" dir="auto">Seamless Background</button><button type="button" class="visual-option" data-value="custom" data-description="אחר" aria-pressed="false" dir="auto">אחר · כתיבה חופשית</button></div><p class="help visual-no-matches" hidden>אין תוצאות.</p></div>
+     <input type="hidden" name="environment" value="auto">
+   </details>
+   <p class="help visual-hint" id="v-environment-hint" aria-live="polite">סביבה המתאימה למוצר</p>
+   <p class="error" id="v-environment-error" role="alert" hidden></p>
+ </div><fieldset class="visual-conditional" data-when="environment=custom" hidden disabled><div class="visual-field">
+   <label class="form-label" for="v-environmentCustom">הגדרה אישית</label>
+   <input id="v-environmentCustom" name="environmentCustom" class="field" dir="auto" aria-describedby="v-environmentCustom-error" placeholder="" type="text">
+   
+   <p class="error" id="v-environmentCustom-error" role="alert" hidden></p>
+ </div></fieldset></div></div>
+<div class="form-row visual-row"><span class="number" aria-hidden="true">05</span><div class="visual-fields"><div class="visual-field">
+   <span class="form-label" id="v-style-label">מה הסגנון הוויזואלי?</span>
+   <details class="visual-picker">
+     <summary id="v-style" aria-labelledby="v-style-label v-style-value" aria-describedby="v-style-hint v-style-error"><span id="v-style-value" class="visual-value" dir="auto">Auto</span></summary>
+     <div class="visual-options"><input type="search" class="field visual-search" aria-label="חיפוש במה הסגנון הוויזואלי?" placeholder="חיפוש…"><div class="visual-option-list" role="group" aria-labelledby="v-style-label"><button type="button" class="visual-option" data-value="auto" data-description="בחירת סגנון שמתאים למוצר ולמטרה." aria-pressed="true" dir="auto">Auto</button><button type="button" class="visual-option" data-value="editorial" data-description="צילום מגזיני מוקפד, קומפוזיציה מתוחכמת ואסתטיקה אמנותית." aria-pressed="false" dir="auto">Editorial</button><button type="button" class="visual-option" data-value="luxury" data-description="מראה יוקרתי, חומרים עשירים, תאורה מדויקת ותחושת פרימיום." aria-pressed="false" dir="auto">Luxury</button><button type="button" class="visual-option" data-value="minimalist" data-description="מעט אלמנטים, הרבה מרחב נקי ומיקוד ברור בנושא." aria-pressed="false" dir="auto">Minimalist</button><button type="button" class="visual-option" data-value="commercial" data-description="צילום פרסומי חד ומלוטש שמציג את המוצר בצורה ברורה ומושכת." aria-pressed="false" dir="auto">Commercial</button><button type="button" class="visual-option" data-value="cinematic" data-description="מראה קולנועי עם תאורה דרמטית, עומק ואווירה עשירה." aria-pressed="false" dir="auto">Cinematic</button><button type="button" class="visual-option" data-value="lifestyle" data-description="צילום טבעי שמציג את המוצר כחלק מהחיים האמיתיים." aria-pressed="false" dir="auto">Lifestyle</button><button type="button" class="visual-option" data-value="fashion" data-description="אסתטיקה מעולם האופנה, פוזות מוקפדות וסטיילינג בולט." aria-pressed="false" dir="auto">Fashion</button><button type="button" class="visual-option" data-value="documentary" data-description="צילום אותנטי ולא מבוים, עם תחושה של רגע אמיתי." aria-pressed="false" dir="auto">Documentary</button><button type="button" class="visual-option" data-value="brutalist" data-description="קומפוזיציות נועזות, ניגודיות חזקה וגישה עיצובית גולמית." aria-pressed="false" dir="auto">Brutalist</button><button type="button" class="visual-option" data-value="retro" data-description="מראה נוסטלגי בהשראת צילום ופרסום מתקופות קודמות." aria-pressed="false" dir="auto">Retro</button><button type="button" class="visual-option" data-value="vintage-film" data-description="אסתטיקה אנלוגית עם גרעיניות, צבעים רכים ואופי של פילם." aria-pressed="false" dir="auto">Vintage Film</button><button type="button" class="visual-option" data-value="futuristic" data-description="אסתטיקה עתידנית, חומרים חדשניים וצורות מתקדמות." aria-pressed="false" dir="auto">Futuristic</button><button type="button" class="visual-option" data-value="surreal" data-description="שילוב אלמנטים לא צפויים ליצירת סצנה דמיונית ומפתיעה." aria-pressed="false" dir="auto">Surreal</button><button type="button" class="visual-option" data-value="playful" data-description="צבעוניות, קלילות, הומור וקומפוזיציות יצירתיות." aria-pressed="false" dir="auto">Playful</button><button type="button" class="visual-option" data-value="fine-art" data-description="צילום אמנותי עם דגש על רגש, צורה ואסתטיקה." aria-pressed="false" dir="auto">Fine Art</button><button type="button" class="visual-option" data-value="high-fashion" data-description="מראה אופנה יוקרתי, דרמטי ובלתי שגרתי." aria-pressed="false" dir="auto">High Fashion</button><button type="button" class="visual-option" data-value="scandinavian" data-description="מינימליזם רך, חומרים טבעיים ואור נקי." aria-pressed="false" dir="auto">Scandinavian</button><button type="button" class="visual-option" data-value="industrial" data-description="חומריות גולמית, מתכת, בטון וסביבה תעשייתית." aria-pressed="false" dir="auto">Industrial</button><button type="button" class="visual-option" data-value="organic" data-description="צורות טבעיות, טקסטורות רכות ותחושה אנושית." aria-pressed="false" dir="auto">Organic</button><button type="button" class="visual-option" data-value="tech" data-description="אסתטיקה טכנולוגית, מדויקת ונקייה." aria-pressed="false" dir="auto">Tech</button><button type="button" class="visual-option" data-value="hyperrealistic" data-description="ריאליזם קיצוני עם פירוט גבוה של חומרים, תאורה וטקסטורות." aria-pressed="false" dir="auto">Hyperrealistic</button><button type="button" class="visual-option" data-value="3d-render" data-description="הדמיה תלת־ממדית מלוטשת עם שליטה בחומרים ובתאורה." aria-pressed="false" dir="auto">3D Render</button><button type="button" class="visual-option" data-value="custom" data-description="הגדרת סגנון עצמאית." aria-pressed="false" dir="auto">אחר · כתיבה חופשית</button></div><p class="help visual-no-matches" hidden>אין תוצאות.</p></div>
+     <input type="hidden" name="style" value="auto">
+   </details>
+   <p class="help visual-hint" id="v-style-hint" aria-live="polite">בחירת סגנון שמתאים למוצר ולמטרה.</p>
+   <p class="error" id="v-style-error" role="alert" hidden></p>
+ </div><fieldset class="visual-conditional" data-when="style=custom" hidden disabled><div class="visual-field">
+   <label class="form-label" for="v-styleCustom">הגדרה אישית</label>
+   <input id="v-styleCustom" name="styleCustom" class="field" dir="auto" aria-describedby="v-styleCustom-error" placeholder="" type="text">
+   
+   <p class="error" id="v-styleCustom-error" role="alert" hidden></p>
+ </div></fieldset></div></div>
+<div class="form-row visual-row"><span class="number" aria-hidden="true">06</span><div class="visual-fields"><div class="visual-field">
+   <span class="form-label" id="v-ratio-label">מה הפורמט?</span>
+   <details class="visual-picker">
+     <summary id="v-ratio" aria-labelledby="v-ratio-label v-ratio-value" aria-describedby="v-ratio-error"><span id="v-ratio-value" class="visual-value" dir="auto">4:5 · פוסט אנכי לאינסטגרם</span></summary>
+     <div class="visual-options"><div class="visual-option-list" role="group" aria-labelledby="v-ratio-label"><button type="button" class="visual-option" data-value="1:1" data-description="" aria-pressed="false" dir="auto">1:1 · ריבוע</button><button type="button" class="visual-option" data-value="4:5" data-description="" aria-pressed="true" dir="auto">4:5 · פוסט אנכי לאינסטגרם</button><button type="button" class="visual-option" data-value="3:4" data-description="" aria-pressed="false" dir="auto">3:4 · צילום אנכי</button><button type="button" class="visual-option" data-value="9:16" data-description="" aria-pressed="false" dir="auto">9:16 · סטורי / ריל</button><button type="button" class="visual-option" data-value="16:9" data-description="" aria-pressed="false" dir="auto">16:9 · באנר אופקי</button><button type="button" class="visual-option" data-value="2:3" data-description="" aria-pressed="false" dir="auto">2:3 · פורטרט אנכי</button><button type="button" class="visual-option" data-value="5:4" data-description="" aria-pressed="false" dir="auto">5:4 · אופקי מתון</button><button type="button" class="visual-option" data-value="3:2" data-description="" aria-pressed="false" dir="auto">3:2 · צילום אופקי</button><button type="button" class="visual-option" data-value="1.91:1" data-description="" aria-pressed="false" dir="auto">1.91:1 · אופקי רחב</button><button type="button" class="visual-option" data-value="21:9" data-description="" aria-pressed="false" dir="auto">21:9 · אולטרה רחב</button><button type="button" class="visual-option" data-value="custom" data-description="" aria-pressed="false" dir="auto">יחס מותאם אישית</button></div><p class="help visual-no-matches" hidden>אין תוצאות.</p></div>
+     <input type="hidden" name="ratio" value="4:5">
+   </details>
+   
+   <p class="error" id="v-ratio-error" role="alert" hidden></p>
+ </div><fieldset class="visual-conditional" data-when="ratio=custom" hidden disabled><div class="visual-pair"><div class="visual-field">
+   <label class="form-label" for="v-width">רוחב יחסי</label>
+   <input id="v-width" name="width" class="field" dir="auto" aria-describedby="v-width-error" placeholder="" type="number" step="any" min="0" inputmode="decimal">
+   
+   <p class="error" id="v-width-error" role="alert" hidden></p>
+ </div><div class="visual-field">
+   <label class="form-label" for="v-height">גובה יחסי</label>
+   <input id="v-height" name="height" class="field" dir="auto" aria-describedby="v-height-error" placeholder="" type="number" step="any" min="0" inputmode="decimal">
+   
+   <p class="error" id="v-height-error" role="alert" hidden></p>
+ </div></div></fieldset></div></div>
+<div class="form-row visual-row"><span class="number" aria-hidden="true">07</span><div class="visual-fields"><fieldset class="visual-field visual-radio"><legend class="form-label">האם להוסיף טקסט?</legend><div class="choices"><label class="choice"><input type="radio" name="text" value="none" id="v-text" checked aria-describedby="v-text-error"><span>ללא טקסט</span></label><label class="choice"><input type="radio" name="text" value="provided" aria-describedby="v-text-error"><span>טקסט שאני מספק</span></label><label class="choice"><input type="radio" name="text" value="suggested" aria-describedby="v-text-error"><span>שה־AI יציע טקסט</span></label></div><p class="error" id="v-text-error" role="alert" hidden></p></fieldset><fieldset class="visual-conditional" data-when="text=provided" hidden disabled><div class="visual-pair"><div class="visual-field">
+   <label class="form-label" for="v-headline">כותרת ראשית</label>
+   <input id="v-headline" name="headline" class="field" dir="auto" aria-describedby="v-headline-error" placeholder="" type="text">
+   
+   <p class="error" id="v-headline-error" role="alert" hidden></p>
+ </div><div class="visual-field">
+   <label class="form-label" for="v-subhead">כותרת משנה</label>
+   <input id="v-subhead" name="subhead" class="field" dir="auto" aria-describedby="v-subhead-error" placeholder="" type="text">
+   
+   <p class="error" id="v-subhead-error" role="alert" hidden></p>
+ </div><div class="visual-field">
+   <label class="form-label" for="v-support">טקסט משלים</label>
+   <input id="v-support" name="support" class="field" dir="auto" aria-describedby="v-support-error" placeholder="" type="text">
+   
+   <p class="error" id="v-support-error" role="alert" hidden></p>
+ </div><div class="visual-field">
+   <label class="form-label" for="v-cta">CTA</label>
+   <input id="v-cta" name="cta" class="field" dir="auto" aria-describedby="v-cta-error" placeholder="" type="text">
+   
+   <p class="error" id="v-cta-error" role="alert" hidden></p>
+ </div></div></fieldset><fieldset class="visual-conditional" data-when="text=suggested" hidden disabled><div class="visual-field">
+   <label class="form-label" for="v-message">מסר מרכזי</label>
+   <input id="v-message" name="message" class="field" dir="auto" aria-describedby="v-message-error" placeholder="" type="text">
+   
+   <p class="error" id="v-message-error" role="alert" hidden></p>
+ </div><div class="visual-field">
+   <span class="form-label" id="v-messageType-label">סוג המסר</span>
+   <details class="visual-picker">
+     <summary id="v-messageType" aria-labelledby="v-messageType-label v-messageType-value" aria-describedby="v-messageType-error"><span id="v-messageType-value" class="visual-value" dir="auto">הצגת מוצר</span></summary>
+     <div class="visual-options"><div class="visual-option-list" role="group" aria-labelledby="v-messageType-label"><button type="button" class="visual-option" data-value="product" data-description="" aria-pressed="true" dir="auto">הצגת מוצר</button><button type="button" class="visual-option" data-value="benefit" data-description="" aria-pressed="false" dir="auto">יתרון מוצר</button><button type="button" class="visual-option" data-value="promotion" data-description="" aria-pressed="false" dir="auto">מבצע</button><button type="button" class="visual-option" data-value="launch" data-description="" aria-pressed="false" dir="auto">השקה</button><button type="button" class="visual-option" data-value="brand" data-description="" aria-pressed="false" dir="auto">תדמית</button><button type="button" class="visual-option" data-value="custom" data-description="" aria-pressed="false" dir="auto">אחר</button></div><p class="help visual-no-matches" hidden>אין תוצאות.</p></div>
+     <input type="hidden" name="messageType" value="product">
+   </details>
+   
+   <p class="error" id="v-messageType-error" role="alert" hidden></p>
+ </div><fieldset class="visual-conditional" data-when="messageType=promotion" hidden disabled>
+   <div class="visual-field">
+     <label class="form-label" for="v-promotionDetails">מה המבצע?</label>
+     <input id="v-promotionDetails" name="promotionDetails" class="field" dir="auto" aria-describedby="v-promotionDetails-hint" placeholder="לדוגמה: 30% הנחה על כל המוצרים עד סוף החודש" type="text">
+     <p class="help" id="v-promotionDetails-hint">פרטו את ההטבה, המחיר או תנאי המבצע שחשוב להציג.</p>
+   </div>
+ </fieldset><fieldset class="visual-conditional" data-when="messageType=benefit" hidden disabled>
+   <div class="visual-field">
+     <label class="form-label" for="v-benefitDetails">מה היתרון המרכזי?</label>
+     <input id="v-benefitDetails" name="benefitDetails" class="field" dir="auto" placeholder="לדוגמה: סוללה שמחזיקה עד 20 שעות ללא טעינה" type="text">
+   </div>
+ </fieldset><fieldset class="visual-conditional" data-when="messageType=custom" hidden disabled><div class="visual-field">
+   <label class="form-label" for="v-customMessageType">סוג המסר שלך</label>
+   <input id="v-customMessageType" name="customMessageType" class="field" dir="auto" aria-describedby="v-customMessageType-error" placeholder="" type="text">
+   
+   <p class="error" id="v-customMessageType-error" role="alert" hidden></p>
+ </div></fieldset></fieldset><fieldset class="visual-conditional" data-when="text!=none" hidden disabled><div class="visual-field">
+   <span class="form-label" id="v-textLanguage-label">שפת הטקסט</span>
+   <details class="visual-picker">
+     <summary id="v-textLanguage" aria-labelledby="v-textLanguage-label v-textLanguage-value" aria-describedby="v-textLanguage-error"><span id="v-textLanguage-value" class="visual-value" dir="auto">עברית</span></summary>
+     <div class="visual-options"><div class="visual-option-list" role="group" aria-labelledby="v-textLanguage-label"><button type="button" class="visual-option" data-value="he" data-description="" aria-pressed="true" dir="auto">עברית</button><button type="button" class="visual-option" data-value="en" data-description="" aria-pressed="false" dir="auto">אנגלית</button><button type="button" class="visual-option" data-value="custom" data-description="" aria-pressed="false" dir="auto">אחרת</button></div><p class="help visual-no-matches" hidden>אין תוצאות.</p></div>
+     <input type="hidden" name="textLanguage" value="he">
+   </details>
+   
+   <p class="error" id="v-textLanguage-error" role="alert" hidden></p>
+ </div><fieldset class="visual-conditional" data-when="textLanguage=custom" hidden disabled><div class="visual-field">
+   <label class="form-label" for="v-customTextLanguage">שפה אחרת</label>
+   <input id="v-customTextLanguage" name="customTextLanguage" class="field" dir="auto" aria-describedby="v-customTextLanguage-error" placeholder="" type="text">
+   
+   <p class="error" id="v-customTextLanguage-error" role="alert" hidden></p>
+ </div></fieldset></fieldset><fieldset class="visual-conditional" data-when="text=none" hidden disabled><fieldset class="visual-field visual-radio"><legend class="form-label">האם להשאיר מקום לטקסט שאוסיף בעצמי?</legend><div class="choices"><label class="choice"><input type="radio" name="reserve" value="no" id="v-reserve" checked aria-describedby="v-reserve-error"><span>לא</span></label><label class="choice"><input type="radio" name="reserve" value="yes" aria-describedby="v-reserve-error"><span>כן</span></label></div><p class="error" id="v-reserve-error" role="alert" hidden></p></fieldset></fieldset><fieldset class="visual-conditional" data-when="text!=none|reserve=yes" hidden disabled><div class="visual-field">
+   <span class="form-label" id="v-textPosition-label">איפה להשאיר מקום לטקסט?</span>
+   <details class="visual-picker">
+     <summary id="v-textPosition" aria-labelledby="v-textPosition-label v-textPosition-value" aria-describedby="v-textPosition-error"><span id="v-textPosition-value" class="visual-value" dir="auto">אוטומטי</span></summary>
+     <div class="visual-options"><div class="visual-option-list" role="group" aria-labelledby="v-textPosition-label"><button type="button" class="visual-option" data-value="auto" data-description="" aria-pressed="true" dir="auto">אוטומטי</button><button type="button" class="visual-option" data-value="none" data-description="" aria-pressed="false" dir="auto">ללא שטח ייעודי</button><button type="button" class="visual-option" data-value="top" data-description="" aria-pressed="false" dir="auto">למעלה</button><button type="button" class="visual-option" data-value="bottom" data-description="" aria-pressed="false" dir="auto">למטה</button><button type="button" class="visual-option" data-value="right" data-description="" aria-pressed="false" dir="auto">מימין</button><button type="button" class="visual-option" data-value="left" data-description="" aria-pressed="false" dir="auto">משמאל</button><button type="button" class="visual-option" data-value="center" data-description="" aria-pressed="false" dir="auto">במרכז</button><button type="button" class="visual-option" data-value="upper-third" data-description="" aria-pressed="false" dir="auto">שליש עליון</button><button type="button" class="visual-option" data-value="lower-third" data-description="" aria-pressed="false" dir="auto">שליש תחתון</button></div><p class="help visual-no-matches" hidden>אין תוצאות.</p></div>
+     <input type="hidden" name="textPosition" value="auto">
+   </details>
+   
+   <p class="error" id="v-textPosition-error" role="alert" hidden></p>
+ </div></fieldset></div></div>
+<div class="form-row visual-row"><span class="number" aria-hidden="true">08</span><div class="visual-fields"><fieldset class="visual-field visual-radio"><legend class="form-label">האם להוסיף לוגו?</legend><div class="choices"><label class="choice"><input type="radio" name="logo" value="none" id="v-logo" checked aria-describedby="v-logo-error"><span>ללא לוגו</span></label><label class="choice"><input type="radio" name="logo" value="original" aria-describedby="v-logo-error"><span>אצרף לוגו מקורי</span></label><label class="choice"><input type="radio" name="logo" value="reserve" aria-describedby="v-logo-error"><span>אשאיר מקום ללוגו בעריכה</span></label></div><p class="error" id="v-logo-error" role="alert" hidden></p></fieldset><fieldset class="visual-conditional" data-when="logo=original" hidden disabled><p class="help">יש לצרף את קובץ הלוגו יחד עם הפרומפט בכלי יצירת התמונות.</p><div class="visual-field">
+   <span class="form-label" id="v-logoPosition-label">מיקום הלוגו</span>
+   <details class="visual-picker">
+     <summary id="v-logoPosition" aria-labelledby="v-logoPosition-label v-logoPosition-value" aria-describedby="v-logoPosition-error"><span id="v-logoPosition-value" class="visual-value" dir="auto">אוטומטי</span></summary>
+     <div class="visual-options"><div class="visual-option-list" role="group" aria-labelledby="v-logoPosition-label"><button type="button" class="visual-option" data-value="auto" data-description="" aria-pressed="true" dir="auto">אוטומטי</button><button type="button" class="visual-option" data-value="top-right" data-description="" aria-pressed="false" dir="auto">ימין למעלה</button><button type="button" class="visual-option" data-value="top-left" data-description="" aria-pressed="false" dir="auto">שמאל למעלה</button><button type="button" class="visual-option" data-value="bottom-right" data-description="" aria-pressed="false" dir="auto">ימין למטה</button><button type="button" class="visual-option" data-value="bottom-left" data-description="" aria-pressed="false" dir="auto">שמאל למטה</button><button type="button" class="visual-option" data-value="bottom-center" data-description="" aria-pressed="false" dir="auto">מרכז למטה</button><button type="button" class="visual-option" data-value="top-center" data-description="" aria-pressed="false" dir="auto">מרכז למעלה</button></div><p class="help visual-no-matches" hidden>אין תוצאות.</p></div>
+     <input type="hidden" name="logoPosition" value="auto">
+   </details>
+   
+   <p class="error" id="v-logoPosition-error" role="alert" hidden></p>
+ </div></fieldset></div></div>
+<div class="form-row visual-row"><span class="number" aria-hidden="true">09</span><div class="visual-fields"><fieldset class="visual-field visual-radio"><legend class="form-label">האם תצרף רפרנסים?</legend><div class="choices"><label class="choice"><input type="checkbox" name="references" value="none" id="v-references" checked aria-describedby="v-references-error"><span>ללא רפרנסים</span></label><label class="choice"><input type="checkbox" name="references" value="product" aria-describedby="v-references-error"><span>תמונת מוצר מקורית</span></label><label class="choice"><input type="checkbox" name="references" value="style" aria-describedby="v-references-error"><span>רפרנס לסגנון ויזואלי</span></label><label class="choice"><input type="checkbox" name="references" value="composition" aria-describedby="v-references-error"><span>רפרנס לקומפוזיציה</span></label><label class="choice"><input type="checkbox" name="references" value="lighting" aria-describedby="v-references-error"><span>רפרנס לתאורה</span></label><label class="choice"><input type="checkbox" name="references" value="palette" aria-describedby="v-references-error"><span>פלטת צבעים</span></label><label class="choice"><input type="checkbox" name="references" value="brand" aria-describedby="v-references-error"><span>ספר מותג</span></label><label class="choice"><input type="checkbox" name="references" value="logo" aria-describedby="v-references-error"><span>לוגו מקורי</span></label></div><p class="error" id="v-references-error" role="alert" hidden></p></fieldset><p id="v-reference-hint" class="help" hidden>אל תשכח לצרף את הקבצים הרלוונטיים יחד עם הפרומפט.</p></div></div>
+      <details class="visual-advanced" id="visual-advanced">
+        <summary>הגדרות מתקדמות</summary>
+        <p class="help">לשליטה מדויקת יותר בתוצאה.</p>
+        <div class="form-row visual-row"><span class="number" aria-hidden="true">10</span><div class="visual-fields"><div class="visual-field">
+   <span class="form-label" id="v-lighting-label">תאורה</span>
+   <details class="visual-picker">
+     <summary id="v-lighting" aria-labelledby="v-lighting-label v-lighting-value" aria-describedby="v-lighting-hint v-lighting-error"><span id="v-lighting-value" class="visual-value" dir="auto">Auto</span></summary>
+     <div class="visual-options"><input type="search" class="field visual-search" aria-label="חיפוש בתאורה" placeholder="חיפוש…"><div class="visual-option-list" role="group" aria-labelledby="v-lighting-label"><button type="button" class="visual-option" data-value="auto" data-description="תאורה שמתאימה לסצנה ולסגנון שנבחרו." aria-pressed="true" dir="auto">Auto</button><button type="button" class="visual-option" data-value="soft-daylight" data-description="אור יום רך וטבעי עם צללים עדינים." aria-pressed="false" dir="auto">Soft Daylight</button><button type="button" class="visual-option" data-value="hard-sunlight" data-description="שמש ישירה עם צללים חדים וניגודיות גבוהה." aria-pressed="false" dir="auto">Hard Sunlight</button><button type="button" class="visual-option" data-value="golden-hour" data-description="אור שמש זהוב וחמים לקראת שקיעה." aria-pressed="false" dir="auto">Golden Hour</button><button type="button" class="visual-option" data-value="blue-hour" data-description="תאורה כחולה וקרירה בשעות הדמדומים." aria-pressed="false" dir="auto">Blue Hour</button><button type="button" class="visual-option" data-value="overcast" data-description="אור יום מפוזר ואחיד של שמיים מעוננים." aria-pressed="false" dir="auto">Overcast</button><button type="button" class="visual-option" data-value="window-light" data-description="תאורה טבעית המגיעה מחלון." aria-pressed="false" dir="auto">Window Light</button><button type="button" class="visual-option" data-value="softbox-studio" data-description="אור סטודיו רך ומבוקר." aria-pressed="false" dir="auto">Softbox Studio</button><button type="button" class="visual-option" data-value="high-key" data-description="תמונה בהירה מאוד עם מעט צללים." aria-pressed="false" dir="auto">High Key</button><button type="button" class="visual-option" data-value="low-key" data-description="תמונה כהה עם תאורה נקודתית ודרמטית." aria-pressed="false" dir="auto">Low Key</button><button type="button" class="visual-option" data-value="rim-light" data-description="תאורה אחורית המדגישה את קווי המתאר." aria-pressed="false" dir="auto">Rim Light</button><button type="button" class="visual-option" data-value="backlighting" data-description="אור המגיע מאחורי הנושא המרכזי." aria-pressed="false" dir="auto">Backlighting</button><button type="button" class="visual-option" data-value="side-lighting" data-description="תאורה צדדית המדגישה נפח וטקסטורה." aria-pressed="false" dir="auto">Side Lighting</button><button type="button" class="visual-option" data-value="top-lighting" data-description="תאורה המגיעה מלמעלה." aria-pressed="false" dir="auto">Top Lighting</button><button type="button" class="visual-option" data-value="direct-flash" data-description="פלאש ישיר עם אופי צילום נועז." aria-pressed="false" dir="auto">Direct Flash</button><button type="button" class="visual-option" data-value="neon-lighting" data-description="תאורה צבעונית בהשראת שלטי ניאון." aria-pressed="false" dir="auto">Neon Lighting</button><button type="button" class="visual-option" data-value="volumetric-light" data-description="קרני אור נראות לעין היוצרות עומק ואווירה." aria-pressed="false" dir="auto">Volumetric Light</button><button type="button" class="visual-option" data-value="dramatic-studio" data-description="תאורת סטודיו דרמטית עם ניגודיות מבוקרת." aria-pressed="false" dir="auto">Dramatic Studio</button><button type="button" class="visual-option" data-value="product-beauty-lighting" data-description="תאורה מדויקת המדגישה את צורת המוצר והחומרים." aria-pressed="false" dir="auto">Product Beauty Lighting</button><button type="button" class="visual-option" data-value="ambient-interior" data-description="תאורת חלל רכה ומציאותית." aria-pressed="false" dir="auto">Ambient Interior</button><button type="button" class="visual-option" data-value="custom" data-description="תאורה בהגדרה אישית." aria-pressed="false" dir="auto">אחר · כתיבה חופשית</button></div><p class="help visual-no-matches" hidden>אין תוצאות.</p></div>
+     <input type="hidden" name="lighting" value="auto">
+   </details>
+   <p class="help visual-hint" id="v-lighting-hint" aria-live="polite">תאורה שמתאימה לסצנה ולסגנון שנבחרו.</p>
+   <p class="error" id="v-lighting-error" role="alert" hidden></p>
+ </div><fieldset class="visual-conditional" data-when="lighting=custom" hidden disabled><div class="visual-field">
+   <label class="form-label" for="v-lightingCustom">הגדרה אישית</label>
+   <input id="v-lightingCustom" name="lightingCustom" class="field" dir="auto" aria-describedby="v-lightingCustom-error" placeholder="" type="text">
+   
+   <p class="error" id="v-lightingCustom-error" role="alert" hidden></p>
+ </div></fieldset></div></div>
+<div class="form-row visual-row"><span class="number" aria-hidden="true">11</span><div class="visual-fields"><div class="visual-field">
+   <span class="form-label" id="v-angle-label">זווית צילום</span>
+   <details class="visual-picker">
+     <summary id="v-angle" aria-labelledby="v-angle-label v-angle-value" aria-describedby="v-angle-error"><span id="v-angle-value" class="visual-value" dir="auto">Auto</span></summary>
+     <div class="visual-options"><input type="search" class="field visual-search" aria-label="חיפוש בזווית צילום" placeholder="חיפוש…"><div class="visual-option-list" role="group" aria-labelledby="v-angle-label"><button type="button" class="visual-option" data-value="auto" data-description="" aria-pressed="true" dir="auto">Auto</button><button type="button" class="visual-option" data-value="eye-level" data-description="גובה העיניים" aria-pressed="false" dir="auto">Eye Level</button><button type="button" class="visual-option" data-value="low-angle" data-description="זווית נמוכה" aria-pressed="false" dir="auto">Low Angle</button><button type="button" class="visual-option" data-value="high-angle" data-description="זווית גבוהה" aria-pressed="false" dir="auto">High Angle</button><button type="button" class="visual-option" data-value="top-down" data-description="צילום מלמעלה" aria-pressed="false" dir="auto">Top Down</button><button type="button" class="visual-option" data-value="45-degree" data-description="זווית של 45 מעלות" aria-pressed="false" dir="auto">45 Degree</button><button type="button" class="visual-option" data-value="front-view" data-description="חזיתית" aria-pressed="false" dir="auto">Front View</button><button type="button" class="visual-option" data-value="side-view" data-description="מהצד" aria-pressed="false" dir="auto">Side View</button><button type="button" class="visual-option" data-value="three-quarter" data-description="שלושה רבעים" aria-pressed="false" dir="auto">Three Quarter</button><button type="button" class="visual-option" data-value="isometric" data-description="איזומטרית" aria-pressed="false" dir="auto">Isometric</button><button type="button" class="visual-option" data-value="dutch-angle" data-description="זווית אלכסונית" aria-pressed="false" dir="auto">Dutch Angle</button><button type="button" class="visual-option" data-value="ground-level" data-description="גובה הרצפה" aria-pressed="false" dir="auto">Ground Level</button><button type="button" class="visual-option" data-value="over-the-shoulder" data-description="מעבר לכתף" aria-pressed="false" dir="auto">Over the Shoulder</button><button type="button" class="visual-option" data-value="point-of-view" data-description="נקודת מבט אישית" aria-pressed="false" dir="auto">Point of View</button><button type="button" class="visual-option" data-value="macro-perspective" data-description="זווית תקריב" aria-pressed="false" dir="auto">Macro Perspective</button><button type="button" class="visual-option" data-value="custom" data-description="" aria-pressed="false" dir="auto">אחר · כתיבה חופשית</button></div><p class="help visual-no-matches" hidden>אין תוצאות.</p></div>
+     <input type="hidden" name="angle" value="auto">
+   </details>
+   
+   <p class="error" id="v-angle-error" role="alert" hidden></p>
+ </div><fieldset class="visual-conditional" data-when="angle=custom" hidden disabled><div class="visual-field">
+   <label class="form-label" for="v-angleCustom">הגדרה אישית</label>
+   <input id="v-angleCustom" name="angleCustom" class="field" dir="auto" aria-describedby="v-angleCustom-error" placeholder="" type="text">
+   
+   <p class="error" id="v-angleCustom-error" role="alert" hidden></p>
+ </div></fieldset></div></div>
+<div class="form-row visual-row"><span class="number" aria-hidden="true">12</span><div class="visual-fields"><div class="visual-field">
+   <span class="form-label" id="v-framing-label">סוג פריים</span>
+   <details class="visual-picker">
+     <summary id="v-framing" aria-labelledby="v-framing-label v-framing-value" aria-describedby="v-framing-hint v-framing-error"><span id="v-framing-value" class="visual-value" dir="auto">Auto</span></summary>
+     <div class="visual-options"><div class="visual-option-list" role="group" aria-labelledby="v-framing-label"><button type="button" class="visual-option" data-value="auto" data-description="פריים שמתאים למוצר ולמטרה." aria-pressed="true" dir="auto">Auto</button><button type="button" class="visual-option" data-value="extreme-close-up" data-description="תקריב קיצוני שמדגיש פרט קטן." aria-pressed="false" dir="auto">Extreme Close-up</button><button type="button" class="visual-option" data-value="close-up" data-description="צילום קרוב שממקד את תשומת הלב בנושא." aria-pressed="false" dir="auto">Close-up</button><button type="button" class="visual-option" data-value="medium-shot" data-description="פריים בינוני שמציג את הנושא וחלק מהסביבה." aria-pressed="false" dir="auto">Medium Shot</button><button type="button" class="visual-option" data-value="wide-shot" data-description="פריים רחב שמציג את הנושא בהקשר סביבתי." aria-pressed="false" dir="auto">Wide Shot</button><button type="button" class="visual-option" data-value="full-product" data-description="הצגת המוצר בשלמותו, ללא חיתוך." aria-pressed="false" dir="auto">Full Product</button><button type="button" class="visual-option" data-value="hero-shot" data-description="פריים דרמטי ומרשים שהופך את המוצר למרכז התמונה." aria-pressed="false" dir="auto">Hero Shot</button><button type="button" class="visual-option" data-value="detail-shot" data-description="צילום ממוקד של חומר, מרקם או פרט חשוב." aria-pressed="false" dir="auto">Detail Shot</button><button type="button" class="visual-option" data-value="environmental-shot" data-description="פריים המדגיש את הקשר בין הנושא לסביבה." aria-pressed="false" dir="auto">Environmental Shot</button><button type="button" class="visual-option" data-value="custom" data-description="הגדרת פריים אישית." aria-pressed="false" dir="auto">אחר · כתיבה חופשית</button></div><p class="help visual-no-matches" hidden>אין תוצאות.</p></div>
+     <input type="hidden" name="framing" value="auto">
+   </details>
+   <p class="help visual-hint" id="v-framing-hint" aria-live="polite">פריים שמתאים למוצר ולמטרה.</p>
+   <p class="error" id="v-framing-error" role="alert" hidden></p>
+ </div><fieldset class="visual-conditional" data-when="framing=custom" hidden disabled><div class="visual-field">
+   <label class="form-label" for="v-framingCustom">הגדרה אישית</label>
+   <input id="v-framingCustom" name="framingCustom" class="field" dir="auto" aria-describedby="v-framingCustom-error" placeholder="" type="text">
+   
+   <p class="error" id="v-framingCustom-error" role="alert" hidden></p>
+ </div></fieldset></div></div>
+<div class="form-row visual-row"><span class="number" aria-hidden="true">13</span><div class="visual-fields"><div class="visual-field">
+   <span class="form-label" id="v-depth-label">עומק שדה</span>
+   <details class="visual-picker">
+     <summary id="v-depth" aria-labelledby="v-depth-label v-depth-value" aria-describedby="v-depth-hint v-depth-error"><span id="v-depth-value" class="visual-value" dir="auto">Auto</span></summary>
+     <div class="visual-options"><div class="visual-option-list" role="group" aria-labelledby="v-depth-label"><button type="button" class="visual-option" data-value="auto" data-description="עומק שדה שמתאים לסצנה." aria-pressed="true" dir="auto">Auto</button><button type="button" class="visual-option" data-value="very-shallow" data-description="הנושא חד והרקע מטושטש מאוד." aria-pressed="false" dir="auto">Very Shallow</button><button type="button" class="visual-option" data-value="shallow" data-description="רקע רך ומטושטש שמבליט את הנושא." aria-pressed="false" dir="auto">Shallow</button><button type="button" class="visual-option" data-value="medium" data-description="איזון בין חדות הנושא לבין פרטי הסביבה." aria-pressed="false" dir="auto">Medium</button><button type="button" class="visual-option" data-value="deep" data-description="רוב התמונה חדה וברורה." aria-pressed="false" dir="auto">Deep</button><button type="button" class="visual-option" data-value="maximum-sharpness" data-description="חדות גבוהה מאוד של כל האלמנטים החשובים." aria-pressed="false" dir="auto">Maximum Sharpness</button></div><p class="help visual-no-matches" hidden>אין תוצאות.</p></div>
+     <input type="hidden" name="depth" value="auto">
+   </details>
+   <p class="help visual-hint" id="v-depth-hint" aria-live="polite">עומק שדה שמתאים לסצנה.</p>
+   <p class="error" id="v-depth-error" role="alert" hidden></p>
+ </div></div></div>
+<div class="form-row visual-row"><span class="number" aria-hidden="true">14</span><div class="visual-fields"><div class="visual-field">
+   <span class="form-label" id="v-composition-label">קומפוזיציה</span>
+   <details class="visual-picker">
+     <summary id="v-composition" aria-labelledby="v-composition-label v-composition-value" aria-describedby="v-composition-error"><span id="v-composition-value" class="visual-value" dir="auto">Auto</span></summary>
+     <div class="visual-options"><input type="search" class="field visual-search" aria-label="חיפוש בקומפוזיציה" placeholder="חיפוש…"><div class="visual-option-list" role="group" aria-labelledby="v-composition-label"><button type="button" class="visual-option" data-value="auto" data-description="" aria-pressed="true" dir="auto">Auto</button><button type="button" class="visual-option" data-value="centered" data-description="" aria-pressed="false" dir="auto">Centered</button><button type="button" class="visual-option" data-value="symmetrical" data-description="" aria-pressed="false" dir="auto">Symmetrical</button><button type="button" class="visual-option" data-value="asymmetrical" data-description="" aria-pressed="false" dir="auto">Asymmetrical</button><button type="button" class="visual-option" data-value="rule-of-thirds" data-description="" aria-pressed="false" dir="auto">Rule of Thirds</button><button type="button" class="visual-option" data-value="negative-space" data-description="" aria-pressed="false" dir="auto">Negative Space</button><button type="button" class="visual-option" data-value="diagonal" data-description="" aria-pressed="false" dir="auto">Diagonal</button><button type="button" class="visual-option" data-value="dynamic" data-description="" aria-pressed="false" dir="auto">Dynamic</button><button type="button" class="visual-option" data-value="layered-depth" data-description="" aria-pressed="false" dir="auto">Layered Depth</button><button type="button" class="visual-option" data-value="minimal" data-description="" aria-pressed="false" dir="auto">Minimal</button><button type="button" class="visual-option" data-value="geometric" data-description="" aria-pressed="false" dir="auto">Geometric</button><button type="button" class="visual-option" data-value="leading-lines" data-description="" aria-pressed="false" dir="auto">Leading Lines</button><button type="button" class="visual-option" data-value="frame-within-frame" data-description="" aria-pressed="false" dir="auto">Frame Within Frame</button><button type="button" class="visual-option" data-value="balanced-editorial" data-description="" aria-pressed="false" dir="auto">Balanced Editorial</button><button type="button" class="visual-option" data-value="custom" data-description="" aria-pressed="false" dir="auto">אחר · כתיבה חופשית</button></div><p class="help visual-no-matches" hidden>אין תוצאות.</p></div>
+     <input type="hidden" name="composition" value="auto">
+   </details>
+   
+   <p class="error" id="v-composition-error" role="alert" hidden></p>
+ </div><fieldset class="visual-conditional" data-when="composition=custom" hidden disabled><div class="visual-field">
+   <label class="form-label" for="v-compositionCustom">הגדרה אישית</label>
+   <input id="v-compositionCustom" name="compositionCustom" class="field" dir="auto" aria-describedby="v-compositionCustom-error" placeholder="" type="text">
+   
+   <p class="error" id="v-compositionCustom-error" role="alert" hidden></p>
+ </div></fieldset></div></div>
+<div class="form-row visual-row"><span class="number" aria-hidden="true">15</span><div class="visual-fields"><div class="visual-field">
+   <span class="form-label" id="v-palette-label">צבעוניות</span>
+   <details class="visual-picker">
+     <summary id="v-palette" aria-labelledby="v-palette-label v-palette-value" aria-describedby="v-palette-error"><span id="v-palette-value" class="visual-value" dir="auto">Auto</span></summary>
+     <div class="visual-options"><input type="search" class="field visual-search" aria-label="חיפוש בצבעוניות" placeholder="חיפוש…"><div class="visual-option-list" role="group" aria-labelledby="v-palette-label"><button type="button" class="visual-option" data-value="auto" data-description="" aria-pressed="true" dir="auto">Auto</button><button type="button" class="visual-option" data-value="neutral" data-description="" aria-pressed="false" dir="auto">Neutral</button><button type="button" class="visual-option" data-value="monochromatic" data-description="" aria-pressed="false" dir="auto">Monochromatic</button><button type="button" class="visual-option" data-value="black-white" data-description="" aria-pressed="false" dir="auto">Black &amp; White</button><button type="button" class="visual-option" data-value="warm" data-description="" aria-pressed="false" dir="auto">Warm</button><button type="button" class="visual-option" data-value="cool" data-description="" aria-pressed="false" dir="auto">Cool</button><button type="button" class="visual-option" data-value="pastel" data-description="" aria-pressed="false" dir="auto">Pastel</button><button type="button" class="visual-option" data-value="vibrant" data-description="" aria-pressed="false" dir="auto">Vibrant</button><button type="button" class="visual-option" data-value="muted" data-description="" aria-pressed="false" dir="auto">Muted</button><button type="button" class="visual-option" data-value="desaturated" data-description="" aria-pressed="false" dir="auto">Desaturated</button><button type="button" class="visual-option" data-value="earthy" data-description="" aria-pressed="false" dir="auto">Earthy</button><button type="button" class="visual-option" data-value="dark-moody" data-description="" aria-pressed="false" dir="auto">Dark &amp; Moody</button><button type="button" class="visual-option" data-value="light-airy" data-description="" aria-pressed="false" dir="auto">Light &amp; Airy</button><button type="button" class="visual-option" data-value="high-contrast" data-description="" aria-pressed="false" dir="auto">High Contrast</button><button type="button" class="visual-option" data-value="low-contrast" data-description="" aria-pressed="false" dir="auto">Low Contrast</button><button type="button" class="visual-option" data-value="complementary-colors" data-description="" aria-pressed="false" dir="auto">Complementary Colors</button><button type="button" class="visual-option" data-value="analogous-colors" data-description="" aria-pressed="false" dir="auto">Analogous Colors</button><button type="button" class="visual-option" data-value="brand-colors" data-description="" aria-pressed="false" dir="auto">Brand Colors</button><button type="button" class="visual-option" data-value="custom" data-description="" aria-pressed="false" dir="auto">אחר · כתיבה חופשית</button></div><p class="help visual-no-matches" hidden>אין תוצאות.</p></div>
+     <input type="hidden" name="palette" value="auto">
+   </details>
+   
+   <p class="error" id="v-palette-error" role="alert" hidden></p>
+ </div><fieldset class="visual-conditional" data-when="palette=custom" hidden disabled><div class="visual-field">
+   <label class="form-label" for="v-paletteCustom">הגדרה אישית</label>
+   <input id="v-paletteCustom" name="paletteCustom" class="field" dir="auto" aria-describedby="v-paletteCustom-error" placeholder="" type="text">
+   
+   <p class="error" id="v-paletteCustom-error" role="alert" hidden></p>
+ </div></fieldset><fieldset class="visual-conditional" data-when="palette=brand-colors" hidden disabled><div class="visual-field">
+   <label class="form-label" for="v-brandColors">צבעי מותג</label>
+   <input id="v-brandColors" name="brandColors" class="field" dir="auto" aria-describedby="v-brandColors-error" placeholder="למשל: #ABC, #234655 או תיאור מילולי" type="text">
+   
+   <p class="error" id="v-brandColors-error" role="alert" hidden></p>
+ </div></fieldset></div></div>
+<div class="form-row visual-row"><span class="number" aria-hidden="true">16</span><div class="visual-fields"><div class="visual-field">
+   <span class="form-label" id="v-mood-label">אווירה</span>
+   <details class="visual-picker">
+     <summary id="v-mood" aria-labelledby="v-mood-label v-mood-value" aria-describedby="v-mood-error"><span id="v-mood-value" class="visual-value" dir="auto">Auto</span></summary>
+     <div class="visual-options"><input type="search" class="field visual-search" aria-label="חיפוש באווירה" placeholder="חיפוש…"><div class="visual-option-list" role="group" aria-labelledby="v-mood-label"><button type="button" class="visual-option" data-value="auto" data-description="" aria-pressed="true" dir="auto">Auto</button><button type="button" class="visual-option" data-value="premium" data-description="" aria-pressed="false" dir="auto">Premium</button><button type="button" class="visual-option" data-value="elegant" data-description="" aria-pressed="false" dir="auto">Elegant</button><button type="button" class="visual-option" data-value="calm" data-description="" aria-pressed="false" dir="auto">Calm</button><button type="button" class="visual-option" data-value="energetic" data-description="" aria-pressed="false" dir="auto">Energetic</button><button type="button" class="visual-option" data-value="playful" data-description="" aria-pressed="false" dir="auto">Playful</button><button type="button" class="visual-option" data-value="bold" data-description="" aria-pressed="false" dir="auto">Bold</button><button type="button" class="visual-option" data-value="mysterious" data-description="" aria-pressed="false" dir="auto">Mysterious</button><button type="button" class="visual-option" data-value="nostalgic" data-description="" aria-pressed="false" dir="auto">Nostalgic</button><button type="button" class="visual-option" data-value="romantic" data-description="" aria-pressed="false" dir="auto">Romantic</button><button type="button" class="visual-option" data-value="warm" data-description="" aria-pressed="false" dir="auto">Warm</button><button type="button" class="visual-option" data-value="cold" data-description="" aria-pressed="false" dir="auto">Cold</button><button type="button" class="visual-option" data-value="futuristic" data-description="" aria-pressed="false" dir="auto">Futuristic</button><button type="button" class="visual-option" data-value="professional" data-description="" aria-pressed="false" dir="auto">Professional</button><button type="button" class="visual-option" data-value="youthful" data-description="" aria-pressed="false" dir="auto">Youthful</button><button type="button" class="visual-option" data-value="sophisticated" data-description="" aria-pressed="false" dir="auto">Sophisticated</button><button type="button" class="visual-option" data-value="raw" data-description="" aria-pressed="false" dir="auto">Raw</button><button type="button" class="visual-option" data-value="authentic" data-description="" aria-pressed="false" dir="auto">Authentic</button><button type="button" class="visual-option" data-value="dreamy" data-description="" aria-pressed="false" dir="auto">Dreamy</button><button type="button" class="visual-option" data-value="dramatic" data-description="" aria-pressed="false" dir="auto">Dramatic</button><button type="button" class="visual-option" data-value="fresh" data-description="" aria-pressed="false" dir="auto">Fresh</button><button type="button" class="visual-option" data-value="cozy" data-description="" aria-pressed="false" dir="auto">Cozy</button><button type="button" class="visual-option" data-value="adventurous" data-description="" aria-pressed="false" dir="auto">Adventurous</button><button type="button" class="visual-option" data-value="powerful" data-description="" aria-pressed="false" dir="auto">Powerful</button><button type="button" class="visual-option" data-value="custom" data-description="" aria-pressed="false" dir="auto">אחר · כתיבה חופשית</button></div><p class="help visual-no-matches" hidden>אין תוצאות.</p></div>
+     <input type="hidden" name="mood" value="auto">
+   </details>
+   
+   <p class="error" id="v-mood-error" role="alert" hidden></p>
+ </div><fieldset class="visual-conditional" data-when="mood=custom" hidden disabled><div class="visual-field">
+   <label class="form-label" for="v-moodCustom">הגדרה אישית</label>
+   <input id="v-moodCustom" name="moodCustom" class="field" dir="auto" aria-describedby="v-moodCustom-error" placeholder="" type="text">
+   
+   <p class="error" id="v-moodCustom-error" role="alert" hidden></p>
+ </div></fieldset></div></div>
+<div class="form-row visual-row"><span class="number" aria-hidden="true">17</span><div class="visual-fields"><div class="visual-field">
+   <span class="form-label" id="v-accuracy-label">דיוק המוצר</span>
+   <details class="visual-picker">
+     <summary id="v-accuracy" aria-labelledby="v-accuracy-label v-accuracy-value" aria-describedby="v-accuracy-error"><span id="v-accuracy-value" class="visual-value" dir="auto">אוטומטי</span></summary>
+     <div class="visual-options"><div class="visual-option-list" role="group" aria-labelledby="v-accuracy-label"><button type="button" class="visual-option" data-value="auto" data-description="" aria-pressed="true" dir="auto">אוטומטי</button><button type="button" class="visual-option" data-value="exact" data-description="" aria-pressed="false" dir="auto">דיוק מוחלט למוצר המקורי</button><button type="button" class="visual-option" data-value="shape" data-description="" aria-pressed="false" dir="auto">שמירה על צורה ופרופורציות</button><button type="button" class="visual-option" data-value="material" data-description="" aria-pressed="false" dir="auto">שמירה על צבע וחומריות</button><button type="button" class="visual-option" data-value="packaging" data-description="" aria-pressed="false" dir="auto">שמירה על אריזה ופרטים גרפיים</button><button type="button" class="visual-option" data-value="creative" data-description="" aria-pressed="false" dir="auto">חופש יצירתי</button></div><p class="help visual-no-matches" hidden>אין תוצאות.</p></div>
+     <input type="hidden" name="accuracy" value="auto">
+   </details>
+   
+   <p class="error" id="v-accuracy-error" role="alert" hidden></p>
+ </div></div></div>
+<div class="form-row visual-row"><span class="number" aria-hidden="true">18</span><div class="visual-fields"><div class="visual-field">
+   <label class="form-label" for="v-notes">משהו נוסף שחשוב לדעת?</label>
+   <textarea id="v-notes" name="notes" class="field" dir="auto" aria-describedby="v-notes-error" placeholder="למשל: לא לחתוך את המוצר, לא להוסיף אנשים, להשאיר רקע נקי..." rows="3"></textarea>
+   
+   <p class="error" id="v-notes-error" role="alert" hidden></p>
+ </div></div></div>
+<div class="form-row visual-row"><span class="number" aria-hidden="true">19</span><div class="visual-fields"><div class="visual-field">
+   <span class="form-label" id="v-model-label">באיזה כלי תיצור את התמונה?</span>
+   <details class="visual-picker">
+     <summary id="v-model" aria-labelledby="v-model-label v-model-value" aria-describedby="v-model-error"><span id="v-model-value" class="visual-value" dir="auto">כללי</span></summary>
+     <div class="visual-options"><div class="visual-option-list" role="group" aria-labelledby="v-model-label"><button type="button" class="visual-option" data-value="chatgpt" data-description="" aria-pressed="false" dir="auto">ChatGPT</button><button type="button" class="visual-option" data-value="gemini" data-description="" aria-pressed="false" dir="auto">Gemini</button><button type="button" class="visual-option" data-value="midjourney" data-description="" aria-pressed="false" dir="auto">Midjourney</button><button type="button" class="visual-option" data-value="flux" data-description="" aria-pressed="false" dir="auto">Flux</button><button type="button" class="visual-option" data-value="general" data-description="" aria-pressed="true" dir="auto">כללי</button></div><p class="help visual-no-matches" hidden>אין תוצאות.</p></div>
+     <input type="hidden" name="model" value="general">
+   </details>
+   
+   <p class="error" id="v-model-error" role="alert" hidden></p>
+ </div></div></div>
+<div class="form-row visual-row"><span class="number" aria-hidden="true">20</span><div class="visual-fields"><div class="visual-field">
+   <span class="form-label" id="v-language-label">שפת הפרומפט</span>
+   <details class="visual-picker">
+     <summary id="v-language" aria-labelledby="v-language-label v-language-value" aria-describedby="v-language-error"><span id="v-language-value" class="visual-value" dir="auto">English</span></summary>
+     <div class="visual-options"><div class="visual-option-list" role="group" aria-labelledby="v-language-label"><button type="button" class="visual-option" data-value="en" data-description="" aria-pressed="true" dir="auto">English</button><button type="button" class="visual-option" data-value="he" data-description="" aria-pressed="false" dir="auto">עברית</button></div><p class="help visual-no-matches" hidden>אין תוצאות.</p></div>
+     <input type="hidden" name="language" value="en">
+   </details>
+   
+   <p class="error" id="v-language-error" role="alert" hidden></p>
+ </div></div></div>
+      </details>
+      <div class="form-actions"><button type="submit" class="button generate"><span>יצירת פרומפט</span><span class="button-arrow" aria-hidden="true">←</span></button></div>
+    </form>
+    <section class="preview" id="visual-preview" aria-labelledby="visual-preview-title">
+      <div class="preview-head"><div class="preview-heading"><h2 class="preview-title" id="visual-preview-title" tabindex="-1">הפרומפט שלך</h2>
+        <button id="visual-new-brief" class="text-action new-brief" type="button" hidden>בריף חדש</button>
+      </div></div>
+      <div class="preview-empty" id="visual-empty"><span class="paper-icon" aria-hidden="true"></span><p>כאן יופיע הפרומפט ליצירת התמונה.</p></div>
+      <div class="result" id="visual-result" hidden>
+        <p class="result-note" id="visual-stale" role="status" hidden>הבחירות השתנו. צרו שוב את הפרומפט כדי להעתיק את הגרסה העדכנית.</p>
+        <div class="result-actions">
+          <button id="visual-copy" class="button copy" type="button">העתקת פרומפט <span class="copy-icon" aria-hidden="true"></span></button>
+          <a href="https://chatgpt.com/" class="text-action" target="_blank" rel="noopener noreferrer">פתיחה ב־ChatGPT <span aria-hidden="true">↗</span></a>
+        </div>
+        <p id="visual-copy-status" class="copy-status" role="status"></p>
+        <p id="visual-attach-note" class="help" hidden>יש לצרף גם את הרפרנסים שבחרת בכלי יצירת התמונות.</p>
+        <p id="visual-proof-note" class="help" hidden>לתוצאה מסחרית מדויקת, מומלץ לבדוק טקסטים ולוגואים ולתקן אותם בעריכה במידת הצורך.</p>
+        <div id="visual-output" class="brief visual-output" tabindex="0" aria-label="טקסט הפרומפט" dir="ltr"></div>
+        <button id="visual-edit" type="button" class="text-action new-brief">חזרה לעריכה</button>
+      </div>
+    </section>
+  </div>
+</main>
 
     <footer class="footer">
-      <span>Content Lab 2.0</span>
       <span class="credit" dir="ltr" lang="en">BY VINAM</span>
     </footer>
   </div>
@@ -1774,5 +2224,532 @@ ARISING FROM, OUT OF THE USE OR INABILITY TO USE
 THE FONT SOFTWARE OR FROM OTHER DEALINGS IN THE FONT SOFTWARE.
 
  -->
+<script>
+(() => {
+  const pages = {
+    '#content-lab': document.getElementById('content-page'),
+    '#visual-lab': document.getElementById('visual-page')
+  };
+  const links = document.querySelectorAll('.labs-nav a');
+  let previous;
+
+  function renderPage() {
+    const hash = window.location.hash;
+    // In-page links such as #top and section anchors do not change tools.
+    const current = Object.hasOwn(pages, hash) ? hash : previous ?? '#content-lab';
+    if (current === previous) return;
+
+    for (const [route, page] of Object.entries(pages)) page.hidden = route !== current;
+    for (const link of links) {
+      if (link.getAttribute('href') === current) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    }
+    document.title = current === '#visual-lab' ? 'Visual Lab — מחולל פרומפטים לתמונות' : contentTitle;
+    if (previous) window.scrollTo(0, 0);
+    previous = current;
+  }
+
+  const contentTitle = document.title;
+  document.querySelector('.masthead .wordmark').addEventListener('click', () => {
+    if (previous === '#content-lab') window.scrollTo(0, 0);
+  });
+  window.addEventListener('hashchange', renderPage);
+  renderPage();
+})();
+</script>
+<script>
+(() => {
+'use strict';
+const visualOptions = {"objective":[{"id":"product-photography","label":"Product Photography","description":"צילום מוצר מקצועי","instruction":["Create a professional commercial product photograph with the product as the clear visual hero.","צרו צילום מוצר מסחרי שבו המוצר הוא מוקד התמונה."]},{"id":"product-lifestyle","label":"Product Lifestyle","description":"מוצר בסביבת שימוש","instruction":["Show the product in a credible everyday use case, clearly recognizable within its surroundings.","הציגו את המוצר בסיטואציית שימוש יומיומית אמינה, כך שיישאר מזוהה בסביבתו."]},{"id":"advertising-campaign","label":"Advertising Campaign","description":"תמונה לקמפיין פרסומי","instruction":["Create a campaign key visual built around one memorable visual idea and a clear visual hierarchy.","צרו ויזואל מוביל לקמפיין סביב רעיון חזותי אחד זכיר והיררכיה ברורה."]},{"id":"social-media-ad","label":"Social Media Ad","description":"מודעה לרשתות חברתיות","instruction":["Create a social ad with an immediately legible focal point and readable details at mobile size.","צרו תמונת מודעה עם מוקד מיידי ופרטים קריאים במסך קטן."]},{"id":"editorial-photography","label":"Editorial Photography","description":"צילום מגזיני","instruction":["Create a magazine-quality still with an intentional point of view, styling, and visual rhythm.","צרו צילום מגזיני עם נקודת מבט, סטיילינג וקצב חזותי מכוונים."]},{"id":"fashion-photography","label":"Fashion Photography","description":"צילום אופנה","instruction":["Create a fashion image that articulates silhouette, fabric movement and styling through deliberate posing or arrangement.","צרו תמונת אופנה שמבהירה צללית, תנועת בד וסטיילינג באמצעות העמדה מכוונת."]},{"id":"food-photography","label":"Food Photography","description":"צילום מזון","instruction":["Show the food at its most appetizing through believable texture, presentation and ingredient detail.","הדגישו את המרקם, ההגשה ופרטי המרכיבים באופן אמין ומעורר תיאבון."]},{"id":"interior-photography","label":"Interior Photography","description":"צילום חלל","instruction":["Communicate how the interior feels and functions through coherent room geometry, materials and believable scale.","המחישו את חוויית החלל והשימוש בו באמצעות גאומטריה, חומרים וקנה מידה אמינים."]},{"id":"architectural-photography","label":"Architectural Photography","description":"צילום אדריכלי","instruction":["Explain the building's spatial form, material articulation and relationship to its setting; keep intentional perspective control.","המחישו את מבנה החלל, את החומריות ואת הקשר לסביבה, תוך שליטה מכוונת בפרספקטיבה."]},{"id":"portrait","label":"Portrait","description":"פורטרט","instruction":["Make the person the visual focal point through purposeful expression, gesture and framing.","הפכו את האדם למוקד באמצעות הבעה, מחווה וחיתוך פריים מכוונים."]},{"id":"brand-lifestyle","label":"Brand Lifestyle","description":"תמונת לייפסטייל למותג","instruction":["Create a scene that expresses the brand through context, styling and behavior rather than adding decorative branding.","בטאו את המותג באמצעות ההקשר, הסטיילינג וההתנהגות בסצנה."]},{"id":"conceptual-image","label":"Conceptual Image","description":"תמונה קונספטואלית","instruction":["Use a carefully staged visual concept or metaphor to make the central idea understandable at a glance.","השתמשו בקונספט או במטאפורה חזותית כדי להבהיר את הרעיון המרכזי במבט ראשון."]},{"id":"service-visualization","label":"Service Visualization","description":"המחשת שירות","instruction":["Visually communicate the service through a believable relevant situation, interaction, environment, or conceptual representation. Do not invent a physical product.","המחישו את השירות בסיטואציה, באינטראקציה, בסביבה או בייצוג רעיוני רלוונטיים ואמינים. אל תמציאו מוצר פיזי."]},{"id":"poster","label":"Poster","description":"פוסטר","instruction":["Compose one strong poster image with a clear reading order and adequate margins for the chosen layout.","צרו פריים לפוסטר עם סדר קריאה מובהק ושוליים מתאימים לפריסה שנבחרה."]},{"id":"website-hero","label":"Website Hero","description":"תמונת Hero לאתר","instruction":["Create a visually compelling hero image suitable for a premium website, with a clear focal point and sufficient compositional flexibility for interface elements.","צרו תמונת Hero לאתר פרימיום עם מוקד ברור וגמישות קומפוזיציונית לרכיבי הממשק."]},{"id":"background-image","label":"Background Image","description":"תמונת רקע","instruction":["Build a usable background with restrained focal competition and a consistent texture or tonal rhythm across the frame.","צרו רקע שימושי עם טקסטורה או קצב גוונים אחידים ומעט תחרות על תשומת הלב."]},{"id":"product-mockup","label":"Product Mockup","description":"הדמיית מוצר","instruction":["Present the product as a believable mockup with convincing scale, construction, and surface application.","הציגו הדמיית מוצר עם קנה מידה, מבנה ויישום גרפי אמינים."]},{"id":"packaging-mockup","label":"Packaging Mockup","description":"הדמיית אריזה","instruction":["Create a realistic packaging presentation with believable materials, construction, proportions, and print finishes.","צרו הדמיית אריזה אמינה עם חומרים, מבנה, פרופורציות וגימורי דפוס מתאימים."]},{"id":"3d-product-render","label":"3D Product Render","description":"הדמיית מוצר תלת־ממדית","instruction":["Build a deliberately rendered product image; communicate form through model geometry, controlled material response and lighting.","צרו הדמיה תלת־ממדית מכוונת שמבהירה צורה באמצעות גאומטריה, חומריות ותאורה מבוקרות."]},{"id":"abstract-visual","label":"Abstract Visual","description":"תמונה מופשטת","instruction":["Build an abstract image from form, color, texture and rhythm with a deliberate focal relationship.","בנו תמונה מופשטת מצורה, צבע, מרקם וקצב, עם יחסי מוקד מכוונים."]},{"id":"custom","label":"אחר","description":""}],"environment":[{"id":"auto","label":"Auto","description":"סביבה המתאימה למוצר","instruction":["Choose an environment appropriate to the subject and visual style; keep only relevant details.","בחרו סביבה שמתאימה לנושא ולסגנון והשאירו רק פרטים רלוונטיים."]},{"id":"clean-studio","label":"Clean Studio","description":"סטודיו נקי","instruction":["Stage the image on a clean studio set with restrained props and ample separation.","העמידו את התמונה בסטודיו נקי עם מעט אביזרים והפרדה ברורה."]},{"id":"white-studio","label":"White Studio","description":"סטודיו לבן","instruction":["Use a white studio sweep and retain separation through shading.","השתמשו ברקע סטודיו לבן רציף והשיגו הפרדה בעזרת הצללה."]},{"id":"dark-studio","label":"Dark Studio","description":"סטודיו כהה","instruction":["Stage on a dark studio set with clear separation between subject and backdrop.","העמידו את הנושא בסטודיו כהה ושמרו על הפרדה ברורה מהרקע."]},{"id":"color-studio","label":"Color Studio","description":"סטודיו צבעוני","instruction":["Use a controlled colored studio backdrop coordinated with the subject and palette.","בחרו רקע סטודיו צבעוני מבוקר שמתואם עם הנושא והפלטה."]},{"id":"modern-home","label":"Modern Home","description":"בית מודרני","instruction":["Use a modern home with readable functional context, contemporary finishes and natural scale.","השתמשו בבית מודרני עם הקשר שימושי, גימורים עכשוויים וקנה מידה טבעי."]},{"id":"luxury-interior","label":"Luxury Interior","description":"חלל יוקרתי","instruction":["Place the subject in a refined interior with restrained finishes and precise detailing.","מקמו את הנושא בחלל יוקרתי עם גימורים מאופקים ופרטים מדויקים."]},{"id":"minimal-interior","label":"Minimal Interior","description":"חלל מינימליסטי","instruction":["Use a minimal interior with few furnishings and clean architectural lines.","השתמשו בחלל מינימליסטי עם מעט ריהוט וקווים אדריכליים נקיים."]},{"id":"office","label":"Office","description":"משרד","instruction":["Show a relevant office setting with credible work surfaces and scale.","הציגו משרד רלוונטי עם משטחי עבודה וקנה מידה סבירים."]},{"id":"creative-workspace","label":"Creative Workspace","description":"סביבת עבודה יצירתית","instruction":["Use a creative workspace with purposeful tools or materials that support the story.","השתמשו בסביבת עבודה יצירתית עם כלי עבודה וחומרי גלם שתומכים בסיפור."]},{"id":"urban-street","label":"Urban Street","description":"רחוב עירוני","instruction":["Place the subject on an urban street with a coherent pavement and building context.","מקמו את הנושא ברחוב עירוני עם הקשר אמין של מדרכה ומבנים."]},{"id":"industrial-space","label":"Industrial Space","description":"חלל תעשייתי","instruction":["Stage in an industrial space with relevant utilitarian materials and clear spatial depth.","העמידו את הסצנה בחלל תעשייתי עם חומרים פונקציונליים ועומק מרחבי ברור."]},{"id":"nature","label":"Nature","description":"טבע","instruction":["Use an outdoor natural environment with terrain and vegetation appropriate to the scene.","בחרו סביבה טבעית פתוחה עם תוואי שטח וצמחייה שמתאימים לסצנה."]},{"id":"forest","label":"Forest","description":"יער","instruction":["Use layers of forest vegetation and ground detail without obscuring the subject.","השתמשו בשכבות צמחייה ובפרטי קרקע של יער, בלי להסתיר את הנושא."]},{"id":"desert","label":"Desert","description":"מדבר","instruction":["Use an open desert landscape with spare terrain and a readable horizon.","בחרו נוף מדברי פתוח עם קרקע מאופקת ואופק ברור."]},{"id":"beach","label":"Beach","description":"חוף ים","instruction":["Place the scene on a beach with natural shoreline, sand or rock cues where relevant.","מקמו את הסצנה בחוף עם קו מים וחול או סלעים לפי הצורך."]},{"id":"rooftop","label":"Rooftop","description":"גג אורבני","instruction":["Stage on a rooftop with a clearly readable elevated urban context.","העמידו את הסצנה על גג עם הקשר אורבני גבוה וברור."]},{"id":"restaurant","label":"Restaurant","description":"מסעדה","instruction":["Use a restaurant environment, with relevant table, service or dining cues.","השתמשו בסביבת מסעדה עם פרטי שולחן, שירות או סעודה רלוונטיים."]},{"id":"caf","label":"Café","description":"בית קפה","instruction":["Use a café setting with relevant counter or seating cues and restrained background activity.","השתמשו בבית קפה עם דלפק או אזור ישיבה ופעילות רקע מאופקת."]},{"id":"retail-store","label":"Retail Store","description":"חנות","instruction":["Stage in a retail space with purposeful displays and a clear product hierarchy.","העמידו את הסצנה בחנות עם תצוגות מכוונות והיררכיית מוצר ברורה."]},{"id":"kitchen","label":"Kitchen","description":"מטבח","instruction":["Use a functional kitchen with context-appropriate work surfaces and tools.","השתמשו במטבח עם משטחי עבודה וכלים שמתאימים להקשר."]},{"id":"bathroom","label":"Bathroom","description":"חדר רחצה","instruction":["Use a believable bathroom setting with appropriate finishes and fixture scale.","בחרו חדר רחצה אמין עם גימורים וקנה מידה מתאים של מתקנים."]},{"id":"gym","label":"Gym","description":"חדר כושר","instruction":["Use a gym environment with relevant equipment, clear circulation and plausible scale.","השתמשו בחדר כושר עם ציוד רלוונטי, מעברים ברורים וקנה מידה אמין."]},{"id":"futuristic-environment","label":"Futuristic Environment","description":"סביבה עתידנית","instruction":["Build a coherent speculative environment with controlled geometry and plausible internal logic.","בנו סביבה עתידנית עקבית עם גאומטריה מבוקרת והיגיון פנימי."]},{"id":"abstract-environment","label":"Abstract Environment","description":"סביבה מופשטת","instruction":["Use an environment built from abstract planes, forms or textures with intentional depth.","צרו סביבה ממישורים, צורות או מרקמים מופשטים עם עומק מכוון."]},{"id":"gradient-background","label":"Gradient Background","description":"רקע גרדיאנט","instruction":["Use a continuous tonal or color gradient while keeping the subject legible.","השתמשו במעבר גוון או צבע רציף תוך שמירה על קריאות הנושא."]},{"id":"seamless-background","label":"Seamless Background","description":"רקע רציף","instruction":["Use a seamless backdrop without a distracting horizon or join.","השתמשו ברקע רציף בלי תפר או קו אופק מסיח."]},{"id":"custom","label":"Custom","description":"אחר"}],"style":[{"id":"auto","label":"Auto","description":"בחירת סגנון שמתאים למוצר ולמטרה.","instruction":["Choose a visual treatment that serves the subject and objective.","בחרו טיפול חזותי שמשרת את הנושא ואת המטרה."]},{"id":"editorial","label":"Editorial","description":"צילום מגזיני מוקפד, קומפוזיציה מתוחכמת ואסתטיקה אמנותית.","instruction":["Use a sophisticated editorial photography aesthetic, with intentional art direction, refined styling, thoughtful negative space, natural visual hierarchy, and a carefully composed magazine-quality image.","בחרו אסתטיקה מגזינית מוקפדת עם ארט דיירקשן מכוון, סטיילינג מעודן, שטח שלילי מתוכנן והיררכיה טבעית."]},{"id":"luxury","label":"Luxury","description":"מראה יוקרתי, חומרים עשירים, תאורה מדויקת ותחושת פרימיום.","instruction":["Use a premium luxury advertising aesthetic, emphasizing refined materials, restrained visual elements, controlled highlights, rich textures, and elegant visual balance.","השתמשו באסתטיקה יוקרתית עם חומרים מעודנים, אלמנטים מרוסנים, הברקות מבוקרות, מרקמים עשירים ואיזון חזותי אלגנטי."]},{"id":"minimalist","label":"Minimalist","description":"מעט אלמנטים, הרבה מרחב נקי ומיקוד ברור בנושא.","instruction":["Use a minimalist visual language with a restrained number of elements, generous negative space, clean geometry, and a strong, uncluttered focal point.","השתמשו בשפה מינימליסטית עם מעט אלמנטים, שטח שלילי נדיב, גאומטריה נקייה ומוקד ברור."]},{"id":"commercial","label":"Commercial","description":"צילום פרסומי חד ומלוטש שמציג את המוצר בצורה ברורה ומושכת.","instruction":["Use crisp, controlled commercial art direction; keep the subject immediately legible and the styling purposeful.","בחרו ארט דיירקשן מסחרי חד ומבוקר, עם נושא ברור וסטיילינג מכוון."]},{"id":"cinematic","label":"Cinematic","description":"מראה קולנועי עם תאורה דרמטית, עומק ואווירה עשירה.","instruction":["Create a cinematic atmosphere through layered depth, dramatic but believable lighting, controlled contrast, and intentional visual storytelling.","צרו אווירה קולנועית באמצעות שכבות עומק, אור דרמטי ואמין, ניגודיות מבוקרת וסיפור חזותי מכוון."]},{"id":"lifestyle","label":"Lifestyle","description":"צילום טבעי שמציג את המוצר כחלק מהחיים האמיתיים.","instruction":["Place the subject in a credible lived-in moment using unforced gesture, relevant props and a natural sense of context.","מקמו את הנושא ברגע אמין מהחיים באמצעות מחוות טבעיות, אביזרים רלוונטיים והקשר מציאותי."]},{"id":"fashion","label":"Fashion","description":"אסתטיקה מעולם האופנה, פוזות מוקפדות וסטיילינג בולט.","instruction":["Use fashion styling, expressive silhouettes and deliberate posture or arrangement that reveals form and texture.","השתמשו בסטיילינג אופנתי, צלליות בולטות והעמדה שמבליטה צורה ומרקם."]},{"id":"documentary","label":"Documentary","description":"צילום אותנטי ולא מבוים, עם תחושה של רגע אמיתי.","instruction":["Keep the image observational, with credible available-light cues and unstaged composition; allow intentional imperfections.","צרו פריים תיעודי שמתבונן ברגע, עם תאורה זמינה וקומפוזיציה טבעית. אפשרו פגמים אסתטיים מכוונים."]},{"id":"brutalist","label":"Brutalist","description":"קומפוזיציות נועזות, ניגודיות חזקה וגישה עיצובית גולמית.","instruction":["Use raw material presence, blunt geometry, strong graphic tension and deliberate contrast.","הדגישו חומריות גולמית, גאומטריה ישירה, מתח גרפי וניגודיות מכוונת."]},{"id":"retro","label":"Retro","description":"מראה נוסטלגי בהשראת צילום ופרסום מתקופות קודמות.","instruction":["Build a coherent period-inspired palette and styling without introducing anachronistic props.","בנו פלטה וסטיילינג בהשראת התקופה, בלי אביזרים שסותרים את ההקשר."]},{"id":"vintage-film","label":"Vintage Film","description":"אסתטיקה אנלוגית עם גרעיניות, צבעים רכים ואופי של פילם.","instruction":["Use intentional analog grain, gentle highlight rolloff and softened color response; keep key details intelligible.","שלבו גרעיניות אנלוגית מכוונת, מעברי אור רכים וצבע מרוכך, תוך שמירה על פרטים חשובים."]},{"id":"futuristic","label":"Futuristic","description":"אסתטיקה עתידנית, חומרים חדשניים וצורות מתקדמות.","instruction":["Develop clean speculative forms, advanced material cues and deliberate geometry that supports the concept.","פתחו צורות עתידניות וגאומטריה מכוונת עם חומריות שמשרתת את הקונספט."]},{"id":"surreal","label":"Surreal","description":"שילוב אלמנטים לא צפויים ליצירת סצנה דמיונית ומפתיעה.","instruction":["Use improbable relationships, scale or juxtapositions intentionally; keep the invented visual world internally consistent.","שלבו במכוון יחסים לא צפויים, שינויי קנה מידה או מפגשים מפתיעים, ושמרו על עקביות בתוך העולם הדמיוני."]},{"id":"playful","label":"Playful","description":"צבעוניות, קלילות, הומור וקומפוזיציות יצירתיות.","instruction":["Use lively visual rhythm, unexpected but legible placement, and purposeful color accents.","צרו קצב חזותי חי, מיקומים מפתיעים וברורים והדגשות צבע מכוונות."]},{"id":"fine-art","label":"Fine Art","description":"צילום אמנותי עם דגש על רגש, צורה ואסתטיקה.","instruction":["Prioritize expressive shape, light and material relationships with a deliberate emotional point of view.","הדגישו צורה, אור ויחסי חומר שמבטאים נקודת מבט רגשית מכוונת."]},{"id":"high-fashion","label":"High Fashion","description":"מראה אופנה יוקרתי, דרמטי ובלתי שגרתי.","instruction":["Use theatrical styling, sculptural silhouette and an elevated, unconventional editorial composition.","בחרו סטיילינג תיאטרלי, צללית פיסולית וקומפוזיציה אופנתית בלתי שגרתית."]},{"id":"scandinavian","label":"Scandinavian","description":"מינימליזם רך, חומרים טבעיים ואור נקי.","instruction":["Favor soft simplicity, clean daylight cues and understated natural textures.","העדיפו פשטות רכה, אור יום נקי ומרקמים טבעיים מאופקים."]},{"id":"industrial","label":"Industrial","description":"חומריות גולמית, מתכת, בטון וסביבה תעשייתית.","instruction":["Emphasize raw material character, utilitarian geometry and structured surface detail.","הדגישו חומריות גולמית, גאומטריה פונקציונלית ופרטי משטח."]},{"id":"organic","label":"Organic","description":"צורות טבעיות, טקסטורות רכות ותחושה אנושית.","instruction":["Favor irregular contours, tactile natural surfaces and relaxed spatial relationships.","העדיפו קווי מתאר טבעיים, משטחים טקטיליים ויחסים מרחביים נינוחים."]},{"id":"tech","label":"Tech","description":"אסתטיקה טכנולוגית, מדויקת ונקייה.","instruction":["Use precise alignment, controlled surface finish and clean technical geometry.","השתמשו ביישור מדויק, בגימור משטח מבוקר ובגאומטריה טכנית נקייה."]},{"id":"hyperrealistic","label":"Hyperrealistic","description":"ריאליזם קיצוני עם פירוט גבוה של חומרים, תאורה וטקסטורות.","instruction":["Resolve fine-scale surface texture, material response and physically plausible light with exceptional detail.","הציגו מרקמי משטח ותגובה לאור ברמת פירוט גבוהה ועקבית."]},{"id":"3d-render","label":"3D Render","description":"הדמיה תלת־ממדית מלוטשת עם שליטה בחומרים ובתאורה.","instruction":["Use intentional 3D form, shader response and controlled render lighting; keep material and edge treatment coherent.","השתמשו בצורה תלת־ממדית מכוונת, בתגובת חומר ותאורת רינדור מבוקרות ובטיפול עקבי בקצוות."]},{"id":"custom","label":"Custom","description":"הגדרת סגנון עצמאית."}],"lighting":[{"id":"auto","label":"Auto","description":"תאורה שמתאימה לסצנה ולסגנון שנבחרו.","instruction":["Choose light direction, contrast and shadow softness to suit the scene.","בחרו את כיוון האור, הניגודיות ורכות הצל בהתאם לסצנה."]},{"id":"soft-daylight","label":"Soft Daylight","description":"אור יום רך וטבעי עם צללים עדינים.","instruction":["Use broad neutral daylight from one side with low contrast and soft, believable shadows.","השתמשו באור יום רחב מצד אחד, בניגודיות נמוכה ובצללים רכים."]},{"id":"hard-sunlight","label":"Hard Sunlight","description":"שמש ישירה עם צללים חדים וניגודיות גבוהה.","instruction":["Use a direct directional sun key, high contrast and crisp shadow edges.","השתמשו בשמש ישירה מכיוון ברור, עם ניגודיות גבוהה וקצוות צל חדים."]},{"id":"golden-hour","label":"Golden Hour","description":"אור שמש זהוב וחמים לקראת שקיעה.","instruction":["Use low-angle warm sun as the key, with elongated shadows and controlled highlight contrast.","השתמשו בשמש חמה ונמוכה עם צללים ארוכים וניגודיות אור מבוקרת."]},{"id":"blue-hour","label":"Blue Hour","description":"תאורה כחולה וקרירה בשעות הדמדומים.","instruction":["Use cool diffuse twilight with gentle contrast and coherent broad shadows.","השתמשו באור דמדומים קריר ומפוזר, בניגודיות מתונה ובצללים רחבים ועקביים."]},{"id":"overcast","label":"Overcast","description":"אור יום מפוזר ואחיד של שמיים מעוננים.","instruction":["Use broad overhead sky diffusion with low contrast and soft contact shadows.","השתמשו באור שמיים מפוזר מלמעלה עם ניגודיות נמוכה וצללי מגע רכים."]},{"id":"window-light","label":"Window Light","description":"תאורה טבעית המגיעה מחלון.","instruction":["Use a broad directional window key and gradual tonal falloff; retain soft detail in the shaded side.","השתמשו באור חלון רחב מכיוון ברור, עם דעיכה הדרגתית ופרטים רכים בצד המוצל."]},{"id":"softbox-studio","label":"Softbox Studio","description":"אור סטודיו רך ומבוקר.","instruction":["Use soft, controlled studio lighting with broad diffused highlights, smooth tonal transitions, and gentle realistic shadows.","השתמשו באור סטודיו רך ומבוקר, עם הברקות רחבות, מעברי גוון חלקים וצללים רכים."]},{"id":"high-key","label":"High Key","description":"תמונה בהירה מאוד עם מעט צללים.","instruction":["Use broad wraparound keys and fill for high overall brightness, low contrast and faint controlled shadows.","השתמשו במקורות אור רחבים ומילוי לקבלת בהירות גבוהה, ניגודיות נמוכה וצללים מעודנים."]},{"id":"low-key","label":"Low Key","description":"תמונה כהה עם תאורה נקודתית ודרמטית.","instruction":["Use low-key lighting with a predominantly dark tonal range, selective highlights, deep but detailed shadows, and a dramatic controlled atmosphere.","השתמשו בתאורה נמוכה עם טווח גוונים כהה, הברקות סלקטיביות, צללים עמוקים ששומרים פרטים ואווירה דרמטית מבוקרת."]},{"id":"rim-light","label":"Rim Light","description":"תאורה אחורית המדגישה את קווי המתאר.","instruction":["Aim a selective rear light at the contours; preserve separation from the background without flattening shadows.","כוונו אור מאחור אל קווי המתאר והפרידו את הנושא מהרקע בלי לשטח את הצללים."]},{"id":"backlighting","label":"Backlighting","description":"אור המגיע מאחורי הנושא המרכזי.","instruction":["Place the main source behind the subject and control front fill to balance contrast and silhouette detail.","מקמו את האור הראשי מאחורי הנושא וויסתו מילוי קדמי כדי לשלוט בניגודיות ובפרטי הצללית."]},{"id":"side-lighting","label":"Side Lighting","description":"תאורה צדדית המדגישה נפח וטקסטורה.","instruction":["Use a lateral key that reveals texture and volume through directional shadows and controlled contrast.","השתמשו באור צדדי שמדגיש מרקם ונפח דרך צללים מכוונים וניגודיות מבוקרת."]},{"id":"top-lighting","label":"Top Lighting","description":"תאורה המגיעה מלמעלה.","instruction":["Place the key above the subject; control the downcast shadows and retain readable important details.","מקמו את האור הראשי מעל הנושא ושלטו בצללים כלפי מטה כדי לשמור פרטים חשובים."]},{"id":"direct-flash","label":"Direct Flash","description":"פלאש ישיר עם אופי צילום נועז.","instruction":["Use assertive near-axis flash with rapid falloff, hard shadows and controlled bright highlights.","השתמשו בפלאש ישיר מציר הצילום עם דעיכה מהירה, צללים חדים והברקות מבוקרות."]},{"id":"neon-lighting","label":"Neon Lighting","description":"תאורה צבעונית בהשראת שלטי ניאון.","instruction":["Use localized colored light sources, directional reflections and deliberate dark separation between colors.","השתמשו במקורות אור צבעוניים מקומיים, השתקפויות מכוונות והפרדה כהה בין הצבעים."]},{"id":"volumetric-light","label":"Volumetric Light","description":"קרני אור נראות לעין היוצרות עומק ואווירה.","instruction":["Use directional visible beams in haze with controlled contrast and consistent shadow direction.","השתמשו באלומות אור מכוונות באובך, עם ניגודיות מבוקרת וכיוון צל עקבי."]},{"id":"dramatic-studio","label":"Dramatic Studio","description":"תאורת סטודיו דרמטית עם ניגודיות מבוקרת.","instruction":["Use a selective directional key and restrained fill to create deliberate tonal separation and sculpted shadows.","השתמשו במקור אור מכוון ובמילוי מרוסן לקבלת הפרדת גוונים וצללים מפוסלים."]},{"id":"product-beauty-lighting","label":"Product Beauty Lighting","description":"תאורה מדויקת המדגישה את צורת המוצר והחומרים.","instruction":["Use carefully controlled commercial product lighting to reveal shape, material properties, surface texture, and refined highlights without unwanted reflections.","השתמשו בתאורת מוצר מבוקרת שמבליטה צורה, חומר, מרקם והברקות מעודנות בלי השתקפויות לא רצויות."]},{"id":"ambient-interior","label":"Ambient Interior","description":"תאורת חלל רכה ומציאותית.","instruction":["Use plausible room sources, soft contrast and gentle shadow transitions consistent with the interior.","השתמשו במקורות אור אמינים בחלל, בניגודיות רכה ובמעברי צל טבעיים."]},{"id":"custom","label":"Custom","description":"תאורה בהגדרה אישית."}],"angle":[{"id":"auto","label":"Auto","description":"","instruction":["Choose a camera position that clarifies the subject.","בחרו מיקום מצלמה שמבהיר את הנושא."]},{"id":"eye-level","label":"Eye Level","description":"גובה העיניים","instruction":["Place the camera at the subject's eye or midline level, facing neutrally.","מקמו את המצלמה בגובה העיניים או קו האמצע של הנושא."]},{"id":"low-angle","label":"Low Angle","description":"זווית נמוכה","instruction":["Place the camera below the subject and aim upward.","מקמו את המצלמה מתחת לנושא והטו אותה מעלה."]},{"id":"high-angle","label":"High Angle","description":"זווית גבוהה","instruction":["Place the camera above the subject and aim downward obliquely.","מקמו את המצלמה מעל הנושא והטו אותה באלכסון כלפי מטה."]},{"id":"top-down","label":"Top Down","description":"צילום מלמעלה","instruction":["Place the camera directly overhead with its axis perpendicular to the staging surface.","מקמו את המצלמה ישירות מעל הסצנה, בניצב למשטח."]},{"id":"45-degree","label":"45 Degree","description":"זווית של 45 מעלות","instruction":["Aim the camera down toward the subject at roughly 45 degrees.","הטו את המצלמה לעבר הנושא בזווית של כ־45 מעלות."]},{"id":"front-view","label":"Front View","description":"חזיתית","instruction":["Align the camera straight in front of the subject, perpendicular to its front face.","יישרו את המצלמה ישירות מול חזית הנושא ובניצב אליה."]},{"id":"side-view","label":"Side View","description":"מהצד","instruction":["Place the camera beside the subject and show its profile.","מקמו את המצלמה בצד כדי להציג את הפרופיל."]},{"id":"three-quarter","label":"Three Quarter","description":"שלושה רבעים","instruction":["Offset the camera to show the front and one side together.","הסיטו את המצלמה כדי להראות יחד חזית וצד אחד."]},{"id":"isometric","label":"Isometric","description":"איזומטרית","instruction":["Use an isometric viewpoint with parallel axes and minimal perspective convergence.","השתמשו בנקודת מבט איזומטרית עם צירים מקבילים ומינימום התכנסות."]},{"id":"dutch-angle","label":"Dutch Angle","description":"זווית אלכסונית","instruction":["Roll the camera intentionally to create a controlled diagonal horizon.","סובבו במכוון את המצלמה על צירה ליצירת אופק אלכסוני מבוקר."]},{"id":"ground-level","label":"Ground Level","description":"גובה הרצפה","instruction":["Place the camera close to the floor or ground plane.","מקמו את המצלמה בצמוד לרצפה או לקרקע."]},{"id":"over-the-shoulder","label":"Over the Shoulder","description":"מעבר לכתף","instruction":["Frame the scene from behind a shoulder with the main action visible beyond it.","מסגרו את הסצנה מאחורי כתף, כך שהפעולה המרכזית תיראה מעבר לה."]},{"id":"point-of-view","label":"Point of View","description":"נקודת מבט אישית","instruction":["Position the camera at the implied viewer or character's viewpoint.","מקמו את המצלמה מנקודת המבט של הצופה או הדמות."]},{"id":"macro-perspective","label":"Macro Perspective","description":"זווית תקריב","instruction":["Place the camera near the surface to exaggerate fine-scale spatial detail.","קרבו את המצלמה למשטח כדי להדגיש פרטים מרחביים זעירים."]},{"id":"custom","label":"Custom","description":""}],"framing":[{"id":"auto","label":"Auto","description":"פריים שמתאים למוצר ולמטרה.","instruction":["Choose framing appropriate to the subject and purpose.","בחרו פריים שמתאים לנושא ולמטרה."]},{"id":"extreme-close-up","label":"Extreme Close-up","description":"תקריב קיצוני שמדגיש פרט קטן.","instruction":["Frame only a tiny relevant feature and make its structure legible.","בודדו בפריים פרט זעיר ורלוונטי והבהירו את המבנה שלו."]},{"id":"close-up","label":"Close-up","description":"צילום קרוב שממקד את תשומת הלב בנושא.","instruction":["Frame close to the subject and reduce surrounding visual information.","צלמו מקרוב וצמצמו את המידע החזותי מסביב."]},{"id":"medium-shot","label":"Medium Shot","description":"פריים בינוני שמציג את הנושא וחלק מהסביבה.","instruction":["Show the subject and enough surroundings to describe its immediate context.","הציגו את הנושא וחלק מהסביבה שמבהיר את ההקשר."]},{"id":"wide-shot","label":"Wide Shot","description":"פריים רחב שמציג את הנושא בהקשר סביבתי.","instruction":["Show a broad view with the subject in a readable environmental context.","הציגו מבט רחב עם נושא שנשאר ברור בסביבה."]},{"id":"full-product","label":"Full Product","description":"הצגת המוצר בשלמותו, ללא חיתוך.","instruction":["Show the entire product with clearance on every edge. Do not crop any part of the product.","הציגו את המוצר בשלמותו עם מרווח מכל צד. אל תחתכו אף חלק מהמוצר."]},{"id":"hero-shot","label":"Hero Shot","description":"פריים דרמטי ומרשים שהופך את המוצר למרכז התמונה.","instruction":["Make the subject dominant through clear scale, visual hierarchy and decisive separation.","הפכו את הנושא לדומיננטי באמצעות קנה מידה, היררכיה והפרדה ברורים."]},{"id":"detail-shot","label":"Detail Shot","description":"צילום ממוקד של חומר, מרקם או פרט חשוב.","instruction":["Isolate a material, texture or relevant construction detail.","בודדו חומר, מרקם או פרט מבני רלוונטי."]},{"id":"environmental-shot","label":"Environmental Shot","description":"פריים המדגיש את הקשר בין הנושא לסביבה.","instruction":["Show a clear relationship between the subject and its surroundings.","הציגו קשר ברור בין הנושא לבין הסביבה."]},{"id":"custom","label":"Custom","description":"הגדרת פריים אישית."}],"depth":[{"id":"auto","label":"Auto","description":"עומק שדה שמתאים לסצנה.","instruction":["Choose a focus depth that supports clarity and hierarchy.","בחרו עומק שדה שתומך בבהירות ובהיררכיה."]},{"id":"very-shallow","label":"Very Shallow","description":"הנושא חד והרקע מטושטש מאוד.","instruction":["Keep the main focus plane sharp with strong, smooth background blur.","שמרו על מישור המיקוד הראשי חד ועל טשטוש רקע ניכר וחלק."]},{"id":"shallow","label":"Shallow","description":"רקע רך ומטושטש שמבליט את הנושא.","instruction":["Use shallow depth of field with the primary subject in sharp focus and a softly blurred background, maintaining natural optical falloff.","השתמשו בעומק שדה רדוד עם נושא חד, רקע רך ודעיכה אופטית טבעית."]},{"id":"medium","label":"Medium","description":"איזון בין חדות הנושא לבין פרטי הסביבה.","instruction":["Keep the main subject clear while leaving enough background detail for context.","שמרו על חדות הנושא ועל מספיק פרטי רקע להבנת ההקשר."]},{"id":"deep","label":"Deep","description":"רוב התמונה חדה וברורה.","instruction":["Use deep depth of field to maintain clarity across the main subject and surrounding environment.","השתמשו בעומק שדה עמוק לשמירה על חדות הנושא והסביבה."]},{"id":"maximum-sharpness","label":"Maximum Sharpness","description":"חדות גבוהה מאוד של כל האלמנטים החשובים.","instruction":["Keep all important planes and details distinctly sharp without aggressive processing artifacts.","שמרו על חדות ברורה בכל המישורים והפרטים החשובים בלי פגמי עיבוד."]}],"composition":[{"id":"auto","label":"Auto","description":"","instruction":["Choose a balanced composition that makes the subject and objective clear.","בחרו קומפוזיציה מאוזנת שמבהירה את הנושא והמטרה."]},{"id":"centered","label":"Centered","description":"","instruction":["Place the focal subject at the center and distribute visual weight around it.","מקמו את הנושא במרכז וחלקו סביבו את המשקל החזותי."]},{"id":"symmetrical","label":"Symmetrical","description":"","instruction":["Balance comparable forms across a deliberate axis.","אזנו צורות דומות משני צדדיו של ציר מכוון."]},{"id":"asymmetrical","label":"Asymmetrical","description":"","instruction":["Balance unequal masses through spacing and contrast.","אזנו מסות לא שוות בעזרת ריווח וניגודיות."]},{"id":"rule-of-thirds","label":"Rule of Thirds","description":"","instruction":["Place focal weight along third lines or their intersections.","מקמו את המשקל החזותי לאורך קווי השלישים או במפגש ביניהם."]},{"id":"negative-space","label":"Negative Space","description":"","instruction":["Use generous intentional negative space around the subject while maintaining a clear focal point and strong visual balance.","השאירו שטח שלילי נדיב סביב הנושא תוך שמירה על מוקד ברור ואיזון."]},{"id":"diagonal","label":"Diagonal","description":"","instruction":["Organize forms along a clear diagonal to guide the eye.","ארגנו צורות לאורך אלכסון ברור שמוביל את העין."]},{"id":"dynamic","label":"Dynamic","description":"","instruction":["Build movement through purposeful direction, offset placements and varied visual weights.","צרו תנועה עם כיווניות, הסטות מכוונות ומשקלים חזותיים מגוונים."]},{"id":"layered-depth","label":"Layered Depth","description":"","instruction":["Separate foreground, subject plane and background into readable layers.","הפרידו בין הקדמה, מישור הנושא והרקע לשכבות קריאות."]},{"id":"minimal","label":"Minimal","description":"","instruction":["Reduce competing elements and give the focal subject room to breathe.","צמצמו אלמנטים מתחרים והשאירו מרחב סביב המוקד."]},{"id":"geometric","label":"Geometric","description":"","instruction":["Organize shapes on clear axes with intentional geometric relationships.","ארגנו צורות על צירים ברורים עם יחסים גאומטריים מכוונים."]},{"id":"leading-lines","label":"Leading Lines","description":"","instruction":["Use visible linear cues to lead the viewer toward the focal point.","השתמשו בקווים שמובילים את העין אל המוקד."]},{"id":"frame-within-frame","label":"Frame Within Frame","description":"","instruction":["Use a relevant foreground opening or boundary as a secondary frame around the subject.","מסגרו את הנושא באמצעות פתח או גבול משני רלוונטי בקדמת התמונה."]},{"id":"balanced-editorial","label":"Balanced Editorial","description":"","instruction":["Use a refined editorial composition with deliberate spacing, balanced visual weight, and a sophisticated relationship between subject and surrounding elements.","צרו קומפוזיציה מגזינית עם ריווח מכוון, משקל חזותי מאוזן ויחס מדויק בין הנושא לסביבתו."]},{"id":"custom","label":"Custom","description":""}],"palette":[{"id":"auto","label":"Auto","description":"","instruction":["Derive a coherent palette from the subject and visual style.","גזרו פלטה עקבית מהנושא ומהסגנון."]},{"id":"neutral","label":"Neutral","description":"","instruction":["Use restrained neutrals and controlled tonal separation.","השתמשו בגוונים ניטרליים ובקונטרסט גוונים מבוקר."]},{"id":"monochromatic","label":"Monochromatic","description":"","instruction":["Build the palette around tints and shades of one hue.","בנו פלטה מגרסאות בהירות וכהות של גוון אחד."]},{"id":"black-white","label":"Black & White","description":"","instruction":["Use grayscale with clear separation of important tones.","השתמשו בשחור־לבן עם הפרדה ברורה בין גוונים חשובים."]},{"id":"warm","label":"Warm","description":"","instruction":["Use a warm palette with deliberate balance between warm highlights and shadows.","בחרו פלטה חמה ואיזנו בין האורות לצללים."]},{"id":"cool","label":"Cool","description":"","instruction":["Use cool hues and keep important color distinctions clear.","בחרו בגוונים קרירים ושמרו על הבחנה בין צבעים חשובים."]},{"id":"pastel","label":"Pastel","description":"","instruction":["Use high-value, low-saturation hues with readable contrast.","השתמשו בגוונים בהירים ורכים עם ניגודיות קריאה."]},{"id":"vibrant","label":"Vibrant","description":"","instruction":["Use saturated colors selectively with controlled focal emphasis.","השתמשו בצבעים רוויים באופן סלקטיבי ובמיקוד מבוקר."]},{"id":"muted","label":"Muted","description":"","instruction":["Use restrained, softened colors without losing focal separation.","השתמשו בצבעים מעודנים ומרוככים בלי לאבד הפרדה של המוקד."]},{"id":"desaturated","label":"Desaturated","description":"","instruction":["Reduce saturation across the image while retaining tonal distinction.","הפחיתו רוויה בכל התמונה ושמרו על הבחנה בין גוונים."]},{"id":"earthy","label":"Earthy","description":"","instruction":["Build the palette from earth tones and natural material colors.","בנו פלטה מגוני אדמה וצבעי חומרים טבעיים."]},{"id":"dark-moody","label":"Dark & Moody","description":"","instruction":["Use predominantly dark tones with readable focal accents.","השתמשו בעיקר בגוונים כהים עם הדגשות מוקד קריאות."]},{"id":"light-airy","label":"Light & Airy","description":"","instruction":["Use high-value hues and soft tonal transitions.","השתמשו בגוונים בהירים ובמעברים רכים."]},{"id":"high-contrast","label":"High Contrast","description":"","instruction":["Separate focal elements from context with pronounced tonal contrast.","הפרידו את המוקד מההקשר באמצעות ניגודיות מובחנת."]},{"id":"low-contrast","label":"Low Contrast","description":"","instruction":["Keep tonal differences gentle while retaining hierarchy.","שמרו על הבדלי גוון עדינים והיררכיה קריאה."]},{"id":"complementary-colors","label":"Complementary Colors","description":"","instruction":["Use complementary hues with one dominant and one controlled accent.","שלבו צבעים משלימים עם גוון מוביל והדגשה מבוקרת."]},{"id":"analogous-colors","label":"Analogous Colors","description":"","instruction":["Use neighboring hues with enough lightness variation for separation.","שלבו גוונים סמוכים עם שונות מספקת בבהירות להפרדה."]},{"id":"brand-colors","label":"Brand Colors","description":""},{"id":"custom","label":"Custom","description":""}],"mood":[{"id":"auto","label":"Auto","description":"","instruction":["Derive the mood from the subject, purpose and explicit settings.","בחרו אווירה שנובעת מהנושא, מהמטרה ומההגדרות המפורשות."]},{"id":"premium","label":"Premium","description":"","instruction":["Convey premium quality through restraint, material care and precise accents.","שדרו פרימיום באמצעות איפוק, חומריות מוקפדת והדגשות מדויקות."]},{"id":"elegant","label":"Elegant","description":"","instruction":["Use measured rhythm and subtle contrast for an elegant impression.","צרו רושם אלגנטי באמצעות קצב מדוד וניגודיות עדינה."]},{"id":"calm","label":"Calm","description":"","instruction":["Create a calm impression with quiet spacing and gentle transitions.","צרו רוגע בעזרת ריווח שקט ומעברים עדינים."]},{"id":"energetic","label":"Energetic","description":"","instruction":["Suggest energy through directional rhythm and crisp focal separation.","שדרו אנרגיה באמצעות קצב מכוון והפרדת מוקד חדה."]},{"id":"playful","label":"Playful","description":"","instruction":["Introduce nimble visual rhythm and a small element of surprise.","שלבו קצב חזותי קליל ואלמנט קטן של הפתעה."]},{"id":"bold","label":"Bold","description":"","instruction":["Use decisive visual emphasis and confident spatial relationships.","השתמשו בהדגשה חזותית חד־משמעית וביחסים מרחביים נועזים."]},{"id":"mysterious","label":"Mysterious","description":"","instruction":["Suggest mystery through selective revelation and depth.","צרו מסתורין באמצעות חשיפה סלקטיבית ועומק."]},{"id":"nostalgic","label":"Nostalgic","description":"","instruction":["Use restrained period cues and a reflective visual tone.","השתמשו ברמזים תקופתיים מאופקים ובאופי מהורהר."]},{"id":"romantic","label":"Romantic","description":"","instruction":["Favor gentler transitions and intimate spatial relationships.","העדיפו מעברים עדינים ויחסים מרחביים אינטימיים."]},{"id":"warm","label":"Warm","description":"","instruction":["Create a welcoming impression through material and spatial cues.","צרו תחושה מזמינה באמצעות חומריות ויחסים מרחביים."]},{"id":"cold","label":"Cold","description":"","instruction":["Convey cool restraint through precise spacing and understated surfaces.","שדרו קור מאופק באמצעות ריווח מדויק ומשטחים שקטים."]},{"id":"futuristic","label":"Futuristic","description":"","instruction":["Suggest the future through clean, speculative visual cues.","שדרו עתידנות באמצעות רמזים חזותיים נקיים ומכוונים."]},{"id":"professional","label":"Professional","description":"","instruction":["Convey competence through visual order, clarity and relevant context.","שדרו מקצועיות באמצעות סדר חזותי, בהירות והקשר רלוונטי."]},{"id":"youthful","label":"Youthful","description":"","instruction":["Use an agile visual rhythm and contemporary styling cues.","שלבו קצב חזותי זריז ורמזי סטיילינג עכשוויים."]},{"id":"sophisticated","label":"Sophisticated","description":"","instruction":["Create a sophisticated impression through nuanced visual relationships.","צרו תחושה מתוחכמת דרך יחסים חזותיים מעודנים."]},{"id":"raw","label":"Raw","description":"","instruction":["Allow tactile irregularities and unpolished material cues where intentional.","אפשרו אי־אחידות טקטילית וחומריות גולמית כשהן מכוונות."]},{"id":"authentic","label":"Authentic","description":"","instruction":["Keep visual gestures and contextual details unforced and credible.","שמרו על מחוות ופרטי הקשר טבעיים ואמינים."]},{"id":"dreamy","label":"Dreamy","description":"","instruction":["Use soft atmospheric separation and gentle visual transitions.","השתמשו בהפרדה אווירתית רכה ובמעברים חזותיים עדינים."]},{"id":"dramatic","label":"Dramatic","description":"","instruction":["Build drama with decisive focal hierarchy and spatial tension.","צרו דרמה באמצעות היררכיית מוקד ברורה ומתח מרחבי."]},{"id":"fresh","label":"Fresh","description":"","instruction":["Favor clear visual spacing and crisp material detail.","העדיפו ריווח חזותי נקי ופרטי חומר חדים."]},{"id":"cozy","label":"Cozy","description":"","instruction":["Suggest comfort through intimate scale and tactile visual cues.","שדרו נוחות בעזרת קנה מידה אינטימי ורמזים טקטיליים."]},{"id":"adventurous","label":"Adventurous","description":"","instruction":["Suggest exploration through depth and purposeful visual direction.","שדרו הרפתקה בעזרת עומק וכיווניות חזותית מכוונת."]},{"id":"powerful","label":"Powerful","description":"","instruction":["Communicate strength through a decisive silhouette and visual weight.","שדרו עוצמה באמצעות צללית ברורה ומשקל חזותי."]},{"id":"custom","label":"Custom","description":""}]};
+const references = {
+  product: ['תמונת מוצר מקורית', "Preserve the original product's geometry, proportions, materials, colors, construction, and recognizable details.", 'שמרו על הגאומטריה, הפרופורציות, החומרים, הצבעים, המבנה והפרטים המזהים של המוצר המקורי.'],
+  style: ['רפרנס לסגנון ויזואלי', 'Use the reference for visual language, mood, art direction, and aesthetic qualities without copying unrelated subjects or elements.', 'השתמשו ברפרנס לשפה החזותית, לאווירה ולארט דיירקשן, בלי להעתיק נושאים או אלמנטים לא רלוונטיים.'],
+  composition: ['רפרנס לקומפוזיציה', 'Use the reference for framing, spatial relationships, focal placement, and visual balance.', 'השתמשו ברפרנס לפריים, ליחסים המרחביים, למיקום המוקד ולאיזון החזותי.'],
+  lighting: ['רפרנס לתאורה', 'Match the lighting direction, softness, contrast, shadow behavior, and overall lighting atmosphere.', 'התאימו את כיוון האור, הרכות, הניגודיות, הצללים ואווירת התאורה לרפרנס.'],
+  palette: ['פלטת צבעים', 'Use the supplied colors as the primary palette, maintaining appropriate visual harmony and contrast.', 'השתמשו בצבעים שסופקו כפלטה העיקרית ושמרו על הרמוניה וניגודיות.'],
+  brand: ['ספר מותג', 'Follow the supplied brand identity guidelines, including approved colors, visual language, and relevant design restrictions.', 'פעלו לפי הנחיות המותג שסופקו, ובהן הצבעים המאושרים, השפה החזותית ומגבלות העיצוב.'],
+  logo: ['לוגו מקורי', 'Preserve the original logo without modification.', 'שמרו על הלוגו המקורי ללא שינוי.']
+};
+const textPositions = {
+  auto: ['אוטומטי','a clear area determined by the composition'],
+  none: ['ללא שטח ייעודי',''],
+  top: ['למעלה','at the top'], bottom: ['למטה','at the bottom'],
+  right: ['מימין','on the right'], left: ['משמאל','on the left'], center: ['במרכז','in the center'],
+  'upper-third': ['שליש עליון','in the upper third'], 'lower-third': ['שליש תחתון','in the lower third']
+};
+const logoPositions = {
+  auto: ['אוטומטי','in an unobtrusive area with adequate clear space'],
+  'top-right': ['ימין למעלה','at the top right'], 'top-left': ['שמאל למעלה','at the top left'],
+  'bottom-right': ['ימין למטה','at the bottom right'], 'bottom-left': ['שמאל למטה','at the bottom left'],
+  'bottom-center': ['מרכז למטה','at the bottom center'], 'top-center': ['מרכז למעלה','at the top center']
+};
+const messageTypes = {
+  product: ['הצגת מוצר','product introduction'], benefit: ['יתרון מרכזי','main benefit'], promotion: ['מבצע','offer'],
+  launch: ['השקה','launch'], brand: ['תדמית','brand image'], custom: ['אחר','custom message']
+};
+const messageDetailFields = { promotion: 'promotionDetails', benefit: 'benefitDetails' };
+const typographyRules = [
+  ['Create a refined premium advertising layout.', 'צרו פריסה פרסומית מוקפדת.'],
+  ['Establish a clear typographic hierarchy.', 'קבעו היררכיה טיפוגרפית ברורה.'],
+  ['Make the main headline the dominant textual element.', 'הפכו את הכותרת הראשית לאלמנט הטקסטואלי הדומיננטי.'],
+  ['Use a significantly smaller and lighter secondary headline.', 'השתמשו בכותרת משנית קטנה וקלה יותר באופן ניכר.'],
+  ['Keep supporting copy restrained and readable.', 'שמרו על טקסט תומך מאופק וקריא.'],
+  ['Use a clean, structured alignment system.', 'השתמשו במערכת יישור נקייה ומובנית.'],
+  ['Maintain generous spacing between text groups.', 'שמרו על ריווח נדיב בין קבוצות טקסט.'],
+  ['Ensure strong contrast between typography and background.', 'שמרו על ניגודיות חזקה בין הטקסט לרקע.'],
+  ['Keep typography away from important product details.', 'הרחיקו את הטיפוגרפיה מפרטי מוצר חשובים.'],
+  ['Avoid unnecessary shadows, outlines, gradients, decorative effects, and generic advertising stickers.', 'הימנעו מצללים, קווי מתאר, מעברי צבע, אפקטים ותגי פרסום שאינם נחוצים.'],
+  ['Use a sophisticated editorial approach rather than a crowded promotional layout.', 'העדיפו גישה מגזינית מתוחכמת עם היררכיה וריווח.'],
+  ['Preserve exact spelling, punctuation, and language when text is provided.', 'שמרו על הכתיב, הפיסוק והשפה המדויקים של הטקסט שסופק.'],
+  ['For Hebrew, maintain correct RTL reading order and natural Hebrew letterforms.', 'בעברית, שמרו על סדר קריאה תקין מימין לשמאל וצורות אות טבעיות.'],
+  ['If a CTA is included, distinguish it through hierarchy and spacing rather than automatically placing it inside a button.', 'אם יש הנעה לפעולה, הבדילו אותה באמצעות היררכיה וריווח.']
+];
+const suppliedCopy = [['headline','Main headline','כותרת ראשית'], ['subhead','Secondary headline','כותרת משנה'], ['support','Supporting copy','טקסט משלים'], ['cta','CTA','CTA']];
+const effectiveDefaults = {
+  objective:'product-photography', environment:'auto', style:'auto', ratio:'4:5', text:'none', textLanguage:'he',
+  messageType:'product', reserve:'no', textPosition:'auto', logo:'none', logoPosition:'auto', references:[],
+  lighting:'auto', angle:'auto', framing:'auto', depth:'auto', composition:'auto', palette:'auto', mood:'auto',
+  accuracy:'auto', model:'general', language:'en'
+};
+
+function getPromptErrors(state) {
+  const errors = [];
+  if (!state.subject?.trim()) errors.push(['subject', 'כדי ליצור תמונה, צריך לדעת מה מציגים.']);
+  for (const key of Object.keys(visualOptions)) {
+    if (state[key] === 'custom' && !state[key + 'Custom']?.trim()) errors.push([key + 'Custom','נא למלא את התיאור שבחרת להוסיף.']);
+  }
+  if (state.ratio === 'custom') {
+    for (const key of ['width', 'height']) {
+      if (!(Number.isFinite(Number(state[key])) && Number(state[key]) > 0)) errors.push([key,'יש להזין מספר חיובי.']);
+    }
+  }
+  if (state.text === 'provided' && !suppliedCopy.some(([key]) => state[key]?.trim())) {
+    errors.push(['headline','יש להזין לפחות טקסט אחד שיופיע בתמונה.']);
+  }
+  if (state.text !== 'none' && state.textLanguage === 'custom' && !state.customTextLanguage?.trim()) {
+    errors.push(['customTextLanguage','יש לציין את שפת הטקסט.']);
+  }
+  if (state.text === 'suggested' && state.messageType === 'custom' && !state.customMessageType?.trim()) {
+    errors.push(['customMessageType','יש לתאר את סוג המסר.']);
+  }
+  if (state.palette === 'brand-colors') {
+    const colors = state.brandColors?.trim() ?? '';
+    const tokens = colors.match(/#[^\s,;]*/g) ?? [];
+    const invalid = tokens.some(value => !/^#(?:[\da-f]{3}|[\da-f]{6})$/i.test(value));
+    if (invalid) errors.push(['brandColors','קוד HEX צריך לכלול # ושלוש או שש ספרות או אותיות A–F.']);
+    else if (!colors && !state.references.includes('palette') && !state.references.includes('brand')) errors.push(['brandColors','הזינו צבעי מותג או בחרו רפרנס לפלטה או לספר מותג.']);
+  }
+  if (state.logo !== 'original' && state.references.includes('logo')) {
+    errors.push(['logo','כדי להשתמש ברפרנס ללוגו, בחרו ״אצרף לוגו מקורי״ או הסירו את רפרנס הלוגו.']);
+  }
+  if (state.text === 'none' && state.reserve === 'yes' && state.textPosition === 'none') {
+    errors.push(['textPosition','בחרו מיקום לשטח הנקי או בטלו את שמירת המקום לטקסט.']);
+  }
+  if (state.accuracy === 'creative' && state.references.includes('product')) {
+    errors.push(['accuracy','רפרנס מוצר מחייב לשמור על זהות המוצר. בחרו רמת דיוק אחרת או הסירו את רפרנס המוצר.']);
+  }
+  if (['extreme-close-up','detail-shot'].includes(state.framing)
+      && /לא לחתוך את המוצר|ללא חיתוך המוצר|do not crop the product|show the entire product/i.test(state.notes ?? '')) {
+    errors.push(['framing','כדי להציג את כל המוצר, בחרו פריים ״Full Product״ במקום פריים שמבודד פרט.']);
+  }
+  if (state.text !== 'none' && /^(ללא טקסט|בלי טקסט|לא להוסיף טקסט|no text|do not add text)[.!]?$/imu.test(state.notes ?? '')) {
+    errors.push(['notes','ההנחיות המיוחדות מבקשות תמונה ללא טקסט. עדכנו אותן או בחרו ״ללא טקסט״.']);
+  }
+  if (state.text === 'none' && state.reserve === 'yes' && state.textPosition === 'center' && state.composition === 'centered') {
+    errors.push(['composition','שטח טקסט נקי במרכז מתנגש עם נושא שממוקם במרכז. שנו את מיקום הטקסט או את הקומפוזיציה.']);
+  }
+  return errors;
+}
+
+function buildImagePrompt(state) {
+  const hebrew = state.language === 'he';
+  const t = (en, he) => hebrew ? he : en;
+  const section = (en, he, ...lines) => {
+    const body = lines.flat().filter(Boolean).join('\n');
+    return body ? t(en, he) + '\n' + body : '';
+  };
+  const setting = key => {
+    if (state[key] === 'custom') return state[key + 'Custom'];
+    const option = visualOptions[key].find(item => item.id === state[key]);
+    return option?.instruction ? option.instruction[hebrew ? 1 : 0] : '';
+  };
+  const ref = key => state.references.includes(key);
+  const hasText = state.text !== 'none';
+  const hasPromotion = state.messageType === 'promotion' && Boolean(state.promotionDetails?.trim());
+  const promotion = hasPromotion ? [
+    t('Promotion details (verbatim): ', 'פרטי המבצע (כלשונם): ') + state.promotionDetails,
+    hasText
+      ? t('Display these supplied promotion details as part of the advertising hierarchy. Use the typography settings below and count the details as supplied wording.',
+          'הציגו את פרטי המבצע כחלק מההיררכיה הפרסומית, בהתאם להגדרות הטיפוגרפיה שלהלן. התייחסו אליהם כחלק מהנוסח שסופק.')
+      : t('Use these details only to understand the visual objective. Do not render any added text or numbers in the image.',
+          'השתמשו בפרטים רק להבנת מטרת התמונה. אל תציגו בתמונה טקסט או מספרים נוספים.'),
+    t('Do not invent prices, discount percentages, dates, or terms that were not supplied.',
+      'אל תמציאו מחירים, אחוזי הנחה, תאריכים או תנאים שלא נמסרו.')
+  ] : [];
+  const benefit = state.messageType === 'benefit' && state.benefitDetails?.trim() ? [
+    t('Product benefit (verbatim): ', 'יתרון המוצר (כלשונו): ') + state.benefitDetails,
+    hasText
+      ? t('Present the supplied benefit as part of the advertising hierarchy, following the typography settings below. Treat it as supplied wording.',
+          'הציגו את היתרון שסופק כחלק מההיררכיה הפרסומית, בהתאם להגדרות הטיפוגרפיה שלהלן. התייחסו אליו כחלק מהנוסח שסופק.')
+      : t('Use this benefit only as visual context. Do not render added text or numbers in the image.',
+          'השתמשו ביתרון כהקשר חזותי בלבד. אל תציגו בתמונה טקסט או מספרים נוספים.'),
+    t('Do not invent benefits, figures, or product promises that were not supplied.',
+      'אל תמציאו יתרונות, נתונים או הבטחות מוצר שלא נמסרו.')
+  ] : [];
+  const customRatio = state.ratio === 'custom' ? state.width + ':' + state.height : state.ratio;
+  const accuracy = state.accuracy === 'auto' && ref('product') ? 'exact' : state.accuracy;
+  const product = {
+    exact: ref('product')
+      ? t("Treat the supplied product image as the authoritative reference. Preserve the product's exact recognizable design, shape, proportions, material appearance, color distribution, and packaging details. Change only the environment, lighting, camera framing, and other explicitly permitted aspects.", 'התייחסו לתמונת המוצר שסופקה כאל המקור הקובע. שמרו במדויק על העיצוב המזהה, הצורה, הפרופורציות, מראה החומרים, חלוקת הצבעים ופרטי האריזה. שנו רק את הסביבה, התאורה, הפריים והיבטים שהותרו במפורש.')
+      : t('Preserve precisely the product details described by the user. Without a product image, do not invent unrevealed details or imply an exact visual replica.', 'שמרו במדויק על פרטי המוצר שתוארו. בהיעדר תמונת מוצר, אל תמציאו פרטים שלא נמסרו ואל תטענו שמדובר בשחזור חזותי מדויק.'),
+    shape: t('Preserve the stated shape and proportions.', 'שמרו על הצורה והפרופורציות שנמסרו.'),
+    material: t('Preserve the stated colors, finish and material appearance.', 'שמרו על הצבעים, הגימור ומראה החומרים שנמסרו.'),
+    packaging: t('Preserve the packaging structure, supplied graphics and original identifying details.', 'שמרו על מבנה האריזה, הגרפיקה שסופקה והפרטים המקוריים המזהים.'),
+    creative: t('Allow creative reinterpretation of the described subject while preserving the essential concept and intended function.', 'אפשרו פרשנות יצירתית מחודשת תוך שמירה על הרעיון המרכזי והפונקציה המיועדת.')
+  }[accuracy];
+  const language = {
+    en: t('English','אנגלית'), he: t('Hebrew','עברית'), custom: state.customTextLanguage
+  }[state.textLanguage];
+  const text = state.text === 'none'
+    ? [
+      t('Do not generate any additional text, typography, headlines, captions, watermarks, or graphic overlays.', 'אל תיצרו טקסט נוסף, טיפוגרפיה, כותרות, כיתובים, סימני מים או שכבות גרפיות.'),
+      ref('product') && t('Preserve only original product markings that are explicitly required by the supplied product reference.', 'שמרו רק על סימוני המוצר המקוריים שנדרשים במפורש לפי רפרנס המוצר.'),
+      state.logo === 'original' && t('This restriction allows placement of the supplied original logo as specified below.', 'הגבלה זו מאפשרת למקם את הלוגו המקורי שסופק לפי ההנחיה שבהמשך.')
+    ]
+    : state.text === 'provided'
+      ? [t('Use only the exact supplied wording. Do not rewrite, translate, or add text.', 'השתמשו רק בנוסח המדויק שסופק. אל תשכתבו, תתרגמו או תוסיפו טקסט.'),
+        ...suppliedCopy.filter(([key]) => state[key]?.trim()).map(([key, en, he]) => t(en, he) + ': ' + state[key])]
+      : [
+        t('Suggest concise relevant copy. Do not invent prices, discounts, product claims, results, figures or promises. If facts are missing, use general brand messaging without unsupported claims.', 'הציעו קופי קצר ורלוונטי. אל תמציאו מחירים, הנחות, טענות מוצר, תוצאות, נתונים או הבטחות. כשחסרות עובדות, השתמשו במסר תדמיתי כללי ללא טענות שאינן מבוססות.'),
+        t('Message type: ', 'סוג המסר: ') + (state.messageType === 'custom' ? state.customMessageType : messageTypes[state.messageType][hebrew ? 0 : 1]),
+        state.message && t('Key message: ', 'מסר מרכזי: ') + state.message
+      ];
+
+  const textPosition = textPositions[state.textPosition];
+  const area = (hasText || state.reserve === 'yes') && state.textPosition !== 'none' && t(
+    `${hasText ? 'Place the typography' : 'Reserve clean space for later text'} ${textPosition[1]}; keep this area free of key visual elements and clear of the subject.`,
+    `${hasText ? 'מקמו את הטיפוגרפיה' : 'השאירו מקום נקי לטקסט בעריכה'} (${textPosition[0]}). השאירו את האזור נקי מאלמנטים מרכזיים, בלי לכסות את הנושא.`
+  );
+  const logo = state.logo === 'original'
+    ? [
+      t('Use the supplied original logo as a strict visual reference. Preserve its shape, proportions, typography, colors, and visual identity. Do not redesign, reinterpret, distort, or replace the logo.', 'השתמשו בלוגו המקורי כרפרנס חזותי מחייב. שמרו על הצורה, הפרופורציות, הטיפוגרפיה, הצבעים והזהות החזותית. אל תעצבו מחדש, תפרשו מחדש, תעוותו או תחליפו את הלוגו.'),
+      t('Place the logo ' + logoPositions[state.logoPosition][1] + ' and keep it clear of the subject and typography.', 'מקמו את הלוגו בהתאם לבחירה (' + logoPositions[state.logoPosition][0] + ') והרחק מהנושא ומהטיפוגרפיה.')
+    ]
+    : state.logo === 'reserve'
+      ? t('Do not generate a logo. Keep a clean area clear of the subject and typography for adding the original logo in editing.', 'אל תיצרו לוגו. השאירו שטח נקי מהנושא ומהטיפוגרפיה להוספת הלוגו המקורי בעריכה.')
+      : t('Do not add a new logo.', 'אל תוסיפו לוגו חדש.');
+  const palette = state.palette === 'brand-colors'
+    ? t('Treat the specified brand colors as fixed; mood must not override them.', 'התייחסו לצבעי המותג שנמסרו כקבועים. האווירה אינה גוברת עליהם.') + (state.brandColors ? ' ' + state.brandColors : '')
+    : ref('palette') && state.palette === 'auto' ? '' : setting('palette');
+  const referenceLines = Object.entries(references)
+    .filter(([key]) => ref(key) && (key !== 'product' || accuracy !== 'exact') && key !== 'logo')
+    .map(([key, item]) => key === 'palette' && state.palette === 'brand-colors'
+      ? t('Use the reference palette only to complement the specified brand colors.', 'השתמשו בפלטת הרפרנס רק כהשלמה לצבעי המותג שנמסרו.')
+      : item[hebrew ? 2 : 1]);
+  const stylized = ['surreal','vintage-film','documentary','3d-render'].includes(state.style)
+    || ['3d-product-render','abstract-visual'].includes(state.objective);
+  const quality = stylized
+    ? t('Create a visually coherent, professionally art-directed image. Keep lighting direction, visual hierarchy, scale and perspective internally consistent where appropriate to the chosen treatment. Allow intentional departures and effects belonging to the selected style. Avoid accidental artifacts, unnecessary clutter and unrelated decorations.', 'צרו תמונה לכידה ומבוימת במקצועיות. שמרו על עקביות פנימית של תאורה, היררכיה, קנה מידה ופרספקטיבה בהתאם לטיפול שנבחר. אפשרו חריגות ואפקטים מכוונים השייכים לסגנון. הימנעו מפגמים מקריים, עומס וקישוטים לא רלוונטיים.')
+    : t('Create a visually coherent, professionally art-directed image. Maintain believable proportions, accurate material behavior, natural textures, consistent lighting direction, realistic contact shadows, appropriate reflections, and clean visual hierarchy. Avoid unnecessary visual clutter, distorted geometry, inconsistent perspective, accidental artifacts, and unrelated decorative elements. Prioritize the subject and the intended visual communication.', 'צרו תמונה לכידה עם ארט דיירקשן מקצועי. שמרו על פרופורציות אמינות, תגובת חומר מדויקת, מרקמים טבעיים, כיוון תאורה עקבי, צללי מגע מציאותיים, השתקפויות מתאימות והיררכיה נקייה. הימנעו מעומס, גאומטריה מעוותת, פרספקטיבה לא עקבית, פגמים מקריים וקישוטים לא רלוונטיים. תנו עדיפות לנושא ולמסר החזותי.');
+  return [
+    section('MAIN OBJECTIVE','מטרה מרכזית',setting('objective')),
+    section('SUBJECT','נושא מרכזי',state.subject),
+    section('TARGET AUDIENCE','קהל יעד',state.audience && t('Adapt the visual language to the following audience without relying on stereotypes: ', 'התאימו את השפה החזותית לקהל הבא בלי להסתמך על סטריאוטיפים: ') + state.audience),
+    section('ENVIRONMENT','סביבה',setting('environment')),
+    section('VISUAL STYLE','סגנון חזותי',setting('style')),
+    section('CAMERA AND FRAMING','מצלמה ופריים',setting('angle'),setting('framing'),setting('depth')),
+    section('LIGHTING','תאורה',ref('lighting') && state.lighting === 'auto' ? '' : setting('lighting')),
+    section('COMPOSITION','קומפוזיציה',ref('composition') && state.composition === 'auto' ? '' : setting('composition')),
+    section('COLOR AND MOOD','צבעוניות ואווירה',palette,setting('mood')),
+    section('PRODUCT ACCURACY','דיוק המוצר',product),
+    section('TYPOGRAPHY AND LOGO','טיפוגרפיה ולוגו',[
+      ...[text].flat(), ...promotion, ...benefit,
+      hasText && t('Text language: ','שפת הטקסט: ') + language,
+      hasText && t('ART DIRECTION FOR TYPOGRAPHY','ארט דיירקשן לטיפוגרפיה'),
+      ...(hasText ? typographyRules.map(rule => t(...rule)) : []), area, ...[logo].flat()
+    ]),
+    section('REFERENCE INSTRUCTIONS','הנחיות רפרנס',referenceLines),
+    section('SPECIAL REQUIREMENTS','הנחיות מיוחדות',state.notes),
+    section('OUTPUT FORMAT','פורמט הפלט',t(`Compose the final image for an aspect ratio of ${customRatio}. Use the closest supported ratio if necessary and preserve the intended composition.`, `התאימו את הקומפוזיציה ליחס תמונה של ${customRatio}. במידת הצורך השתמשו ביחס הנתמך הקרוב ביותר ושמרו על הקומפוזיציה המבוקשת.`)),
+    section('QUALITY CONTROL','בקרת איכות',quality,t('Honor explicit requirements and supplied product or brand details first, then the relevant references, explicit professional settings, and automatic choices. Keep mood and style subordinate to required product accuracy, exact wording, framing and brand colors.', 'כבדו תחילה דרישות מפורשות ופרטי מוצר ומותג שסופקו, אחר כך רפרנסים, בחירות מקצועיות מפורשות ולבסוף בחירות אוטומטיות. התאימו את האווירה והסגנון לדיוק המוצר, לנוסח המדויק, לפריים ולצבעי המותג.'))
+  ].filter(Boolean).join('\n\n');
+}
+
+const byId = id => document.getElementById(id);
+const form = byId('visual-builder');
+const referenceControls = [...form.querySelectorAll('input[name="references"]')];
+const pickers = [...form.querySelectorAll('.visual-picker')];
+const copyButton = byId('visual-copy');
+const output = byId('visual-output');
+const copyStatus = byId('visual-copy-status');
+let resultState = '';
+let currentPrompt = '';
+let invalidKeys = [];
+const resetPickers = [];
+
+function readState() {
+  const data = new FormData(form);
+  const overrides = Object.fromEntries([...data].filter(([key]) => key !== 'references'));
+  // Retain only the active message detail as context in other text modes.
+  const messageType = form.elements.namedItem('messageType').value;
+  const detailField = messageDetailFields[messageType];
+  if (detailField && !overrides[detailField]) {
+    const details = byId('v-' + detailField).value;
+    if (details.trim()) {
+      overrides.messageType = messageType;
+      overrides[detailField] = details;
+    }
+  }
+  return {
+    ...effectiveDefaults,
+    ...overrides,
+    references: data.getAll('references').filter(key => key !== 'none')
+  };
+}
+
+function syncConditionals() {
+  const raw = {};
+  for (const key of ['objective','environment','style','ratio','text','messageType','textLanguage','reserve','logo','lighting','angle','framing','composition','palette','mood']) {
+    const field = form.elements.namedItem(key);
+    raw[key] = field.value;
+  }
+  for (const container of form.querySelectorAll('[data-when]')) {
+    const visible = container.dataset.when.split('|').some(rule => {
+      const [key, expected] = rule.split(/!?=/);
+      return rule.includes('!=') ? raw[key] !== expected : raw[key] === expected;
+    });
+    container.hidden = !visible;
+    container.disabled = !visible;
+  }
+  byId('v-reference-hint').hidden = !referenceControls.some(control => control.checked && control.value !== 'none');
+}
+
+function clearErrors() {
+  for (const key of invalidKeys) {
+    byId('v-' + key).removeAttribute('aria-invalid');
+    byId('v-' + key + '-error').hidden = true;
+  }
+  invalidKeys = [];
+}
+
+function updateResultState() {
+  if (!currentPrompt) return;
+  const stale = resultState !== JSON.stringify(readState());
+  byId('visual-stale').hidden = !stale;
+  copyButton.disabled = stale;
+  if (stale) copyStatus.textContent = '';
+}
+
+function onChange() {
+  clearErrors();
+  syncConditionals();
+  updateResultState();
+}
+
+for (const picker of pickers) {
+  const summary = picker.querySelector('summary');
+  const hidden = picker.querySelector('input[type="hidden"]');
+  const search = picker.querySelector('input[type="search"]');
+  const choices = [...picker.querySelectorAll('[data-value]')];
+  const noMatches = picker.querySelector('.visual-no-matches');
+  const hint = byId('v-' + hidden.name + '-hint');
+  const filter = () => {
+    const query = search?.value.toLocaleLowerCase().trim() ?? '';
+    for (const choice of choices) {
+      choice.hidden = !(choice.textContent + ' ' + choice.dataset.description).toLocaleLowerCase().includes(query);
+    }
+    noMatches.hidden = choices.some(choice => !choice.hidden);
+  };
+
+  summary.addEventListener('click', () => {
+    if (picker.open) return;
+    for (const other of pickers) if (other !== picker) other.open = false;
+  });
+
+  picker.addEventListener('toggle', () => {
+    if (picker.open && search && document.activeElement === summary) search.focus({ preventScroll: true });
+    if (!picker.open && search) {
+      search.value = '';
+      filter();
+    }
+  });
+
+  search?.addEventListener('input', filter);
+  picker.addEventListener('keydown', event => {
+    if (!picker.open) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      picker.open = false;
+      summary.focus({ preventScroll: true });
+    } else if (event.key === 'Enter' && event.target === search) {
+      event.preventDefault();
+      choices.find(choice => !choice.hidden)?.click();
+    } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      const visible = choices.filter(choice => !choice.hidden);
+      if (!visible.length) return;
+      event.preventDefault();
+      const index = visible.indexOf(document.activeElement);
+      const step = event.key === 'ArrowDown' ? 1 : -1;
+      visible[index < 0 ? (step === 1 ? 0 : visible.length - 1)
+        : (index + step + visible.length) % visible.length].focus();
+    }
+  });
+
+  function selectChoice(choice) {
+    hidden.value = choice.dataset.value;
+    picker.querySelector('.visual-value').textContent = choice.textContent;
+    if (hint) hint.textContent = choice.dataset.description;
+    for (const option of choices) option.setAttribute('aria-pressed', String(option === choice));
+    picker.open = false;
+  }
+
+  for (const choice of choices) {
+    choice.addEventListener('click', () => {
+      selectChoice(choice);
+      summary.focus({ preventScroll: true });
+      onChange();
+    });
+  }
+  // Setting .value on a hidden input also changes its reset value.
+  const initialChoice = choices.find(choice => choice.dataset.value === hidden.value);
+  resetPickers.push(() => {
+    selectChoice(initialChoice);
+    if (search) search.value = '';
+    filter();
+  });
+}
+
+document.addEventListener('pointerdown', event => {
+  for (const picker of pickers) if (picker.open && !picker.contains(event.target)) picker.open = false;
+});
+form.addEventListener('input', event => {
+  if (!event.target.matches('input[type="search"], input[type="checkbox"]')) onChange();
+});
+form.addEventListener('change', event => {
+  if (event.target.name === 'references') {
+    const [none, ...references] = referenceControls;
+    if (event.target === none && none.checked) {
+      for (const control of references) control.checked = false;
+    } else {
+      none.checked = !references.some(control => control.checked);
+    }
+  }
+  if (!event.target.matches('input[type="search"]')) onChange();
+});
+
+function focusAt(element) {
+  element.focus({ preventScroll: true });
+  element.scrollIntoView({ block: 'nearest' });
+}
+
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  clearErrors();
+  const state = readState();
+  const errors = getPromptErrors(state);
+  if (errors.length) {
+    for (const [key, message] of errors) {
+      const control = byId('v-' + key);
+      const error = byId('v-' + key + '-error');
+      invalidKeys.push(key);
+      control.setAttribute('aria-invalid', 'true');
+      error.textContent = message;
+      error.hidden = false;
+      const advanced = control.closest('.visual-advanced');
+      if (advanced) advanced.open = true;
+    }
+    focusAt(byId('v-' + errors[0][0]));
+    return;
+  }
+
+  currentPrompt = buildImagePrompt(state);
+  resultState = JSON.stringify(state);
+  output.textContent = currentPrompt;
+  const rtl = state.language === 'he';
+  output.dir = rtl ? 'rtl' : 'ltr';
+  output.lang = rtl ? 'he' : 'en';
+  byId('visual-empty').hidden = true;
+  byId('visual-result').hidden = false;
+  byId('visual-new-brief').hidden = false;
+  byId('visual-attach-note').hidden = !state.references.length && state.logo !== 'original';
+  byId('visual-proof-note').hidden = state.text === 'none' && state.logo !== 'original';
+  copyStatus.textContent = '';
+  updateResultState();
+  focusAt(byId('visual-preview-title'));
+});
+
+copyButton.addEventListener('click', async () => {
+  const prompt = currentPrompt;
+  if (!prompt || copyButton.disabled) return;
+  let copied = false;
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(prompt);
+      copied = true;
+    }
+  } catch {
+    // Local-file or clipboard permission can require the selection fallback.
+  }
+  if (prompt !== currentPrompt || copyButton.disabled) return;
+  if (!copied) {
+    const field = document.createElement('textarea');
+    field.value = prompt;
+    field.readOnly = true;
+    field.className = 'visual-copy-fallback';
+    document.body.append(field);
+    field.select();
+    try { copied = document.execCommand('copy'); } catch {}
+    field.remove();
+  }
+  if (copied) {
+    copyStatus.textContent = 'הפרומפט הועתק ללוח.';
+    copyButton.focus({ preventScroll: true });
+  } else {
+    const range = document.createRange();
+    range.selectNodeContents(output);
+    output.focus({ preventScroll: true });
+    const selection = window.getSelection();
+    selection?.removeAllRanges();
+    selection?.addRange(range);
+    copyStatus.textContent = 'אפשר להעתיק את הטקסט המסומן ידנית.';
+  }
+});
+
+byId('visual-new-brief').addEventListener('click', () => {
+  form.reset();
+  for (const reset of resetPickers) reset();
+  currentPrompt = '';
+  resultState = '';
+  output.textContent = '';
+  copyStatus.textContent = '';
+  copyButton.disabled = true;
+  for (const id of ['visual-result', 'visual-new-brief', 'visual-stale', 'visual-attach-note', 'visual-proof-note']) {
+    byId(id).hidden = true;
+  }
+  byId('visual-empty').hidden = false;
+  byId('visual-advanced').open = false;
+  clearErrors();
+  syncConditionals();
+  const heading = byId('visual-builder-title');
+  heading.focus({ preventScroll: true });
+  heading.scrollIntoView({ block: 'start' });
+});
+
+byId('visual-edit').addEventListener('click', () => focusAt(byId('v-subject')));
+const visualIntro = byId('visual-intro');
+const visualIntroToggle = byId('visual-intro-toggle');
+function setVisualIntroVisible(visible) {
+  visualIntro.hidden = !visible;
+  visualIntroToggle.setAttribute('aria-expanded', String(visible));
+}
+byId('visual-intro-close').addEventListener('click', () => {
+  setVisualIntroVisible(false);
+  visualIntroToggle.focus({ preventScroll: true });
+});
+visualIntroToggle.addEventListener('click', () => setVisualIntroVisible(visualIntro.hidden));
+syncConditionals();
+
+})();
+</script>
 </body>
 </html>
