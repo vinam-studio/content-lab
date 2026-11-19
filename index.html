@@ -233,6 +233,47 @@
       });
     })();
   </script>
+  <script>
+    (() => {
+      const key = 'content-lab-intro-dismissed';
+      const root = document.documentElement;
+      let dismissed = false;
+
+      try {
+        dismissed = localStorage.getItem(key) === 'true';
+      } catch {
+        // Keep the default when browser storage is unavailable.
+      }
+      // Apply the saved state before the component enters the page.
+      if (dismissed) root.setAttribute('data-intro-dismissed', '');
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const intro = document.getElementById('content-lab-intro');
+        const toggle = document.getElementById('intro-toggle');
+        const close = document.getElementById('intro-close');
+
+        function setIntroVisible(visible, persist = true) {
+          intro.hidden = !visible;
+          toggle.setAttribute('aria-expanded', String(visible));
+          if (!persist) return;
+
+          try {
+            localStorage.setItem(key, String(!visible));
+          } catch {
+            // Keep the current state for this visit.
+          }
+        }
+
+        setIntroVisible(!dismissed, false);
+        root.removeAttribute('data-intro-dismissed');
+        close.addEventListener('click', () => {
+          setIntroVisible(false);
+          toggle.focus();
+        });
+        toggle.addEventListener('click', () => setIntroVisible(intro.hidden));
+      });
+    })();
+  </script>
   <style>
     /* Embedded type keeps the file usable offline. */
     @font-face { font-family: "Lab Hebrew"; font-weight: 400; font-display: swap;
@@ -367,6 +408,49 @@
       gap: 5px 16px;
       padding-bottom: 32px;
     }
+    html[data-intro-dismissed] .builder-intro { display: none; }
+    .builder-head:has(+ .builder-intro:not([hidden])) { padding-bottom: 0; }
+    .builder-heading { display: flex; align-items: center; gap: 10px; min-inline-size: 0; }
+    .builder-intro {
+      position: relative;
+      padding: 20px 0;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      background: transparent;
+      text-align: right;
+    }
+    .intro-title {
+      margin: 0 0 8px;
+      padding-inline-end: 42px;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+    .intro-copy {
+      max-inline-size: 560px;
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.7;
+    }
+    .intro-copy p { margin: 0; }
+    .intro-copy p + p { margin-top: 1em; }
+    .intro-icon-button {
+      display: grid;
+      place-items: center;
+      flex: 0 0 32px;
+      inline-size: 32px;
+      block-size: 32px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--text-secondary);
+    }
+    .intro-icon-button:hover { color: var(--text); }
+    .intro-icon-button:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 3px; }
+    .intro-close { position: absolute; inset-block-start: 14px; inset-inline-end: 0; }
+
     .builder-head p, .preview-head p { margin: 0; color: var(--text-secondary); font-size: 13px; line-height: 1.55; }
     .form-row { padding-block: 0 32px; }
     .form-row fieldset { padding: 0; border: 0; margin: 0; }
@@ -691,9 +775,24 @@
 
         <form id="builder" class="builder" aria-labelledby="builder-title" novalidate>
           <div class="builder-head">
-            <h2 id="builder-title" class="workspace-title" tabindex="-1">בניית הבריף</h2>
+            <div class="builder-heading">
+              <h2 id="builder-title" class="workspace-title" tabindex="-1">בניית הבריף</h2>
+              <button class="intro-icon-button" id="intro-toggle" type="button" aria-label="הצגת הסבר על השימוש במחולל" aria-controls="content-lab-intro" aria-expanded="true">
+                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="7"/><path d="M8.5 7.5v4.25"/><circle cx="8.5" cy="5.25" r=".65" fill="currentColor" stroke="none"/></svg>
+              </button>
+            </div>
             <p>מספיק להתחיל מרעיון אחד.</p>
           </div>
+          <section class="builder-intro" id="content-lab-intro" aria-labelledby="intro-title">
+            <h3 class="intro-title" id="intro-title">איך זה עובד?</h3>
+            <button class="intro-icon-button intro-close" id="intro-close" type="button" aria-label="סגירת ההסבר">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true"><path d="m4 4 8 8m0-8-8 8"/></svg>
+            </button>
+            <div class="intro-copy">
+              <p>Content Lab עוזר לכם להפוך רעיון ראשוני לבריף מדויק ליצירת תוכן.</p>
+              <p>בחרו פורמט, הגדירו מה תרצו להשיג וכתבו את הרעיון שלכם בכמה מילים. המערכת תבנה עבורכם בריף מוכן להעתקה ל־ChatGPT, שיעזור לכם לקבל תוכן מוכן לשימוש כבר בתגובה הראשונה.</p>
+            </div>
+          </section>
           <div class="form-row">
             <fieldset>
               <legend class="form-label"><span class="number" aria-hidden="true">01</span> מה יוצרים?</legend>
