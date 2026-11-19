@@ -822,6 +822,16 @@
       .labs-nav { grid-area: 2 / 1 / 3 / -1; }
     }
 
+    #content-advanced-fields { display: grid; gap: 24px; min-inline-size: 0; }
+    #content-advanced-fields > div { min-inline-size: 0; }
+    #content-advanced-fields select { font-family: var(--sans); }
+    #content-advanced-fields .form-label { margin-block-end: 4px; font-size: 14px; font-weight: 600; }
+    #content-advanced-fields .help { font-size: 12px; line-height: 1.6; }
+    #content-advanced-fields .advanced-fixed-help { margin: 0 0 8px; }
+    #content-advanced-fields .advanced-dynamic-help { margin: 8px 0 0; }
+    #content-advanced-fields .advanced-detail { margin-block-start: 10px; }
+    #content-advanced-active { margin-inline-start: 8px; font-weight: 400; }
+
   </style>
 </head>
 <body>
@@ -935,6 +945,11 @@
               <div id="tone-options" class="choices tone-options"></div>
             </fieldset>
           </div>
+          <details class="visual-advanced" id="content-advanced">
+            <summary><span>הגדרות מתקדמות <small id="content-advanced-active" class="help" hidden>מותאם אישית</small></span></summary>
+            <p class="help">לא חובה. מאפשר לדייק את האופן שבו התוכן ייבנה.</p>
+            <div id="content-advanced-fields"></div>
+          </details>
           <div class="form-actions">
             <button type="submit" class="button generate"><span id="generate-label">יצירת בריף</span><span class="button-arrow" aria-hidden="true">←</span></button>
           </div>
@@ -1842,15 +1857,388 @@ CTA אפשרי: שמירה, שיתוף או ללא CTA.
       toneOptions.append(option);
     }
 
+    const ADVANCED_CONFIG = {
+      "angle": {
+        "label": "זווית התוכן",
+        "help": "מאיזו נקודת מבט נציג את הרעיון?",
+        "default": "auto",
+        "options": {
+          "auto": {
+            "label": "בחירה אוטומטית",
+            "description": "המודל שיקבל את הבריף יבחר את הזווית המתאימה לרעיון ולמטרה."
+          },
+          "mistake": {
+            "label": "טעות נפוצה",
+            "description": "הצגת טעות שאנשים עושים ומה אפשר ללמוד ממנה.",
+            "promptInstruction": "הצג את הרעיון דרך טעות נפוצה. הסבר מה הטעות ומה אפשר ללמוד ממנה.",
+            "detail": {
+              "label": "יש משהו שחשוב להתייחס אליו?",
+              "placeholder": "למשל: בעלי עסקים משנים לוגו לפני שהם מגדירים מיצוב..."
+            }
+          },
+          "comparison": {
+            "label": "השוואה",
+            "description": "השוואה בין שתי אפשרויות, גישות או תוצאות.",
+            "promptInstruction": "הצג את הרעיון דרך השוואה ברורה בין שתי אפשרויות, גישות או תוצאות.",
+            "detail": {
+              "label": "יש משהו שחשוב להתייחס אליו?",
+              "placeholder": "למשל: אתר תדמית רגיל לעומת אתר שמציג את המוצר..."
+            }
+          },
+          "unpopular": {
+            "label": "דעה לא פופולרית",
+            "description": "הצגת עמדה שמאתגרת תפיסה מקובלת.",
+            "promptInstruction": "הצג עמדה שמאתגרת תפיסה מקובלת. אל תמציא עמדה או מחלוקת שלא קיימות בחומר הגלם.",
+            "detail": {
+              "label": "יש משהו שחשוב להתייחס אליו?",
+              "placeholder": "למשל: לוגו יפה לא בהכרח הופך עסק למותג..."
+            }
+          },
+          "personal": {
+            "label": "סיפור אישי",
+            "description": "רעיון שמועבר דרך חוויה אמיתית.",
+            "promptInstruction": "הצג את הרעיון דרך חוויה אישית אמיתית שסופקה. אל תמציא אירועים או רגשות.",
+            "detail": {
+              "label": "יש משהו שחשוב להתייחס אליו?",
+              "placeholder": "תאר בקצרה מה קרה ומה היה הרגע המשמעותי..."
+            }
+          },
+          "desired": {
+            "label": "תוצאה רצויה",
+            "description": "הצגת מצב או תוצאה שהקהל רוצה להגיע אליהם.",
+            "promptInstruction": "התמקד בתוצאה שהקהל רוצה להשיג, והמחֵש כיצד היא עשויה להיראות.",
+            "detail": {
+              "label": "יש משהו שחשוב להתייחס אליו?",
+              "placeholder": "למשל: לגרום ללקוחות להרגיש שהמוצר איכותי..."
+            }
+          },
+          "behind": {
+            "label": "מאחורי הקלעים",
+            "description": "הצגת החלטה, תהליך או רגע מתוך העבודה.",
+            "promptInstruction": "הצג רגע מתוך תהליך העבודה, החלטה או התלבטות מקצועית שסופקו.",
+            "detail": {
+              "label": "יש משהו שחשוב להתייחס אליו?",
+              "placeholder": "למשל: למה החלטתי לפסול את הכיוון הראשון..."
+            }
+          }
+        }
+      },
+      "source": {
+        "label": "על מה מבוסס התוכן?",
+        "help": "איזה מידע, ניסיון או סיפור עומדים מאחורי הרעיון?",
+        "default": "auto",
+        "options": {
+          "auto": {
+            "label": "בחירה אוטומטית",
+            "description": "השתמש במידע שכבר כתבת ברעיון הראשוני."
+          },
+          "experience": {
+            "label": "חוויה אישית",
+            "description": "משהו שקרה לך ושאפשר ללמוד ממנו.",
+            "promptInstruction": "בסס את התוכן על חוויה אישית אמיתית שתוארה בבריף. אל תמציא פרטים נוספים.",
+            "detail": {
+              "label": "מה חשוב לדעת?",
+              "placeholder": "מה קרה? כתוב את עיקרי הסיפור במשפט או שניים."
+            }
+          },
+          "project": {
+            "label": "פרויקט אמיתי",
+            "description": "פרויקט, לקוח או עבודה שעשית.",
+            "promptInstruction": "בסס את התוכן על הפרויקט האמיתי שתואר. אל תמציא לקוחות, תוצאות או נתונים.",
+            "detail": {
+              "label": "מה חשוב לדעת?",
+              "placeholder": "איזה פרויקט זה ומה חשוב לדעת עליו?"
+            }
+          },
+          "question": {
+            "label": "שאלה שנתקלתי בה",
+            "description": "שאלה שלקוח, חבר או אדם אחר שאל.",
+            "promptInstruction": "בנה את התוכן סביב שאלה אמיתית שהמשתמש נתקל בה.",
+            "detail": {
+              "label": "מה חשוב לדעת?",
+              "placeholder": "מה בדיוק שאלו אותך?"
+            }
+          },
+          "observation": {
+            "label": "תצפית או תובנה",
+            "description": "משהו שראית, שמת לב אליו או הבנת.",
+            "promptInstruction": "בסס את התוכן על תצפית או תובנה שהמשתמש תיאר.",
+            "detail": {
+              "label": "מה חשוב לדעת?",
+              "placeholder": "מה ראית או איזו תובנה עלתה לך?"
+            }
+          },
+          "opinion": {
+            "label": "רעיון או דעה",
+            "description": "עמדה או מחשבה שאתה רוצה להביע.",
+            "promptInstruction": "בסס את התוכן על העמדה שהמשתמש הציג, בלי להמציא דעות נוספות.",
+            "detail": {
+              "label": "מה חשוב לדעת?",
+              "placeholder": "מה הדעה שלך בנושא?"
+            }
+          }
+        }
+      },
+      "hook": {
+        "label": "סוג ההוק",
+        "help": "איך נגרום לאנשים לעצור ולהתעניין בתוכן?",
+        "default": "auto",
+        "options": {
+          "auto": {
+            "label": "בחירה אוטומטית",
+            "description": "בחירת פתיחה שמתאימה לתוכן ולמטרה."
+          },
+          "numbered": {
+            "label": "רשימה ממוספרת",
+            "description": "למשל: \"5 טעויות שכדאי להימנע מהן\".",
+            "promptInstruction": "פתח בכותרת ממוספרת שמבטיחה ערך ברור. מספר הנקודות בכותרת חייב להתאים למספר הנקודות בתוכן."
+          },
+          "curiosity": {
+            "label": "סקרנות",
+            "description": "פתיחה שמעלה שאלה וגורמת לרצות לדעת עוד.",
+            "promptInstruction": "פתח במשפט שמעורר סקרנות אמיתית ומקבל מענה בהמשך התוכן. הימנע מקליקבייט מעורפל."
+          },
+          "question": {
+            "label": "שאלה",
+            "description": "למשל: \"למה אנשים משלמים יותר על מותגים מסוימים?\"",
+            "promptInstruction": "פתח בשאלה ספציפית ורלוונטית לקהל היעד."
+          },
+          "opinion": {
+            "label": "עמדה נחרצת",
+            "description": "למשל: \"לוגו יפה הוא לא תחליף למיתוג טוב\".",
+            "promptInstruction": "פתח בעמדה ברורה וישירה שמבוססת על המידע שסופק."
+          },
+          "comparison": {
+            "label": "השוואה",
+            "description": "למשל: \"אותו מוצר, שתי אריזות שונות\".",
+            "promptInstruction": "פתח בהשוואה קצרה שממחישה הבדל משמעותי."
+          },
+          "result": {
+            "label": "תוצאה רצויה",
+            "description": "למשל: \"ככה נראה מותג שמשדר איכות\".",
+            "promptInstruction": "פתח בתוצאה רצויה או במצב שהקהל שואף אליו."
+          },
+          "surprise": {
+            "label": "הפתעה",
+            "description": "פתיחה שמציגה משהו לא צפוי או שובר ציפייה.",
+            "promptInstruction": "פתח בפרט מפתיע או בשבירת ציפייה שמבוססים על המידע שסופק."
+          }
+        },
+        "count": {
+          "label": "כמה נקודות?",
+          "options": [
+            "auto",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "10"
+          ]
+        }
+      },
+      "action": {
+        "label": "פעולה רצויה",
+        "help": "מה היית רוצה שהצופה יעשה אחרי התוכן?",
+        "default": "auto",
+        "options": {
+          "auto": {
+            "label": "בחירה אוטומטית",
+            "description": "המודל יבחר אם ואיזו פעולה מתאימה לתוכן."
+          },
+          "comment": {
+            "label": "תגובה",
+            "description": "לעודד את הקהל להגיב או להשתתף בדיון.",
+            "promptInstruction": "סיים בהנעה לתגובה שמתאימה לתוכן. אל תבקש תגובה כללית וחסרת משמעות.",
+            "detail": {
+              "label": "איזו תגובה נרצה לקבל?",
+              "placeholder": "למשל: שיכתבו 'מיתוג' בתגובות..."
+            }
+          },
+          "save": {
+            "label": "שמירה",
+            "description": "לעודד אנשים לשמור תוכן שימושי להמשך.",
+            "promptInstruction": "אם התוכן שימושי להמשך, סיים בהזמנה קצרה לשמור אותו."
+          },
+          "share": {
+            "label": "שיתוף",
+            "description": "לעודד העברה לאנשים נוספים.",
+            "promptInstruction": "סיים בהזמנה טבעית לשתף את התוכן עם אדם רלוונטי."
+          },
+          "follow": {
+            "label": "מעקב",
+            "description": "להזמין אנשים לעקוב אחרי היוצר.",
+            "promptInstruction": "סיים בהזמנה קצרה לעקוב לקבלת תוכן נוסף בנושא."
+          },
+          "message": {
+            "label": "הודעה פרטית",
+            "description": "לעודד פנייה ישירה ליוצר.",
+            "promptInstruction": "סיים בהזמנה ברורה לשלוח הודעה פרטית.",
+            "detail": {
+              "label": "על מה נרצה שיפנו?",
+              "placeholder": "למשל: לקבל פרטים על השירות..."
+            }
+          },
+          "link": {
+            "label": "כניסה לקישור",
+            "description": "להזמין את הצופה לעבור לקישור רלוונטי.",
+            "promptInstruction": "סיים בהזמנה להיכנס לקישור הרלוונטי. אל תמציא כתובת URL.",
+            "detail": {
+              "label": "לאן הקישור מוביל?",
+              "placeholder": "למשל: אתר, עמוד מוצר או טופס הרשמה..."
+            }
+          },
+          "none": {
+            "label": "ללא הנעה לפעולה",
+            "description": "לסיים באופן טבעי בלי לבקש מהצופה לעשות משהו.",
+            "promptInstruction": "סיים את התוכן באופן טבעי, ללא CTA או בקשה לפעולה."
+          }
+        }
+      }
+    };
+
+    const advancedControls = Object.entries(ADVANCED_CONFIG).map(([key, config]) => {
+      const field = document.createElement('div');
+      const id = 'content-advanced-' + key;
+      const label = document.createElement('label');
+      label.htmlFor = id;
+      label.className = 'form-label';
+      label.textContent = config.label;
+
+      const help = document.createElement('p');
+      help.id = id + '-help';
+      help.className = 'help advanced-fixed-help';
+      help.textContent = config.help;
+
+      const select = document.createElement('select');
+      select.id = id;
+      select.name = key;
+      select.className = 'field';
+      select.setAttribute('aria-describedby', help.id + ' ' + id + '-description');
+      const description = document.createElement('p');
+      description.className = 'help advanced-dynamic-help';
+      description.id = id + '-description';
+      description.setAttribute('aria-live', 'polite');
+      field.append(label, help, select, description);
+
+      const details = [];
+      for (const [value, option] of Object.entries(config.options)) {
+        select.add(new Option(option.label, value, value === config.default));
+        if (!option.detail) continue;
+
+        const group = document.createElement('div');
+        group.className = 'advanced-detail';
+        const detail = document.createElement('textarea');
+        detail.name = key + 'Details';
+        detail.id = id + '-' + value;
+        detail.className = 'field';
+        detail.dir = 'auto';
+        detail.rows = 2;
+        detail.placeholder = option.detail.placeholder;
+        const detailLabel = document.createElement('label');
+        detailLabel.htmlFor = detail.id;
+        detailLabel.className = 'form-label';
+        detailLabel.textContent = option.detail.label;
+        group.append(detailLabel, detail);
+        field.append(group);
+        details.push({ value, group, control: detail });
+      }
+
+      if (config.count) {
+        const group = document.createElement('div');
+        group.className = 'advanced-detail';
+        const count = document.createElement('select');
+        count.id = id + '-count';
+        count.name = 'hookCount';
+        count.className = 'field';
+        for (const value of config.count.options) {
+          count.add(new Option(value === 'auto' ? 'אוטומטי' : value, value, value === 'auto'));
+        }
+        const countLabel = document.createElement('label');
+        countLabel.htmlFor = count.id;
+        countLabel.className = 'form-label';
+        countLabel.textContent = config.count.label;
+        group.append(countLabel, count);
+        field.append(group);
+        details.push({ value: 'numbered', group, control: count });
+      }
+
+      byId('content-advanced-fields').append(field);
+      return { config, select, description, details };
+    });
+
+    function syncAdvancedControls() {
+      let active = false;
+      for (const { config, select, description, details } of advancedControls) {
+        const value = select.value;
+        active ||= value !== config.default;
+        const next = config.options[value].description;
+        if (description.textContent !== next) description.textContent = next;
+        for (const detail of details) {
+          const visible = detail.value === value;
+          detail.group.hidden = !visible;
+          detail.control.disabled = !visible;
+        }
+      }
+      byId('content-advanced-active').hidden = !active;
+    }
+
+    function readAdvanced(values) {
+      const advanced = {};
+      for (const [key, config] of Object.entries(ADVANCED_CONFIG)) {
+        const choice = values[key] ?? config.default;
+        if (choice === config.default || !Object.hasOwn(config.options, choice)) continue;
+        const detail = config.options[choice].detail && values[key + 'Details'];
+        advanced[key] = {
+          choice,
+          ...(detail?.trim() ? { detail } : {}),
+          ...(key === 'hook' && choice === 'numbered' ? { count: values.hookCount ?? 'auto' } : {})
+        };
+      }
+      return advanced;
+    }
+
+    function getAdvancedInstructions(advanced = {}) {
+      const instructions = [];
+      const detailLabels = {
+        angle: 'פרטים נוספים על הזווית',
+        source: 'חומר גלם נוסף',
+        action: 'פרטים להנעה לפעולה'
+      };
+
+      for (const [key, { choice, detail, count }] of Object.entries(advanced)) {
+        const instruction = ADVANCED_CONFIG[key].options[choice].promptInstruction;
+        if (!instruction) continue;
+        const lines = [instruction];
+        if (detail) lines.push(detailLabels[key] + ': ' + detail);
+        if (key === 'hook' && choice === 'numbered') {
+          lines.push(count === 'auto'
+            ? 'בחר מספר נקודות שמתאים לנושא ולחומר הגלם.'
+            : `הכותרת והתוכן חייבים לכלול בדיוק ${count} נקודות שונות.`);
+          lines.push('אם אין מספיק מידע למספר הנקודות, אל תמציא נקודות ונסח את התוכן כך שאפשר יהיה להשלים אותו.');
+        }
+        instructions.push(lines.join('\n'));
+      }
+
+      if (instructions.length) {
+        instructions.unshift('כבד את דרישות האמינות והפורמט והגש תוצר מלא בתשובה הראשונה. במסגרתן, תן לבחירות המפורשות בהגדרות המתקדמות עדיפות על פני ברירות המחדל בהנחיות המטרה והסגנון. התאם את הבחירות לפורמט שנבחר.');
+      }
+      return instructions;
+    }
+
+    syncAdvancedControls();
+
     function readDraft() {
-      const { format, goal, topic, takeaway, audience, tone } = Object.fromEntries(new FormData(form));
+      const values = Object.fromEntries(new FormData(form));
+      const { format, goal, topic, takeaway, audience, tone } = values;
       return {
         format,
         goal: goal === 'reach' ? 'exposure' : goal,
         topic,
         message: takeaway,
         audience,
-        tone
+        tone,
+        advanced: readAdvanced(values)
       };
     }
 
@@ -1898,11 +2286,13 @@ CTA אפשרי: שמירה, שיתוף או ללא CTA.
 
     function buildCarouselPrompt(context) {
       const goal = CAROUSEL_GOALS[context.goal] ?? CAROUSEL_GOALS.value;
+      const advanced = getAdvancedInstructions(context.advanced);
       return [
         promptOpening,
         formatSection(getUserContext(context)),
         goal.instructions.trim(),
         CAROUSEL_GLOBAL_RULES.trim(),
+        ...(advanced.length ? [formatSection({ title: 'הגדרות מתקדמות', paragraphs: advanced })] : []),
         getToneInstructions(context.tone).trim(),
         TONE_PRIORITY_RULES.trim(),
         CAROUSEL_OUTPUT.trim()
@@ -1913,6 +2303,7 @@ CTA אפשרי: שמירה, שיתוף או ללא CTA.
       const { format, goal, message, audience, tone } = draft;
       if (format === 'carousel') return buildCarouselPrompt(draft);
       const platform = formats[format];
+      const advanced = getAdvancedInstructions(draft.advanced);
       return [
         getUserContext(draft),
         {
@@ -1925,6 +2316,7 @@ CTA אפשרי: שמירה, שיתוף או ללא CTA.
         },
         { title: 'הנחיות לפי הפלטפורמה', paragraphs: [platform.instructions] },
         { title: 'הנחיות לפי מטרת התוכן', paragraphs: getGoalInstructions(format, goal) },
+        ...(advanced.length ? [{ title: 'הגדרות מתקדמות', paragraphs: advanced }] : []),
         { title: 'הנחיות לפי הטון', paragraphs: [getToneInstructions(tone).trim(), TONE_PRIORITY_RULES.trim()] },
         {
           title: 'פורמט תשובה וכללי איכות',
@@ -1986,6 +2378,7 @@ CTA אפשרי: שמירה, שיתוף או ללא CTA.
     }
 
     function updateForm() {
+      syncAdvancedControls();
       const draft = readDraft();
       const goalHelp = byId('goal-help');
       const nextHelp = (goals[draft.goal] ?? goals.value).help;
@@ -2036,6 +2429,7 @@ CTA אפשרי: שמירה, שיתוף או ללא CTA.
 
     newBrief.addEventListener('click', () => {
       form.reset();
+      byId('content-advanced').open = false;
       currentBrief = '';
       currentDraft = '';
       brief.replaceChildren();
