@@ -1920,54 +1920,93 @@
   (() => {
     'use strict';
 
-    const promptOpening = `צור תוצר אחד מלא ומוכן לשימוש כבר בתשובה הראשונה. אם חסר פרט מהותי, אפשר לשאול שאלה אחת קצרה אחרי התוצר.
-
-כתוב בעברית ישראלית טבעית, ברורה ומדויקת, בהתאמה לקהל, לפלטפורמה ולמטרה. העדף ניסוח פשוט ושיחתי, אוצר מילים מגוון ומשפטים באורכים משתנים. שלב הומור כשהוא מתאים לסגנון ולחומר הגלם.
-
-התמקד ברעיון מרכזי אחד. בחר מבנה שהולם את חומר הגלם, למשל סיפור, שאלה, הבחנה, דוגמה או הצגה ישירה. שמור על הביטויים, הדעות, ההתלהבות וההסתייגויות שהמשתמש הביא, בהתאם לבחירת הסלנג.
-
-שמור על משמעות חומר הגלם. אין להמציא עובדות, נתונים, חוויות, עמדות, תוצאות, תנאים מסחריים או הבטחות. אם חסר פרט עובדתי, כתוב באופן שאינו תלוי בו או סמן פרט חיוני להשלמה.
-
-השתמש בפיסוק עברי פשוט ובמידה טבעית. להפרדה בין חלקי משפט העדף פסיקים, נקודות או ניסוח מחדש. השתמש במקף רגיל (-) רק כשיש בו צורך לשוני, למשל במילים לועזיות או בצירופים מתאימים. הימנע ממקף עליון (־), ארוך (—) ובינוני (–) כחלק מסגנון הכתיבה.
-
-סדר עדיפות: 1. דיוק עובדתי ושמירה על חומר הגלם. 2. דרישות הפלטפורמה והפורמט. 3. בחירות מפורשות של המשתמש, כולל פעולה רצויה, אורך וסלנג. 4. מטרת התוכן. 5. דוגמת הקול האישי והגדרות סגנון הכתיבה. 6. ברירות מחדל כלליות.`;
+    const promptOpening = 'צור רק תוצר אחד מוכן לפרסום בתשובה הראשונה.';
 
     const formats = {
-      carousel: { label: 'Instagram Carousel' },
+      carousel: {
+        task: 'צור קרוסלת אינסטגרם.',
+        output: 'בכל שקופית תן טקסט מדויק וויזואל פשוט שמקדמים את הרעיון. הוסף קפשן משלים.',
+        hooks: {
+          exposure: ['contrast', 'reveal', 'overlooked'],
+          value: ['numbered', 'restart', 'technique'],
+          connection: ['lateLesson', 'conversation', 'milestone'],
+          sales: ['desire', 'proof', 'roleReversal']
+        }
+      },
       reel: {
-        label: 'Instagram Reel',
-        task: 'צור ריל אחד לאינסטגרם, עם הנחיות צילום וקפשן מלא ומוכן להעתקה.',
-        instructions: 'תכנן את הריל סביב מה שרואים על המסך. כלול טקסט מדובב רק אם הוא נחוץ.',
-        output: [
-          'הוק: הטקסט המדויק שמופיע על המסך.',
-          'אורך: משך הסרטון המומלץ.',
-          'מה רואים: שוטים או פעולות לפי סדר, עם תזמון משוער.',
-          'טקסט/קריינות: טקסט מדויק רק אם יש צורך בדיבור. השמט סעיף זה כשאין דיבור.',
-          'אווירה: קצב, תחושה וסגנון הצילום או העריכה.',
-          'קפשן: טקסט מלא, מוכן להעתקה.'
-        ]
+        task: 'צור ריל לאינסטגרם.',
+        output: 'פתח בתוך 1–3 שניות בוויזואל, טקסט או דיבור. תן אורך, שוטים פשוטים בתזמון משוער, קצב, קריינות לפי צורך וקפשן קצר.',
+        hooks: {
+          exposure: ['visualResult', 'unexpected', 'belief'],
+          value: ['demonstration', 'correction', 'unlock'],
+          connection: ['turningPoint', 'behind', 'honestReaction'],
+          sales: ['transformation', 'desiredScene', 'proof']
+        }
       },
       story: {
-        label: 'Instagram Story',
-        task: 'צור סטורי אחד לאינסטגרם או רצף אחד של מסכים, עם ויזואל וטקסט מדויק לכל מסך.',
-        instructions: 'בחר את מספר המסכים המינימלי שנדרש להעברת הרעיון, בהנחיית טווח האורך שנבחר.',
-        output: [
-          'מספר את המסכים לפי הסדר (״מסך 1״, ״מסך 2״ וכן הלאה). הצג לכל מסך:',
-          'ויזואל: מה לצלם או להציג.',
-          'טקסט: הניסוח המדויק.',
-          'אינטראקציה: אם נדרשת.',
-          'אין להוסיף מסכים שאין בהם צורך.'
-        ]
+        task: 'צור סטורי לאינסטגרם.',
+        output: 'הסתפק במינימום מסכים. לכל מסך כתוב ויזואל וטקסט מדויק. אינטראקציה רק כשמועילה ומתאימה לפעולה הנבחרת.',
+        hooks: {
+          exposure: ['relatable', 'visualResult', 'question'],
+          value: ['selfCheck', 'quickWin', 'friction'],
+          connection: ['conversation', 'behind', 'milestone'],
+          sales: ['desiredScene', 'customerLine', 'desire']
+        }
       },
       linkedin: {
-        label: 'LinkedIn Post',
-        task: 'כתוב פוסט אחד מלא ללינקדאין, מוכן להעתקה ולפרסום.',
-        instructions: 'כתוב פסקאות קצרות כשזה עוזר לקריאה. שמור משפטים קשורים באותה פסקה והשתמש ברשימות או בכותרות משנה כשיש בהן צורך. האשטגים ואימוג׳ים הם אפשרות רק כשהם מתאימים לבריף.',
-        output: [
-          'החזר את הפוסט המלא, מוכן להעתקה, בלי ניתוח או גרסאות חלופיות.'
-        ]
+        task: 'כתוב פוסט מלא ללינקדאין.',
+        output: 'פתח בשורה או שתיים עם תוכן ממשי. המשך בפסקאות טבעיות סביב דוגמה או עמדה מבוססת. בלי האשטגים או אימוג׳ים אוטומטיים.',
+        hooks: {
+          exposure: ['contrary', 'contrast', 'overlooked'],
+          value: ['myth', 'costlyMistake', 'restart'],
+          connection: ['lateLesson', 'turningPoint', 'honestReaction'],
+          sales: ['transformation', 'roleReversal', 'customerLine']
+        }
       }
     };
+
+    const HOOK_PATTERNS = {
+      contrary: 'עמדה נגד המוסכמה',
+      belief: 'עובדה שמערערת הנחה',
+      roleReversal: 'מה היית בוחר במקום הדרך המקובלת',
+      correction: 'טעות נפוצה ותיקון',
+      myth: 'מיתוס והסבר מדויק יותר',
+      costlyMistake: 'טעות ומחיר ממשי ששולם',
+      contrast: 'מה ציפינו שיקרה מול מה שקרה',
+      unexpected: 'תוצאה שנראתה לא אפשרית',
+      reveal: 'פרט מפתיע שנחשף מוקדם',
+      visualResult: 'ויזואל או מספר שסופק',
+      question: 'שאלה בלתי צפויה',
+      selfCheck: 'שאלה שהקהל יכול לבדוק על עצמו',
+      behind: 'רגע מאחורי הקלעים',
+      overlooked: 'פרט חשוב שאנשים נוטים לפספס',
+      relatable: 'רגע מוכר',
+      friction: 'בעיה קטנה שחוזרת ביומיום',
+      quickWin: 'צעד פשוט לתוצאה שימושית',
+      technique: 'שיטה אחת שמקלה על משימה',
+      numbered: 'מספר סיבות ממוקדות עם פתרון',
+      unlock: 'שינוי אחד שמשפר את התוצאה',
+      restart: 'מה הייתי עושה אילו התחלתי היום',
+      turningPoint: 'רגע אישי שבו משהו השתנה',
+      lateLesson: 'לקח אמיתי שהגיע באיחור',
+      honestReaction: 'תגובה אישית מתוך רגע אמיתי',
+      milestone: 'רגע משמעותי ופרט מוחשי ממנו',
+      demonstration: 'פעולה שמדגימה מיד את השיטה',
+      transformation: 'לפני ואחרי מבוסס',
+      customerLine: 'משפט אמיתי של לקוח',
+      proof: 'הוכחה מתועדת',
+      desire: 'תוצאה שהקהל רוצה',
+      desiredScene: 'סיטואציה שממחישה תועלת רצויה',
+      conversation: 'פרט משיחה אמיתית'
+    };
+
+    const CAROUSEL_FRAMEWORKS = [
+      'השראה מלקוח אמיתי',
+      'תובנה מרגע שקרה',
+      'מה שלמדתי מאוחר, מניסיון אמיתי',
+      'ניצחון מהיר עם טכניקה אחת',
+      'מבט מבפנים על שיחה אמיתית'
+    ];
 
     const goals = {
       exposure: { label: 'חשיפה', help: 'להגיע לאנשים שעדיין לא מכירים אותך.' },
@@ -1977,51 +2016,11 @@
     };
 
     const GOAL_GUIDANCE = {
-      exposure: 'עורר עניין אצל אנשים שעדיין לא מכירים את הנושא. בחר זווית ייחודית, שאלה, תובנה או סיטואציה שכדאי להכיר, לחשוב עליה או לשתף. אם זה מוצר או כלי חדש, אפשר להציג את הרעיון או הסיפור שמאחוריו.',
-      value: 'תן לקהל תובנה שימושית או פעולה שאפשר ליישם. בחר הסבר, דוגמה, הדגמה או מדריך קצר לפי מה שהכי יעזור לקהל להבין ולפעול.',
-      connection: 'חזק היכרות ואמון דרך נקודת מבט, תהליך, רגע או מחשבה שסופקו. בחר מה מאפשר לקהל להבין את האדם שמאחורי התוכן.',
-      sales: 'הבהר מה מוצע, איזה ערך רלוונטי יש לקהל ולמה כדאי להשתמש במוצר או בשירות. בחר הצגה ישירה, הדגמה, סיפור, תועלת או פתרון לפי חומר הגלם. היעזר בהוכחות שסופקו והשאר מקום לסיום טבעי.'
+      exposure: 'עצור קהל חדש ורלוונטי בזווית נגישה או בניגוד מסקרן. חשוף מוקדם פרט ממשי ותן סיבה להמשיך או לשתף.',
+      value: 'בחר בעיה קטנה של הקהל. הדגם תשובה אחת וסיים בצעד שאפשר ליישם.',
+      connection: 'התחל ברגע, החלטה או מחשבה שסופקו. פתח אותם לתובנה שמעוררת הזדהות ואמון. בהיעדר חוויה, הישען על נקודת מבט שסופקה או על הסבר ישיר.',
+      sales: 'התחל בתוצאה הרצויה לקהל. המחֵש אותה בעזרת הדגמה או הוכחה שסופקה, וחבר להצעה שקיימת בפועל.'
     };
-
-    const PLATFORM_GOAL_GUIDANCE = {
-      reel: {
-        exposure: 'אפשר לפתוח בפריים מסקרן, בהשוואה או בהדגמה שקל לצלם ולהבין.',
-        value: 'המחֵש תובנה אחת באמצעות פעולה או דוגמה קצרה על המסך.',
-        connection: 'אפשר להראות רגע אמיתי או להמחיש נקודת מבט דרך צילום פשוט.',
-        sales: 'הראה את המוצר או השירות בפעולה כשזה עוזר להבין את התועלת.'
-      },
-      story: {
-        exposure: 'הצג שאלה, השוואה או רגע שמובנים במבט מהיר.',
-        value: 'הצג תובנה אחת והמחשה קצרה כשיש בכך צורך.',
-        connection: 'אפשר לשלב תמונה או וידאו טבעי עם מחשבה קצרה מחומר הגלם.',
-        sales: 'הצג את ההצעה ואת התועלת שלה בכמה מסכים שנחוצים להבנה.'
-      },
-      linkedin: {
-        exposure: 'אפשר לפתוח בהבחנה או בדעה מעניינת, ולהרחיב דרך דוגמה או טיעון.',
-        value: 'אפשר להסביר בעיה מקצועית דרך דוגמה ולהראות מה אפשר לעשות בפועל.',
-        connection: 'אפשר להתמקד בהחלטה, בהתלבטות או בלקח מקצועי שהמשתמש שיתף.',
-        sales: 'אפשר להמחיש את הערך דרך מצב מוכר לקהל, הצעה ברורה או מקרה שסופק.'
-      },
-      carousel: {
-        exposure: 'אפשר לבחור רשימה עם הבטחה ברורה, השוואה או גילוי הדרגתי של תובנה.',
-        value: 'אפשר להציג טיפים, טעויות או מדריך קצר. אם הכותרת מציינת מספר, ספק בדיוק את מספר הנקודות שהובטח.',
-        connection: 'אפשר לפתח מחשבה אישית, רגע או תהליך בהדרגה לאורך השקופיות.',
-        sales: 'אפשר לפתוח בתוצאה רצויה או בתועלת מוחשית ולהמחיש אותה בהדגמה, בהצעה או בהוכחה שסופקה.'
-      }
-    };
-
-    const CAROUSEL_GLOBAL_RULES = 'צור קרוסלה מלאה, מוכנה לעיצוב ולפרסום. פתח בשקופית עם הוק ברור. תן לכל שקופית תפקיד, טקסט קצר ורעיון ויזואלי פשוט. טיפוגרפיה לבדה מספיקה כשהיא מעבירה את הרעיון. כתוב קפשן שמשלים את הקרוסלה.';
-
-    const CAROUSEL_OUTPUT = `קרוסלה - [מספר] שקופיות
-
-שקופית 1 - הוק
-טקסט: [הניסוח המדויק]
-ויזואל: [מה להציג]
-
-המשך באותו מבנה לכל שקופית.
-
-קפשן:
-[קפשן מלא ומוכן לפרסום]`;
 
     const TONE_PRESETS = {
       natural: {
@@ -2059,11 +2058,6 @@
         description: "מוביל את המסר דרך סיפור והתפתחות.",
         instruction: 'כשהחומר מתאים, פתח ברגע או בפרט מסקרן והתקדם דרך אירוע שסופק. אפשר להשתמש בהמחשה שמוצגת כדוגמה.'
       }
-    };
-
-    const SLANG_INSTRUCTIONS = {
-      none: 'כתוב בשפה טבעית ושיחתית, ללא ביטויי סלנג. שמור על טון נגיש ולא רשמי מדי, בהתאם לסגנון שנבחר.',
-      natural: 'שלב סלנג ישראלי וביטויים יומיומיים במידה שמתאימה לקהל, לנושא ולקול האישי של המשתמש. השתמש בהם כחלק טבעי מהמשפטים ולא כאמצעי מלאכותי ליצירת הומור.'
     };
 
     const byId = id => document.getElementById(id);
@@ -2527,31 +2521,6 @@
       return advanced;
     }
 
-    function getAdvancedInstructions(advanced = {}) {
-      const instructions = [];
-      const detailLabels = {
-        angle: 'פרטים נוספים על הזווית',
-        source: 'חומר גלם נוסף'
-      };
-
-      for (const [key, { choice, detail, count }] of Object.entries(advanced)) {
-        if (key === 'voice' || key === 'length' || key === 'action') continue;
-        const instruction = ADVANCED_CONFIG[key].options[choice].promptInstruction;
-        if (!instruction) continue;
-        const lines = [instruction];
-        if (detail) lines.push(detailLabels[key] + ': ' + detail);
-        if (key === 'hook' && choice === 'numbered') {
-          lines.push(count === 'auto'
-            ? 'בחר מספר נקודות שמתאים לנושא ולחומר הגלם.'
-            : `הכותרת והתוכן חייבים לכלול בדיוק ${count} נקודות שונות.`);
-          lines.push('אם חומר הגלם לא מספיק, השאר מקום להשלמה.');
-        }
-        instructions.push(lines.join('\n'));
-      }
-
-      return instructions;
-    }
-
     syncAdvancedControls();
 
     function readDraft() {
@@ -2570,23 +2539,19 @@
       };
     }
 
-    function getUserContext({ format, goal, topic, message, audience, tone }) {
-      return {
-        title: 'הקשר המשתמש',
-        fields: [
-          ['פורמט', formats[format].label],
-          ['מטרה', (goals[goal] ?? goals.value).label],
-          ['רעיון ראשוני', topic],
-          ...(message.trim() ? [['מה חשוב שייקחו מזה', message]] : []),
-          ...(audience.trim() ? [['קהל יעד', audience]] : []),
-          ['סגנון', (TONE_PRESETS[tone] ?? TONE_PRESETS.natural).label]
-        ]
-      };
-    }
+    function getHookInstructions(format, goal, hook) {
+      if (!hook) {
+        const candidates = formats[format].hooks[goal].map(key => HOOK_PATTERNS[key]);
+        return 'השווה בשקט ובחר פתיחה מבוססת: ' + candidates.join(', ') + '.';
+      }
 
-    function getToneInstructions(tone) {
-      return TONE_PRESETS[tone]?.instruction
-        ?? TONE_PRESETS.natural.instruction;
+      if (hook.choice === 'numbered') {
+        const count = hook.count !== 'auto' && hook.count;
+        return count
+          ? `פתח בכותרת ממוספרת ותן בדיוק ${count} נקודות מובחנות. סמן השלמה אם חסר חומר מבוסס.`
+          : 'פתח בכותרת ממוספרת. תן בדיוק את מספר הנקודות שהבטחת, לפי החומר.';
+      }
+      return ADVANCED_CONFIG.hook.options[hook.choice].promptInstruction;
     }
 
     const CONTENT_LENGTHS = {
@@ -2596,49 +2561,29 @@
       story: { auto: '1–3 סטוריז', short: 'סטורי אחד', medium: '2–3 סטוריז', long: '4–5 סטוריז' }
     };
 
-    function getLengthInstruction({ format, advanced }) {
-      const length = advanced?.length?.choice ?? 'auto';
-      const range = CONTENT_LENGTHS[format][length];
-      const guidance = length === 'auto'
-        ? 'התחשב בפורמט, במטרה, בכמות המידע ובמורכבות הרעיון. תן לחומר קצר מענה ממוקד, והרחב כשיש דוגמאות או פרטים שמוסיפים ערך.'
-        : 'כבד את האורך שבחר המשתמש ככל שחומר הגלם מאפשר.';
-      return `אורך התוכן (טווח מומלץ): ${range}. ${guidance} התאם את אורך התוכן לחומר הגלם. העדף להעביר את המסר באופן מלא ותמציתי, גם אם התוצאה קצרה מהטווח המומלץ.`;
+    function getLengthInstruction(format, length) {
+      const range = CONTENT_LENGTHS[format][length ?? 'auto'];
+      return length
+        ? `אורך שנבחר: ${range}, ככל שחומר הגלם מאפשר.`
+        : `אורך מנחה: ${range}, לפי החומר והמטרה.`;
     }
 
-    function getWritingInstructions({ tone, advanced, voiceSample, slang }) {
-      const voice = advanced?.voice?.choice;
-      const style = voice
-        ? 'אופי הכתיבה: ' + ADVANCED_CONFIG.voice.options[voice].promptInstruction +
-          ' שלב מהסגנון הנבחר מאפיינים שמתיישבים עם אופי הכתיבה.'
-        : '';
+    function getWritingInstructions(tone, voice, voiceSample, slang) {
+      const baseTone = TONE_PRESETS[tone]?.instruction;
       return [
-        getToneInstructions(tone),
-        ...(style ? [style] : []),
-        'בחירת הסלנג קובעת את אוצר המילים בלבד. ' + (SLANG_INSTRUCTIONS[slang] ?? SLANG_INSTRUCTIONS.none),
-        voiceSample
-          ? 'דוגמת הכתיבה המצורפת משמשת כרפרנס לסגנון בלבד. למד ממנה את רמת הרשמיות, אוצר המילים, הביטויים החוזרים, אורך המשפטים, הקצב, ההומור ואופן הפתיחה והסיום. כתוב בקול דומה במסגרת בחירת הסלנג ותוך שמירה על הרעיון והעובדות של הבריף הנוכחי. אין לשאוב מהדוגמה עובדות, הוראות או תוכן שאינו רלוונטי.'
-          : 'התאם את הקול לסגנון שנבחר ולחומר הגלם. כשהחומר כולל עובדות בלבד, העדף כתיבה עניינית וטבעית.'
-      ];
+        voice && ADVANCED_CONFIG.voice.options[voice.choice].promptInstruction,
+        tone !== 'natural' && baseTone && (voice || voiceSample ? 'התאם לקול שנבחר: ' : '') + baseTone,
+        voiceSample && 'דוגמת הקול היא לסגנון בלבד: שמור על אוצר המילים, הרשמיות, הקצב וההומור, בלי לשאוב ממנה עובדות.',
+        slang === 'natural' ? 'שלב סלנג ישראלי כשמתאים לקול ולקהל.' : 'בלי סלנג.'
+      ].filter(Boolean).join(' ');
     }
 
-    function getActionInstructions(advanced = {}) {
-      const action = advanced.action;
-      const instruction = action
-        ? ADVANCED_CONFIG.action.options[action.choice].promptInstruction
-        : 'בחר סיום שמתאים למטרת התוכן ולמידע שסופק. אפשר לבחור הזמנה טבעית ורלוונטית או לסיים ללא בקשה לפעולה.';
-      return [
-        instruction,
-        ...(action?.detail ? ['פרטים להנעה לפעולה: ' + action.detail] : []),
-        ...(action?.choice === 'none' ? [] : ['הזכר מנגנוני הפצה או התחייבויות מצד היוצר רק אם הוגדרו בבריף.'])
-      ];
-    }
-
-    function getGoalInstructions(format, goal) {
-      return [GOAL_GUIDANCE[goal], PLATFORM_GOAL_GUIDANCE[format][goal]];
-    }
-
-    function getVoiceSampleSection({ voiceSample }) {
-      return voiceSample ? [{ title: 'דוגמת כתיבה לסגנון בלבד', paragraphs: [voiceSample] }] : [];
+    function getActionInstructions(action) {
+      if (action?.choice === 'none') return 'סיים ללא הנעה לפעולה.';
+      const availableOnly = 'הזכר קישורים או מנגנוני הפצה רק אם סופקו.';
+      return action
+        ? ADVANCED_CONFIG.action.options[action.choice].promptInstruction + ' ' + availableOnly
+        : 'פעולה אחת רק אם מתאימה לבריף.';
     }
 
     function formatSection({ title, fields = [], paragraphs = [] }) {
@@ -2646,27 +2591,56 @@
     }
 
     function buildPrompt(draft) {
-      const { format, goal, message, audience } = draft;
+      const { format, topic, message, audience, tone, slang, voiceSample, advanced = {} } = draft;
+      const goal = Object.hasOwn(goals, draft.goal) ? draft.goal : 'value';
       const platform = formats[format];
+      const writing = getWritingInstructions(tone, advanced.voice, voiceSample, slang);
+      const selections = ['angle', 'source'].flatMap(key => {
+        const choice = advanced[key]?.choice;
+        return choice ? [ADVANCED_CONFIG[key].options[choice].promptInstruction] : [];
+      });
       const carousel = format === 'carousel';
-      const advanced = getAdvancedInstructions(draft.advanced);
       const sections = [
-        getUserContext(draft),
         {
-          title: 'משימה',
-          paragraphs: [
-            carousel ? CAROUSEL_GLOBAL_RULES : platform.task,
-            ...(!message.trim() ? ['גבש מסר מתוך הנושא והמטרה.'] : []),
-            ...(!audience.trim() ? ['כתוב לקהל הסביר ביותר לפי הנושא.'] : [])
+          title: platform.task,
+          fields: [
+            ['רעיון', topic],
+            ['מטרה', goals[goal].label],
+            ...(message?.trim() ? [['מסר', message]] : []),
+            ...(audience?.trim() ? [['קהל', audience]] : []),
+            ...(advanced.angle?.detail ? [['פרטים על הזווית', advanced.angle.detail]] : []),
+            ...(advanced.source?.detail ? [['חומר גלם נוסף', advanced.source.detail]] : []),
+            ...(advanced.action?.detail ? [['פרטי הפעולה', advanced.action.detail]] : [])
           ]
         },
-        ...(!carousel ? [{ title: 'הנחיות לפי הפלטפורמה', paragraphs: [platform.instructions] }] : []),
-        { title: 'הנחיות לפי מטרת התוכן', paragraphs: getGoalInstructions(format, goal) },
-        ...(advanced.length ? [{ title: 'הגדרות מתקדמות', paragraphs: advanced }] : []),
-        { title: 'אורך וקול', paragraphs: [getLengthInstruction(draft), ...getWritingInstructions(draft)] },
-        { title: 'סיום ופעולה רצויה', paragraphs: getActionInstructions(draft.advanced) },
-        { title: 'פורמט תשובה', paragraphs: carousel ? [CAROUSEL_OUTPUT] : platform.output },
-        ...getVoiceSampleSection(draft)
+        {
+          title: 'אסטרטגיה והגשה',
+          paragraphs: [
+            format === 'story' && goal === 'exposure'
+              ? 'חשוף מוקדם פרט מפתיע שמובן גם לצופה בלי הקשר.'
+              : GOAL_GUIDANCE[goal],
+            platform.output,
+            ...(format === 'story' && goal !== 'exposure' ? [
+              'אפשר לשלב תובנה, שאלה, רגע אישי, הוכחה אמיתית או הזמנה עדינה.'
+            ] : []),
+            ...(carousel ? [
+              'שלב סיפור אמיתי עם ערך לפי החומר: ' + CAROUSEL_FRAMEWORKS.join(', ') + '. בלי סיפור שסופק, בחר טכניקה או הבחנה. קיים הבטחה ממוספרת.'
+            ] : []),
+            getHookInstructions(format, goal, advanced.hook),
+            ...selections,
+            getLengthInstruction(format, advanced.length?.choice),
+            getActionInstructions(advanced.action)
+          ]
+        },
+        {
+          title: 'כתיבה ובדיקה',
+          paragraphs: [
+            'כתוב בעברית ישראלית טבעית, ללא מקפים ארוכים או בינוניים. שמור על הקול והעובדות, בלי להמציא פרטים, הבטחות או מנגנוני הפצה. סמן דוגמה היפותטית ככזאת.',
+            writing,
+            'בדוק בשקט: פתיחה מבוססת, ספציפיות, התקדמות וסיום שמקיים את ההבטחה ומתאים למטרה ולפורמט.'
+          ]
+        },
+        ...(voiceSample?.trim() ? [{ title: 'דוגמת כתיבה לסגנון בלבד', paragraphs: [voiceSample] }] : [])
       ];
 
       return carousel ? [promptOpening, ...sections.map(formatSection)].join('\n\n') : sections;
@@ -2998,15 +2972,194 @@ THE FONT SOFTWARE OR FROM OTHER DEALINGS IN THE FONT SOFTWARE.
 <script>
 (() => {
 'use strict';
-const visualOptions = {"objective":[{"id":"product-photography","label":"Product Photography","description":"צילום מוצר מקצועי","instruction":["Create a professional commercial product photograph with the product as the clear visual hero.","צרו צילום מוצר מסחרי שבו המוצר הוא מוקד התמונה."]},{"id":"product-lifestyle","label":"Product Lifestyle","description":"מוצר בסביבת שימוש","instruction":["Show the product in a credible everyday use case, clearly recognizable within its surroundings.","הציגו את המוצר בסיטואציית שימוש יומיומית אמינה, כך שיישאר מזוהה בסביבתו."]},{"id":"advertising-campaign","label":"Advertising Campaign","description":"תמונה לקמפיין פרסומי","instruction":["Create a campaign key visual built around one memorable visual idea and a clear visual hierarchy.","צרו ויזואל מוביל לקמפיין סביב רעיון חזותי אחד זכיר והיררכיה ברורה."]},{"id":"social-media-ad","label":"Social Media Ad","description":"מודעה לרשתות חברתיות","instruction":["Create a social ad with an immediately legible focal point and readable details at mobile size.","צרו תמונת מודעה עם מוקד מיידי ופרטים קריאים במסך קטן."]},{"id":"editorial-photography","label":"Editorial Photography","description":"צילום מגזיני","instruction":["Create a magazine-quality still with an intentional point of view, styling, and visual rhythm.","צרו צילום מגזיני עם נקודת מבט, סטיילינג וקצב חזותי מכוונים."]},{"id":"fashion-photography","label":"Fashion Photography","description":"צילום אופנה","instruction":["Create a fashion image that articulates silhouette, fabric movement and styling through deliberate posing or arrangement.","צרו תמונת אופנה שמבהירה צללית, תנועת בד וסטיילינג באמצעות העמדה מכוונת."]},{"id":"food-photography","label":"Food Photography","description":"צילום מזון","instruction":["Show the food at its most appetizing through believable texture, presentation and ingredient detail.","הדגישו את המרקם, ההגשה ופרטי המרכיבים באופן אמין ומעורר תיאבון."]},{"id":"interior-photography","label":"Interior Photography","description":"צילום חלל","instruction":["Communicate how the interior feels and functions through coherent room geometry, materials and believable scale.","המחישו את חוויית החלל והשימוש בו באמצעות גאומטריה, חומרים וקנה מידה אמינים."]},{"id":"architectural-photography","label":"Architectural Photography","description":"צילום אדריכלי","instruction":["Explain the building's spatial form, material articulation and relationship to its setting; keep intentional perspective control.","המחישו את מבנה החלל, את החומריות ואת הקשר לסביבה, תוך שליטה מכוונת בפרספקטיבה."]},{"id":"portrait","label":"Portrait","description":"פורטרט","instruction":["Make the person the visual focal point through purposeful expression, gesture and framing.","הפכו את האדם למוקד באמצעות הבעה, מחווה וחיתוך פריים מכוונים."]},{"id":"brand-lifestyle","label":"Brand Lifestyle","description":"תמונת לייפסטייל למותג","instruction":["Create a scene that expresses the brand through context, styling and behavior rather than adding decorative branding.","בטאו את המותג באמצעות ההקשר, הסטיילינג וההתנהגות בסצנה."]},{"id":"conceptual-image","label":"Conceptual Image","description":"תמונה קונספטואלית","instruction":["Use a carefully staged visual concept or metaphor to make the central idea understandable at a glance.","השתמשו בקונספט או במטאפורה חזותית כדי להבהיר את הרעיון המרכזי במבט ראשון."]},{"id":"service-visualization","label":"Service Visualization","description":"המחשת שירות","instruction":["Visually communicate the service through a believable relevant situation, interaction, environment, or conceptual representation. Do not invent a physical product.","המחישו את השירות בסיטואציה, באינטראקציה, בסביבה או בייצוג רעיוני רלוונטיים ואמינים. אל תמציאו מוצר פיזי."]},{"id":"poster","label":"Poster","description":"פוסטר","instruction":["Compose one strong poster image with a clear reading order and adequate margins for the chosen layout.","צרו פריים לפוסטר עם סדר קריאה מובהק ושוליים מתאימים לפריסה שנבחרה."]},{"id":"website-hero","label":"Website Hero","description":"תמונת Hero לאתר","instruction":["Create a visually compelling hero image suitable for a premium website, with a clear focal point and sufficient compositional flexibility for interface elements.","צרו תמונת Hero לאתר פרימיום עם מוקד ברור וגמישות קומפוזיציונית לרכיבי הממשק."]},{"id":"background-image","label":"Background Image","description":"תמונת רקע","instruction":["Build a usable background with restrained focal competition and a consistent texture or tonal rhythm across the frame.","צרו רקע שימושי עם טקסטורה או קצב גוונים אחידים ומעט תחרות על תשומת הלב."]},{"id":"product-mockup","label":"Product Mockup","description":"הדמיית מוצר","instruction":["Present the product as a believable mockup with convincing scale, construction, and surface application.","הציגו הדמיית מוצר עם קנה מידה, מבנה ויישום גרפי אמינים."]},{"id":"packaging-mockup","label":"Packaging Mockup","description":"הדמיית אריזה","instruction":["Create a realistic packaging presentation with believable materials, construction, proportions, and print finishes.","צרו הדמיית אריזה אמינה עם חומרים, מבנה, פרופורציות וגימורי דפוס מתאימים."]},{"id":"3d-product-render","label":"3D Product Render","description":"הדמיית מוצר תלת־ממדית","instruction":["Build a deliberately rendered product image; communicate form through model geometry, controlled material response and lighting.","צרו הדמיה תלת־ממדית מכוונת שמבהירה צורה באמצעות גאומטריה, חומריות ותאורה מבוקרות."]},{"id":"abstract-visual","label":"Abstract Visual","description":"תמונה מופשטת","instruction":["Build an abstract image from form, color, texture and rhythm with a deliberate focal relationship.","בנו תמונה מופשטת מצורה, צבע, מרקם וקצב, עם יחסי מוקד מכוונים."]},{"id":"custom","label":"אחר","description":""}],"environment":[{"id":"auto","label":"Auto","description":"סביבה המתאימה למוצר","instruction":["Choose an environment appropriate to the subject and visual style; keep only relevant details.","בחרו סביבה שמתאימה לנושא ולסגנון והשאירו רק פרטים רלוונטיים."]},{"id":"clean-studio","label":"Clean Studio","description":"סטודיו נקי","instruction":["Stage the image on a clean studio set with restrained props and ample separation.","העמידו את התמונה בסטודיו נקי עם מעט אביזרים והפרדה ברורה."]},{"id":"white-studio","label":"White Studio","description":"סטודיו לבן","instruction":["Use a white studio sweep and retain separation through shading.","השתמשו ברקע סטודיו לבן רציף והשיגו הפרדה בעזרת הצללה."]},{"id":"dark-studio","label":"Dark Studio","description":"סטודיו כהה","instruction":["Stage on a dark studio set with clear separation between subject and backdrop.","העמידו את הנושא בסטודיו כהה ושמרו על הפרדה ברורה מהרקע."]},{"id":"color-studio","label":"Color Studio","description":"סטודיו צבעוני","instruction":["Use a controlled colored studio backdrop coordinated with the subject and palette.","בחרו רקע סטודיו צבעוני מבוקר שמתואם עם הנושא והפלטה."]},{"id":"modern-home","label":"Modern Home","description":"בית מודרני","instruction":["Use a modern home with readable functional context, contemporary finishes and natural scale.","השתמשו בבית מודרני עם הקשר שימושי, גימורים עכשוויים וקנה מידה טבעי."]},{"id":"luxury-interior","label":"Luxury Interior","description":"חלל יוקרתי","instruction":["Place the subject in a refined interior with restrained finishes and precise detailing.","מקמו את הנושא בחלל יוקרתי עם גימורים מאופקים ופרטים מדויקים."]},{"id":"minimal-interior","label":"Minimal Interior","description":"חלל מינימליסטי","instruction":["Use a minimal interior with few furnishings and clean architectural lines.","השתמשו בחלל מינימליסטי עם מעט ריהוט וקווים אדריכליים נקיים."]},{"id":"office","label":"Office","description":"משרד","instruction":["Show a relevant office setting with credible work surfaces and scale.","הציגו משרד רלוונטי עם משטחי עבודה וקנה מידה סבירים."]},{"id":"creative-workspace","label":"Creative Workspace","description":"סביבת עבודה יצירתית","instruction":["Use a creative workspace with purposeful tools or materials that support the story.","השתמשו בסביבת עבודה יצירתית עם כלי עבודה וחומרי גלם שתומכים בסיפור."]},{"id":"urban-street","label":"Urban Street","description":"רחוב עירוני","instruction":["Place the subject on an urban street with a coherent pavement and building context.","מקמו את הנושא ברחוב עירוני עם הקשר אמין של מדרכה ומבנים."]},{"id":"industrial-space","label":"Industrial Space","description":"חלל תעשייתי","instruction":["Stage in an industrial space with relevant utilitarian materials and clear spatial depth.","העמידו את הסצנה בחלל תעשייתי עם חומרים פונקציונליים ועומק מרחבי ברור."]},{"id":"nature","label":"Nature","description":"טבע","instruction":["Use an outdoor natural environment with terrain and vegetation appropriate to the scene.","בחרו סביבה טבעית פתוחה עם תוואי שטח וצמחייה שמתאימים לסצנה."]},{"id":"forest","label":"Forest","description":"יער","instruction":["Use layers of forest vegetation and ground detail without obscuring the subject.","השתמשו בשכבות צמחייה ובפרטי קרקע של יער, בלי להסתיר את הנושא."]},{"id":"desert","label":"Desert","description":"מדבר","instruction":["Use an open desert landscape with spare terrain and a readable horizon.","בחרו נוף מדברי פתוח עם קרקע מאופקת ואופק ברור."]},{"id":"beach","label":"Beach","description":"חוף ים","instruction":["Place the scene on a beach with natural shoreline, sand or rock cues where relevant.","מקמו את הסצנה בחוף עם קו מים וחול או סלעים לפי הצורך."]},{"id":"rooftop","label":"Rooftop","description":"גג אורבני","instruction":["Stage on a rooftop with a clearly readable elevated urban context.","העמידו את הסצנה על גג עם הקשר אורבני גבוה וברור."]},{"id":"restaurant","label":"Restaurant","description":"מסעדה","instruction":["Use a restaurant environment, with relevant table, service or dining cues.","השתמשו בסביבת מסעדה עם פרטי שולחן, שירות או סעודה רלוונטיים."]},{"id":"caf","label":"Café","description":"בית קפה","instruction":["Use a café setting with relevant counter or seating cues and restrained background activity.","השתמשו בבית קפה עם דלפק או אזור ישיבה ופעילות רקע מאופקת."]},{"id":"retail-store","label":"Retail Store","description":"חנות","instruction":["Stage in a retail space with purposeful displays and a clear product hierarchy.","העמידו את הסצנה בחנות עם תצוגות מכוונות והיררכיית מוצר ברורה."]},{"id":"kitchen","label":"Kitchen","description":"מטבח","instruction":["Use a functional kitchen with context-appropriate work surfaces and tools.","השתמשו במטבח עם משטחי עבודה וכלים שמתאימים להקשר."]},{"id":"bathroom","label":"Bathroom","description":"חדר רחצה","instruction":["Use a believable bathroom setting with appropriate finishes and fixture scale.","בחרו חדר רחצה אמין עם גימורים וקנה מידה מתאים של מתקנים."]},{"id":"gym","label":"Gym","description":"חדר כושר","instruction":["Use a gym environment with relevant equipment, clear circulation and plausible scale.","השתמשו בחדר כושר עם ציוד רלוונטי, מעברים ברורים וקנה מידה אמין."]},{"id":"futuristic-environment","label":"Futuristic Environment","description":"סביבה עתידנית","instruction":["Build a coherent speculative environment with controlled geometry and plausible internal logic.","בנו סביבה עתידנית עקבית עם גאומטריה מבוקרת והיגיון פנימי."]},{"id":"abstract-environment","label":"Abstract Environment","description":"סביבה מופשטת","instruction":["Use an environment built from abstract planes, forms or textures with intentional depth.","צרו סביבה ממישורים, צורות או מרקמים מופשטים עם עומק מכוון."]},{"id":"gradient-background","label":"Gradient Background","description":"רקע גרדיאנט","instruction":["Use a continuous tonal or color gradient while keeping the subject legible.","השתמשו במעבר גוון או צבע רציף תוך שמירה על קריאות הנושא."]},{"id":"seamless-background","label":"Seamless Background","description":"רקע רציף","instruction":["Use a seamless backdrop without a distracting horizon or join.","השתמשו ברקע רציף בלי תפר או קו אופק מסיח."]},{"id":"custom","label":"Custom","description":"אחר"}],"style":[{"id":"auto","label":"Auto","description":"בחירת סגנון שמתאים למוצר ולמטרה.","instruction":["Choose a visual treatment that serves the subject and objective.","בחרו טיפול חזותי שמשרת את הנושא ואת המטרה."]},{"id":"editorial","label":"Editorial","description":"צילום מגזיני מוקפד, קומפוזיציה מתוחכמת ואסתטיקה אמנותית.","instruction":["Use a sophisticated editorial photography aesthetic, with intentional art direction, refined styling, thoughtful negative space, natural visual hierarchy, and a carefully composed magazine-quality image.","בחרו אסתטיקה מגזינית מוקפדת עם ארט דיירקשן מכוון, סטיילינג מעודן, שטח שלילי מתוכנן והיררכיה טבעית."]},{"id":"luxury","label":"Luxury","description":"מראה יוקרתי, חומרים עשירים, תאורה מדויקת ותחושת פרימיום.","instruction":["Use a premium luxury advertising aesthetic, emphasizing refined materials, restrained visual elements, controlled highlights, rich textures, and elegant visual balance.","השתמשו באסתטיקה יוקרתית עם חומרים מעודנים, אלמנטים מרוסנים, הברקות מבוקרות, מרקמים עשירים ואיזון חזותי אלגנטי."]},{"id":"minimalist","label":"Minimalist","description":"מעט אלמנטים, הרבה מרחב נקי ומיקוד ברור בנושא.","instruction":["Use a minimalist visual language with a restrained number of elements, generous negative space, clean geometry, and a strong, uncluttered focal point.","השתמשו בשפה מינימליסטית עם מעט אלמנטים, שטח שלילי נדיב, גאומטריה נקייה ומוקד ברור."]},{"id":"commercial","label":"Commercial","description":"צילום פרסומי חד ומלוטש שמציג את המוצר בצורה ברורה ומושכת.","instruction":["Use crisp, controlled commercial art direction; keep the subject immediately legible and the styling purposeful.","בחרו ארט דיירקשן מסחרי חד ומבוקר, עם נושא ברור וסטיילינג מכוון."]},{"id":"cinematic","label":"Cinematic","description":"מראה קולנועי עם תאורה דרמטית, עומק ואווירה עשירה.","instruction":["Create a cinematic atmosphere through layered depth, dramatic but believable lighting, controlled contrast, and intentional visual storytelling.","צרו אווירה קולנועית באמצעות שכבות עומק, אור דרמטי ואמין, ניגודיות מבוקרת וסיפור חזותי מכוון."]},{"id":"lifestyle","label":"Lifestyle","description":"צילום טבעי שמציג את המוצר כחלק מהחיים האמיתיים.","instruction":["Place the subject in a credible lived-in moment using unforced gesture, relevant props and a natural sense of context.","מקמו את הנושא ברגע אמין מהחיים באמצעות מחוות טבעיות, אביזרים רלוונטיים והקשר מציאותי."]},{"id":"fashion","label":"Fashion","description":"אסתטיקה מעולם האופנה, פוזות מוקפדות וסטיילינג בולט.","instruction":["Use fashion styling, expressive silhouettes and deliberate posture or arrangement that reveals form and texture.","השתמשו בסטיילינג אופנתי, צלליות בולטות והעמדה שמבליטה צורה ומרקם."]},{"id":"documentary","label":"Documentary","description":"צילום אותנטי ולא מבוים, עם תחושה של רגע אמיתי.","instruction":["Keep the image observational, with credible available-light cues and unstaged composition; allow intentional imperfections.","צרו פריים תיעודי שמתבונן ברגע, עם תאורה זמינה וקומפוזיציה טבעית. אפשרו פגמים אסתטיים מכוונים."]},{"id":"brutalist","label":"Brutalist","description":"קומפוזיציות נועזות, ניגודיות חזקה וגישה עיצובית גולמית.","instruction":["Use raw material presence, blunt geometry, strong graphic tension and deliberate contrast.","הדגישו חומריות גולמית, גאומטריה ישירה, מתח גרפי וניגודיות מכוונת."]},{"id":"retro","label":"Retro","description":"מראה נוסטלגי בהשראת צילום ופרסום מתקופות קודמות.","instruction":["Build a coherent period-inspired palette and styling without introducing anachronistic props.","בנו פלטה וסטיילינג בהשראת התקופה, בלי אביזרים שסותרים את ההקשר."]},{"id":"vintage-film","label":"Vintage Film","description":"אסתטיקה אנלוגית עם גרעיניות, צבעים רכים ואופי של פילם.","instruction":["Use intentional analog grain, gentle highlight rolloff and softened color response; keep key details intelligible.","שלבו גרעיניות אנלוגית מכוונת, מעברי אור רכים וצבע מרוכך, תוך שמירה על פרטים חשובים."]},{"id":"futuristic","label":"Futuristic","description":"אסתטיקה עתידנית, חומרים חדשניים וצורות מתקדמות.","instruction":["Develop clean speculative forms, advanced material cues and deliberate geometry that supports the concept.","פתחו צורות עתידניות וגאומטריה מכוונת עם חומריות שמשרתת את הקונספט."]},{"id":"surreal","label":"Surreal","description":"שילוב אלמנטים לא צפויים ליצירת סצנה דמיונית ומפתיעה.","instruction":["Use improbable relationships, scale or juxtapositions intentionally; keep the invented visual world internally consistent.","שלבו במכוון יחסים לא צפויים, שינויי קנה מידה או מפגשים מפתיעים, ושמרו על עקביות בתוך העולם הדמיוני."]},{"id":"playful","label":"Playful","description":"צבעוניות, קלילות, הומור וקומפוזיציות יצירתיות.","instruction":["Use lively visual rhythm, unexpected but legible placement, and purposeful color accents.","צרו קצב חזותי חי, מיקומים מפתיעים וברורים והדגשות צבע מכוונות."]},{"id":"fine-art","label":"Fine Art","description":"צילום אמנותי עם דגש על רגש, צורה ואסתטיקה.","instruction":["Prioritize expressive shape, light and material relationships with a deliberate emotional point of view.","הדגישו צורה, אור ויחסי חומר שמבטאים נקודת מבט רגשית מכוונת."]},{"id":"high-fashion","label":"High Fashion","description":"מראה אופנה יוקרתי, דרמטי ובלתי שגרתי.","instruction":["Use theatrical styling, sculptural silhouette and an elevated, unconventional editorial composition.","בחרו סטיילינג תיאטרלי, צללית פיסולית וקומפוזיציה אופנתית בלתי שגרתית."]},{"id":"scandinavian","label":"Scandinavian","description":"מינימליזם רך, חומרים טבעיים ואור נקי.","instruction":["Favor soft simplicity, clean daylight cues and understated natural textures.","העדיפו פשטות רכה, אור יום נקי ומרקמים טבעיים מאופקים."]},{"id":"industrial","label":"Industrial","description":"חומריות גולמית, מתכת, בטון וסביבה תעשייתית.","instruction":["Emphasize raw material character, utilitarian geometry and structured surface detail.","הדגישו חומריות גולמית, גאומטריה פונקציונלית ופרטי משטח."]},{"id":"organic","label":"Organic","description":"צורות טבעיות, טקסטורות רכות ותחושה אנושית.","instruction":["Favor irregular contours, tactile natural surfaces and relaxed spatial relationships.","העדיפו קווי מתאר טבעיים, משטחים טקטיליים ויחסים מרחביים נינוחים."]},{"id":"tech","label":"Tech","description":"אסתטיקה טכנולוגית, מדויקת ונקייה.","instruction":["Use precise alignment, controlled surface finish and clean technical geometry.","השתמשו ביישור מדויק, בגימור משטח מבוקר ובגאומטריה טכנית נקייה."]},{"id":"hyperrealistic","label":"Hyperrealistic","description":"ריאליזם קיצוני עם פירוט גבוה של חומרים, תאורה וטקסטורות.","instruction":["Resolve fine-scale surface texture, material response and physically plausible light with exceptional detail.","הציגו מרקמי משטח ותגובה לאור ברמת פירוט גבוהה ועקבית."]},{"id":"3d-render","label":"3D Render","description":"הדמיה תלת־ממדית מלוטשת עם שליטה בחומרים ובתאורה.","instruction":["Use intentional 3D form, shader response and controlled render lighting; keep material and edge treatment coherent.","השתמשו בצורה תלת־ממדית מכוונת, בתגובת חומר ותאורת רינדור מבוקרות ובטיפול עקבי בקצוות."]},{"id":"custom","label":"Custom","description":"הגדרת סגנון עצמאית."}],"lighting":[{"id":"auto","label":"Auto","description":"תאורה שמתאימה לסצנה ולסגנון שנבחרו.","instruction":["Choose light direction, contrast and shadow softness to suit the scene.","בחרו את כיוון האור, הניגודיות ורכות הצל בהתאם לסצנה."]},{"id":"soft-daylight","label":"Soft Daylight","description":"אור יום רך וטבעי עם צללים עדינים.","instruction":["Use broad neutral daylight from one side with low contrast and soft, believable shadows.","השתמשו באור יום רחב מצד אחד, בניגודיות נמוכה ובצללים רכים."]},{"id":"hard-sunlight","label":"Hard Sunlight","description":"שמש ישירה עם צללים חדים וניגודיות גבוהה.","instruction":["Use a direct directional sun key, high contrast and crisp shadow edges.","השתמשו בשמש ישירה מכיוון ברור, עם ניגודיות גבוהה וקצוות צל חדים."]},{"id":"golden-hour","label":"Golden Hour","description":"אור שמש זהוב וחמים לקראת שקיעה.","instruction":["Use low-angle warm sun as the key, with elongated shadows and controlled highlight contrast.","השתמשו בשמש חמה ונמוכה עם צללים ארוכים וניגודיות אור מבוקרת."]},{"id":"blue-hour","label":"Blue Hour","description":"תאורה כחולה וקרירה בשעות הדמדומים.","instruction":["Use cool diffuse twilight with gentle contrast and coherent broad shadows.","השתמשו באור דמדומים קריר ומפוזר, בניגודיות מתונה ובצללים רחבים ועקביים."]},{"id":"overcast","label":"Overcast","description":"אור יום מפוזר ואחיד של שמיים מעוננים.","instruction":["Use broad overhead sky diffusion with low contrast and soft contact shadows.","השתמשו באור שמיים מפוזר מלמעלה עם ניגודיות נמוכה וצללי מגע רכים."]},{"id":"window-light","label":"Window Light","description":"תאורה טבעית המגיעה מחלון.","instruction":["Use a broad directional window key and gradual tonal falloff; retain soft detail in the shaded side.","השתמשו באור חלון רחב מכיוון ברור, עם דעיכה הדרגתית ופרטים רכים בצד המוצל."]},{"id":"softbox-studio","label":"Softbox Studio","description":"אור סטודיו רך ומבוקר.","instruction":["Use soft, controlled studio lighting with broad diffused highlights, smooth tonal transitions, and gentle realistic shadows.","השתמשו באור סטודיו רך ומבוקר, עם הברקות רחבות, מעברי גוון חלקים וצללים רכים."]},{"id":"high-key","label":"High Key","description":"תמונה בהירה מאוד עם מעט צללים.","instruction":["Use broad wraparound keys and fill for high overall brightness, low contrast and faint controlled shadows.","השתמשו במקורות אור רחבים ומילוי לקבלת בהירות גבוהה, ניגודיות נמוכה וצללים מעודנים."]},{"id":"low-key","label":"Low Key","description":"תמונה כהה עם תאורה נקודתית ודרמטית.","instruction":["Use low-key lighting with a predominantly dark tonal range, selective highlights, deep but detailed shadows, and a dramatic controlled atmosphere.","השתמשו בתאורה נמוכה עם טווח גוונים כהה, הברקות סלקטיביות, צללים עמוקים ששומרים פרטים ואווירה דרמטית מבוקרת."]},{"id":"rim-light","label":"Rim Light","description":"תאורה אחורית המדגישה את קווי המתאר.","instruction":["Aim a selective rear light at the contours; preserve separation from the background without flattening shadows.","כוונו אור מאחור אל קווי המתאר והפרידו את הנושא מהרקע בלי לשטח את הצללים."]},{"id":"backlighting","label":"Backlighting","description":"אור המגיע מאחורי הנושא המרכזי.","instruction":["Place the main source behind the subject and control front fill to balance contrast and silhouette detail.","מקמו את האור הראשי מאחורי הנושא וויסתו מילוי קדמי כדי לשלוט בניגודיות ובפרטי הצללית."]},{"id":"side-lighting","label":"Side Lighting","description":"תאורה צדדית המדגישה נפח וטקסטורה.","instruction":["Use a lateral key that reveals texture and volume through directional shadows and controlled contrast.","השתמשו באור צדדי שמדגיש מרקם ונפח דרך צללים מכוונים וניגודיות מבוקרת."]},{"id":"top-lighting","label":"Top Lighting","description":"תאורה המגיעה מלמעלה.","instruction":["Place the key above the subject; control the downcast shadows and retain readable important details.","מקמו את האור הראשי מעל הנושא ושלטו בצללים כלפי מטה כדי לשמור פרטים חשובים."]},{"id":"direct-flash","label":"Direct Flash","description":"פלאש ישיר עם אופי צילום נועז.","instruction":["Use assertive near-axis flash with rapid falloff, hard shadows and controlled bright highlights.","השתמשו בפלאש ישיר מציר הצילום עם דעיכה מהירה, צללים חדים והברקות מבוקרות."]},{"id":"neon-lighting","label":"Neon Lighting","description":"תאורה צבעונית בהשראת שלטי ניאון.","instruction":["Use localized colored light sources, directional reflections and deliberate dark separation between colors.","השתמשו במקורות אור צבעוניים מקומיים, השתקפויות מכוונות והפרדה כהה בין הצבעים."]},{"id":"volumetric-light","label":"Volumetric Light","description":"קרני אור נראות לעין היוצרות עומק ואווירה.","instruction":["Use directional visible beams in haze with controlled contrast and consistent shadow direction.","השתמשו באלומות אור מכוונות באובך, עם ניגודיות מבוקרת וכיוון צל עקבי."]},{"id":"dramatic-studio","label":"Dramatic Studio","description":"תאורת סטודיו דרמטית עם ניגודיות מבוקרת.","instruction":["Use a selective directional key and restrained fill to create deliberate tonal separation and sculpted shadows.","השתמשו במקור אור מכוון ובמילוי מרוסן לקבלת הפרדת גוונים וצללים מפוסלים."]},{"id":"product-beauty-lighting","label":"Product Beauty Lighting","description":"תאורה מדויקת המדגישה את צורת המוצר והחומרים.","instruction":["Use carefully controlled commercial product lighting to reveal shape, material properties, surface texture, and refined highlights without unwanted reflections.","השתמשו בתאורת מוצר מבוקרת שמבליטה צורה, חומר, מרקם והברקות מעודנות בלי השתקפויות לא רצויות."]},{"id":"ambient-interior","label":"Ambient Interior","description":"תאורת חלל רכה ומציאותית.","instruction":["Use plausible room sources, soft contrast and gentle shadow transitions consistent with the interior.","השתמשו במקורות אור אמינים בחלל, בניגודיות רכה ובמעברי צל טבעיים."]},{"id":"custom","label":"Custom","description":"תאורה בהגדרה אישית."}],"angle":[{"id":"auto","label":"Auto","description":"","instruction":["Choose a camera position that clarifies the subject.","בחרו מיקום מצלמה שמבהיר את הנושא."]},{"id":"eye-level","label":"Eye Level","description":"גובה העיניים","instruction":["Place the camera at the subject's eye or midline level, facing neutrally.","מקמו את המצלמה בגובה העיניים או קו האמצע של הנושא."]},{"id":"low-angle","label":"Low Angle","description":"זווית נמוכה","instruction":["Place the camera below the subject and aim upward.","מקמו את המצלמה מתחת לנושא והטו אותה מעלה."]},{"id":"high-angle","label":"High Angle","description":"זווית גבוהה","instruction":["Place the camera above the subject and aim downward obliquely.","מקמו את המצלמה מעל הנושא והטו אותה באלכסון כלפי מטה."]},{"id":"top-down","label":"Top Down","description":"צילום מלמעלה","instruction":["Place the camera directly overhead with its axis perpendicular to the staging surface.","מקמו את המצלמה ישירות מעל הסצנה, בניצב למשטח."]},{"id":"45-degree","label":"45 Degree","description":"זווית של 45 מעלות","instruction":["Aim the camera down toward the subject at roughly 45 degrees.","הטו את המצלמה לעבר הנושא בזווית של כ־45 מעלות."]},{"id":"front-view","label":"Front View","description":"חזיתית","instruction":["Align the camera straight in front of the subject, perpendicular to its front face.","יישרו את המצלמה ישירות מול חזית הנושא ובניצב אליה."]},{"id":"side-view","label":"Side View","description":"מהצד","instruction":["Place the camera beside the subject and show its profile.","מקמו את המצלמה בצד כדי להציג את הפרופיל."]},{"id":"three-quarter","label":"Three Quarter","description":"שלושה רבעים","instruction":["Offset the camera to show the front and one side together.","הסיטו את המצלמה כדי להראות יחד חזית וצד אחד."]},{"id":"isometric","label":"Isometric","description":"איזומטרית","instruction":["Use an isometric viewpoint with parallel axes and minimal perspective convergence.","השתמשו בנקודת מבט איזומטרית עם צירים מקבילים ומינימום התכנסות."]},{"id":"dutch-angle","label":"Dutch Angle","description":"זווית אלכסונית","instruction":["Roll the camera intentionally to create a controlled diagonal horizon.","סובבו במכוון את המצלמה על צירה ליצירת אופק אלכסוני מבוקר."]},{"id":"ground-level","label":"Ground Level","description":"גובה הרצפה","instruction":["Place the camera close to the floor or ground plane.","מקמו את המצלמה בצמוד לרצפה או לקרקע."]},{"id":"over-the-shoulder","label":"Over the Shoulder","description":"מעבר לכתף","instruction":["Frame the scene from behind a shoulder with the main action visible beyond it.","מסגרו את הסצנה מאחורי כתף, כך שהפעולה המרכזית תיראה מעבר לה."]},{"id":"point-of-view","label":"Point of View","description":"נקודת מבט אישית","instruction":["Position the camera at the implied viewer or character's viewpoint.","מקמו את המצלמה מנקודת המבט של הצופה או הדמות."]},{"id":"macro-perspective","label":"Macro Perspective","description":"זווית תקריב","instruction":["Place the camera near the surface to exaggerate fine-scale spatial detail.","קרבו את המצלמה למשטח כדי להדגיש פרטים מרחביים זעירים."]},{"id":"custom","label":"Custom","description":""}],"framing":[{"id":"auto","label":"Auto","description":"פריים שמתאים למוצר ולמטרה.","instruction":["Choose framing appropriate to the subject and purpose.","בחרו פריים שמתאים לנושא ולמטרה."]},{"id":"extreme-close-up","label":"Extreme Close-up","description":"תקריב קיצוני שמדגיש פרט קטן.","instruction":["Frame only a tiny relevant feature and make its structure legible.","בודדו בפריים פרט זעיר ורלוונטי והבהירו את המבנה שלו."]},{"id":"close-up","label":"Close-up","description":"צילום קרוב שממקד את תשומת הלב בנושא.","instruction":["Frame close to the subject and reduce surrounding visual information.","צלמו מקרוב וצמצמו את המידע החזותי מסביב."]},{"id":"medium-shot","label":"Medium Shot","description":"פריים בינוני שמציג את הנושא וחלק מהסביבה.","instruction":["Show the subject and enough surroundings to describe its immediate context.","הציגו את הנושא וחלק מהסביבה שמבהיר את ההקשר."]},{"id":"wide-shot","label":"Wide Shot","description":"פריים רחב שמציג את הנושא בהקשר סביבתי.","instruction":["Show a broad view with the subject in a readable environmental context.","הציגו מבט רחב עם נושא שנשאר ברור בסביבה."]},{"id":"full-product","label":"Full Product","description":"הצגת המוצר בשלמותו, ללא חיתוך.","instruction":["Show the entire product with clearance on every edge. Do not crop any part of the product.","הציגו את המוצר בשלמותו עם מרווח מכל צד. אל תחתכו אף חלק מהמוצר."]},{"id":"hero-shot","label":"Hero Shot","description":"פריים דרמטי ומרשים שהופך את המוצר למרכז התמונה.","instruction":["Make the subject dominant through clear scale, visual hierarchy and decisive separation.","הפכו את הנושא לדומיננטי באמצעות קנה מידה, היררכיה והפרדה ברורים."]},{"id":"detail-shot","label":"Detail Shot","description":"צילום ממוקד של חומר, מרקם או פרט חשוב.","instruction":["Isolate a material, texture or relevant construction detail.","בודדו חומר, מרקם או פרט מבני רלוונטי."]},{"id":"environmental-shot","label":"Environmental Shot","description":"פריים המדגיש את הקשר בין הנושא לסביבה.","instruction":["Show a clear relationship between the subject and its surroundings.","הציגו קשר ברור בין הנושא לבין הסביבה."]},{"id":"custom","label":"Custom","description":"הגדרת פריים אישית."}],"depth":[{"id":"auto","label":"Auto","description":"עומק שדה שמתאים לסצנה.","instruction":["Choose a focus depth that supports clarity and hierarchy.","בחרו עומק שדה שתומך בבהירות ובהיררכיה."]},{"id":"very-shallow","label":"Very Shallow","description":"הנושא חד והרקע מטושטש מאוד.","instruction":["Keep the main focus plane sharp with strong, smooth background blur.","שמרו על מישור המיקוד הראשי חד ועל טשטוש רקע ניכר וחלק."]},{"id":"shallow","label":"Shallow","description":"רקע רך ומטושטש שמבליט את הנושא.","instruction":["Use shallow depth of field with the primary subject in sharp focus and a softly blurred background, maintaining natural optical falloff.","השתמשו בעומק שדה רדוד עם נושא חד, רקע רך ודעיכה אופטית טבעית."]},{"id":"medium","label":"Medium","description":"איזון בין חדות הנושא לבין פרטי הסביבה.","instruction":["Keep the main subject clear while leaving enough background detail for context.","שמרו על חדות הנושא ועל מספיק פרטי רקע להבנת ההקשר."]},{"id":"deep","label":"Deep","description":"רוב התמונה חדה וברורה.","instruction":["Use deep depth of field to maintain clarity across the main subject and surrounding environment.","השתמשו בעומק שדה עמוק לשמירה על חדות הנושא והסביבה."]},{"id":"maximum-sharpness","label":"Maximum Sharpness","description":"חדות גבוהה מאוד של כל האלמנטים החשובים.","instruction":["Keep all important planes and details distinctly sharp without aggressive processing artifacts.","שמרו על חדות ברורה בכל המישורים והפרטים החשובים בלי פגמי עיבוד."]}],"composition":[{"id":"auto","label":"Auto","description":"","instruction":["Choose a balanced composition that makes the subject and objective clear.","בחרו קומפוזיציה מאוזנת שמבהירה את הנושא והמטרה."]},{"id":"centered","label":"Centered","description":"","instruction":["Place the focal subject at the center and distribute visual weight around it.","מקמו את הנושא במרכז וחלקו סביבו את המשקל החזותי."]},{"id":"symmetrical","label":"Symmetrical","description":"","instruction":["Balance comparable forms across a deliberate axis.","אזנו צורות דומות משני צדדיו של ציר מכוון."]},{"id":"asymmetrical","label":"Asymmetrical","description":"","instruction":["Balance unequal masses through spacing and contrast.","אזנו מסות לא שוות בעזרת ריווח וניגודיות."]},{"id":"rule-of-thirds","label":"Rule of Thirds","description":"","instruction":["Place focal weight along third lines or their intersections.","מקמו את המשקל החזותי לאורך קווי השלישים או במפגש ביניהם."]},{"id":"negative-space","label":"Negative Space","description":"","instruction":["Use generous intentional negative space around the subject while maintaining a clear focal point and strong visual balance.","השאירו שטח שלילי נדיב סביב הנושא תוך שמירה על מוקד ברור ואיזון."]},{"id":"diagonal","label":"Diagonal","description":"","instruction":["Organize forms along a clear diagonal to guide the eye.","ארגנו צורות לאורך אלכסון ברור שמוביל את העין."]},{"id":"dynamic","label":"Dynamic","description":"","instruction":["Build movement through purposeful direction, offset placements and varied visual weights.","צרו תנועה עם כיווניות, הסטות מכוונות ומשקלים חזותיים מגוונים."]},{"id":"layered-depth","label":"Layered Depth","description":"","instruction":["Separate foreground, subject plane and background into readable layers.","הפרידו בין הקדמה, מישור הנושא והרקע לשכבות קריאות."]},{"id":"minimal","label":"Minimal","description":"","instruction":["Reduce competing elements and give the focal subject room to breathe.","צמצמו אלמנטים מתחרים והשאירו מרחב סביב המוקד."]},{"id":"geometric","label":"Geometric","description":"","instruction":["Organize shapes on clear axes with intentional geometric relationships.","ארגנו צורות על צירים ברורים עם יחסים גאומטריים מכוונים."]},{"id":"leading-lines","label":"Leading Lines","description":"","instruction":["Use visible linear cues to lead the viewer toward the focal point.","השתמשו בקווים שמובילים את העין אל המוקד."]},{"id":"frame-within-frame","label":"Frame Within Frame","description":"","instruction":["Use a relevant foreground opening or boundary as a secondary frame around the subject.","מסגרו את הנושא באמצעות פתח או גבול משני רלוונטי בקדמת התמונה."]},{"id":"balanced-editorial","label":"Balanced Editorial","description":"","instruction":["Use a refined editorial composition with deliberate spacing, balanced visual weight, and a sophisticated relationship between subject and surrounding elements.","צרו קומפוזיציה מגזינית עם ריווח מכוון, משקל חזותי מאוזן ויחס מדויק בין הנושא לסביבתו."]},{"id":"custom","label":"Custom","description":""}],"palette":[{"id":"auto","label":"Auto","description":"","instruction":["Derive a coherent palette from the subject and visual style.","גזרו פלטה עקבית מהנושא ומהסגנון."]},{"id":"neutral","label":"Neutral","description":"","instruction":["Use restrained neutrals and controlled tonal separation.","השתמשו בגוונים ניטרליים ובקונטרסט גוונים מבוקר."]},{"id":"monochromatic","label":"Monochromatic","description":"","instruction":["Build the palette around tints and shades of one hue.","בנו פלטה מגרסאות בהירות וכהות של גוון אחד."]},{"id":"black-white","label":"Black & White","description":"","instruction":["Use grayscale with clear separation of important tones.","השתמשו בשחור־לבן עם הפרדה ברורה בין גוונים חשובים."]},{"id":"warm","label":"Warm","description":"","instruction":["Use a warm palette with deliberate balance between warm highlights and shadows.","בחרו פלטה חמה ואיזנו בין האורות לצללים."]},{"id":"cool","label":"Cool","description":"","instruction":["Use cool hues and keep important color distinctions clear.","בחרו בגוונים קרירים ושמרו על הבחנה בין צבעים חשובים."]},{"id":"pastel","label":"Pastel","description":"","instruction":["Use high-value, low-saturation hues with readable contrast.","השתמשו בגוונים בהירים ורכים עם ניגודיות קריאה."]},{"id":"vibrant","label":"Vibrant","description":"","instruction":["Use saturated colors selectively with controlled focal emphasis.","השתמשו בצבעים רוויים באופן סלקטיבי ובמיקוד מבוקר."]},{"id":"muted","label":"Muted","description":"","instruction":["Use restrained, softened colors without losing focal separation.","השתמשו בצבעים מעודנים ומרוככים בלי לאבד הפרדה של המוקד."]},{"id":"desaturated","label":"Desaturated","description":"","instruction":["Reduce saturation across the image while retaining tonal distinction.","הפחיתו רוויה בכל התמונה ושמרו על הבחנה בין גוונים."]},{"id":"earthy","label":"Earthy","description":"","instruction":["Build the palette from earth tones and natural material colors.","בנו פלטה מגוני אדמה וצבעי חומרים טבעיים."]},{"id":"dark-moody","label":"Dark & Moody","description":"","instruction":["Use predominantly dark tones with readable focal accents.","השתמשו בעיקר בגוונים כהים עם הדגשות מוקד קריאות."]},{"id":"light-airy","label":"Light & Airy","description":"","instruction":["Use high-value hues and soft tonal transitions.","השתמשו בגוונים בהירים ובמעברים רכים."]},{"id":"high-contrast","label":"High Contrast","description":"","instruction":["Separate focal elements from context with pronounced tonal contrast.","הפרידו את המוקד מההקשר באמצעות ניגודיות מובחנת."]},{"id":"low-contrast","label":"Low Contrast","description":"","instruction":["Keep tonal differences gentle while retaining hierarchy.","שמרו על הבדלי גוון עדינים והיררכיה קריאה."]},{"id":"complementary-colors","label":"Complementary Colors","description":"","instruction":["Use complementary hues with one dominant and one controlled accent.","שלבו צבעים משלימים עם גוון מוביל והדגשה מבוקרת."]},{"id":"analogous-colors","label":"Analogous Colors","description":"","instruction":["Use neighboring hues with enough lightness variation for separation.","שלבו גוונים סמוכים עם שונות מספקת בבהירות להפרדה."]},{"id":"brand-colors","label":"Brand Colors","description":""},{"id":"custom","label":"Custom","description":""}],"mood":[{"id":"auto","label":"Auto","description":"","instruction":["Derive the mood from the subject, purpose and explicit settings.","בחרו אווירה שנובעת מהנושא, מהמטרה ומההגדרות המפורשות."]},{"id":"premium","label":"Premium","description":"","instruction":["Convey premium quality through restraint, material care and precise accents.","שדרו פרימיום באמצעות איפוק, חומריות מוקפדת והדגשות מדויקות."]},{"id":"elegant","label":"Elegant","description":"","instruction":["Use measured rhythm and subtle contrast for an elegant impression.","צרו רושם אלגנטי באמצעות קצב מדוד וניגודיות עדינה."]},{"id":"calm","label":"Calm","description":"","instruction":["Create a calm impression with quiet spacing and gentle transitions.","צרו רוגע בעזרת ריווח שקט ומעברים עדינים."]},{"id":"energetic","label":"Energetic","description":"","instruction":["Suggest energy through directional rhythm and crisp focal separation.","שדרו אנרגיה באמצעות קצב מכוון והפרדת מוקד חדה."]},{"id":"playful","label":"Playful","description":"","instruction":["Introduce nimble visual rhythm and a small element of surprise.","שלבו קצב חזותי קליל ואלמנט קטן של הפתעה."]},{"id":"bold","label":"Bold","description":"","instruction":["Use decisive visual emphasis and confident spatial relationships.","השתמשו בהדגשה חזותית חד־משמעית וביחסים מרחביים נועזים."]},{"id":"mysterious","label":"Mysterious","description":"","instruction":["Suggest mystery through selective revelation and depth.","צרו מסתורין באמצעות חשיפה סלקטיבית ועומק."]},{"id":"nostalgic","label":"Nostalgic","description":"","instruction":["Use restrained period cues and a reflective visual tone.","השתמשו ברמזים תקופתיים מאופקים ובאופי מהורהר."]},{"id":"romantic","label":"Romantic","description":"","instruction":["Favor gentler transitions and intimate spatial relationships.","העדיפו מעברים עדינים ויחסים מרחביים אינטימיים."]},{"id":"warm","label":"Warm","description":"","instruction":["Create a welcoming impression through material and spatial cues.","צרו תחושה מזמינה באמצעות חומריות ויחסים מרחביים."]},{"id":"cold","label":"Cold","description":"","instruction":["Convey cool restraint through precise spacing and understated surfaces.","שדרו קור מאופק באמצעות ריווח מדויק ומשטחים שקטים."]},{"id":"futuristic","label":"Futuristic","description":"","instruction":["Suggest the future through clean, speculative visual cues.","שדרו עתידנות באמצעות רמזים חזותיים נקיים ומכוונים."]},{"id":"professional","label":"Professional","description":"","instruction":["Convey competence through visual order, clarity and relevant context.","שדרו מקצועיות באמצעות סדר חזותי, בהירות והקשר רלוונטי."]},{"id":"youthful","label":"Youthful","description":"","instruction":["Use an agile visual rhythm and contemporary styling cues.","שלבו קצב חזותי זריז ורמזי סטיילינג עכשוויים."]},{"id":"sophisticated","label":"Sophisticated","description":"","instruction":["Create a sophisticated impression through nuanced visual relationships.","צרו תחושה מתוחכמת דרך יחסים חזותיים מעודנים."]},{"id":"raw","label":"Raw","description":"","instruction":["Allow tactile irregularities and unpolished material cues where intentional.","אפשרו אי־אחידות טקטילית וחומריות גולמית כשהן מכוונות."]},{"id":"authentic","label":"Authentic","description":"","instruction":["Keep visual gestures and contextual details unforced and credible.","שמרו על מחוות ופרטי הקשר טבעיים ואמינים."]},{"id":"dreamy","label":"Dreamy","description":"","instruction":["Use soft atmospheric separation and gentle visual transitions.","השתמשו בהפרדה אווירתית רכה ובמעברים חזותיים עדינים."]},{"id":"dramatic","label":"Dramatic","description":"","instruction":["Build drama with decisive focal hierarchy and spatial tension.","צרו דרמה באמצעות היררכיית מוקד ברורה ומתח מרחבי."]},{"id":"fresh","label":"Fresh","description":"","instruction":["Favor clear visual spacing and crisp material detail.","העדיפו ריווח חזותי נקי ופרטי חומר חדים."]},{"id":"cozy","label":"Cozy","description":"","instruction":["Suggest comfort through intimate scale and tactile visual cues.","שדרו נוחות בעזרת קנה מידה אינטימי ורמזים טקטיליים."]},{"id":"adventurous","label":"Adventurous","description":"","instruction":["Suggest exploration through depth and purposeful visual direction.","שדרו הרפתקה בעזרת עומק וכיווניות חזותית מכוונת."]},{"id":"powerful","label":"Powerful","description":"","instruction":["Communicate strength through a decisive silhouette and visual weight.","שדרו עוצמה באמצעות צללית ברורה ומשקל חזותי."]},{"id":"custom","label":"Custom","description":""}]};
-const references = {
-  product: ['תמונת מוצר מקורית', "Preserve the original product's geometry, proportions, materials, colors, construction, and recognizable details.", 'שמרו על הגאומטריה, הפרופורציות, החומרים, הצבעים, המבנה והפרטים המזהים של המוצר המקורי.'],
-  style: ['רפרנס לסגנון ויזואלי', 'Use the reference for visual language, mood, art direction, and aesthetic qualities without copying unrelated subjects or elements.', 'השתמשו ברפרנס לשפה החזותית, לאווירה ולארט דיירקשן, בלי להעתיק נושאים או אלמנטים לא רלוונטיים.'],
-  composition: ['רפרנס לקומפוזיציה', 'Use the reference for framing, spatial relationships, focal placement, and visual balance.', 'השתמשו ברפרנס לפריים, ליחסים המרחביים, למיקום המוקד ולאיזון החזותי.'],
-  lighting: ['רפרנס לתאורה', 'Match the lighting direction, softness, contrast, shadow behavior, and overall lighting atmosphere.', 'התאימו את כיוון האור, הרכות, הניגודיות, הצללים ואווירת התאורה לרפרנס.'],
-  palette: ['פלטת צבעים', 'Use the supplied colors as the primary palette, maintaining appropriate visual harmony and contrast.', 'השתמשו בצבעים שסופקו כפלטה העיקרית ושמרו על הרמוניה וניגודיות.'],
-  brand: ['ספר מותג', 'Follow the supplied brand identity guidelines, including approved colors, visual language, and relevant design restrictions.', 'פעלו לפי הנחיות המותג שסופקו, ובהן הצבעים המאושרים, השפה החזותית ומגבלות העיצוב.'],
-  logo: ['לוגו מקורי', 'Preserve the original logo without modification.', 'שמרו על הלוגו המקורי ללא שינוי.']
+const visualOptions = {
+  objective: {
+    "product-photography": ["Commercial product photography", "צילום מוצר מסחרי"],
+    "product-lifestyle": ["Product lifestyle photography", "צילום מוצר בסביבת שימוש"],
+    "advertising-campaign": ["Advertising campaign image", "תמונה לקמפיין פרסומי"],
+    "social-media-ad": ["Social media ad", "מודעה לרשתות חברתיות"],
+    "editorial-photography": ["Editorial photography", "צילום מגזיני"],
+    "fashion-photography": ["Fashion photography", "צילום אופנה"],
+    "food-photography": ["Food photography", "צילום מזון"],
+    "interior-photography": ["Interior photography", "צילום חלל"],
+    "architectural-photography": ["Architectural photography", "צילום אדריכלי"],
+    "portrait": ["Portrait photography", "צילום פורטרט"],
+    "brand-lifestyle": ["Brand lifestyle image", "תמונת לייפסטייל למותג"],
+    "conceptual-image": ["Conceptual image", "תמונה קונספטואלית"],
+    "service-visualization": ["Service visualization", "המחשת שירות"],
+    "poster": ["Poster", "פוסטר"],
+    "website-hero": ["Website hero image", "תמונת Hero לאתר"],
+    "background-image": ["Background image", "תמונת רקע"],
+    "product-mockup": ["Product mockup", "הדמיית מוצר"],
+    "packaging-mockup": ["Packaging mockup", "הדמיית אריזה"],
+    "3d-product-render": ["3D product render", "הדמיית מוצר תלת־ממדית"],
+    "abstract-visual": ["Abstract artwork", "יצירה מופשטת"],
+  },
+  environment: {
+    "clean-studio": ["clean studio", "סטודיו נקי"],
+    "white-studio": ["white studio", "סטודיו לבן"],
+    "dark-studio": ["dark studio", "סטודיו כהה"],
+    "color-studio": ["color studio", "סטודיו צבעוני"],
+    "modern-home": ["modern home", "בית מודרני"],
+    "luxury-interior": ["luxury interior", "חלל יוקרתי"],
+    "minimal-interior": ["minimal interior", "חלל מינימליסטי"],
+    "office": ["office", "משרד"],
+    "creative-workspace": ["creative workspace", "סביבת עבודה יצירתית"],
+    "urban-street": ["urban street", "רחוב עירוני"],
+    "industrial-space": ["industrial space", "חלל תעשייתי"],
+    "nature": ["nature", "טבע"],
+    "forest": ["forest", "יער"],
+    "desert": ["desert", "מדבר"],
+    "beach": ["beach", "חוף ים"],
+    "rooftop": ["rooftop", "גג אורבני"],
+    "restaurant": ["restaurant", "מסעדה"],
+    "caf": ["café", "בית קפה"],
+    "retail-store": ["retail store", "חנות"],
+    "kitchen": ["kitchen", "מטבח"],
+    "bathroom": ["bathroom", "חדר רחצה"],
+    "gym": ["gym", "חדר כושר"],
+    "futuristic-environment": ["futuristic environment", "סביבה עתידנית"],
+    "abstract-environment": ["abstract environment", "סביבה מופשטת"],
+    "gradient-background": ["gradient background", "רקע גרדיאנט"],
+    "seamless-background": ["seamless background", "רקע רציף"],
+  },
+  style: {
+    "editorial": ["polished editorial aesthetic", "אסתטיקה מגזינית מוקפדת"],
+    "luxury": ["luxury aesthetic, rich materials", "אסתטיקה יוקרתית, חומרים עשירים"],
+    "minimalist": ["minimalist, ample negative space", "מינימליסטי, עם מרחב נקי"],
+    "commercial": ["crisp commercial finish", "גימור פרסומי חד"],
+    "cinematic": ["cinematic, dramatic depth", "קולנועי, עומק דרמטי"],
+    "lifestyle": ["natural lifestyle aesthetic", "אסתטיקת לייפסטייל טבעית"],
+    "fashion": ["fashion styling, deliberate poses", "סטיילינג אופנתי, פוזות מדויקות"],
+    "documentary": ["candid documentary aesthetic", "אסתטיקה תיעודית לא מבוימת"],
+    "brutalist": ["raw, high-contrast brutalism", "ברוטליסטי גולמי ובניגודיות גבוהה"],
+    "retro": ["retro advertising and photography", "צילום ופרסום בסגנון רטרו"],
+    "vintage-film": ["analog film grain, soft colors", "גרעיניות פילם, צבעים רכים"],
+    "futuristic": ["futuristic materials and forms", "חומרים וצורות עתידניים"],
+    "surreal": ["surreal, unexpected juxtapositions", "סוריאליסטי, חיבורים מפתיעים"],
+    "playful": ["playful color and composition", "צבעוניות וקומפוזיציה משחקיות"],
+    "fine-art": ["fine-art photography aesthetic", "אסתטיקת צילום אמנותי"],
+    "high-fashion": ["dramatic high-fashion styling", "סטיילינג אופנה עילית דרמטי"],
+    "scandinavian": ["soft Scandinavian minimalism", "מינימליזם סקנדינבי רך"],
+    "industrial": ["industrial, raw metal and concrete", "תעשייתי, מתכת ובטון גולמיים"],
+    "organic": ["organic forms, soft textures", "צורות אורגניות, מרקמים רכים"],
+    "tech": ["clean, precise tech aesthetic", "אסתטיקה טכנולוגית נקייה ומדויקת"],
+    "hyperrealistic": ["hyperrealistic textures and materials", "מרקמים וחומרים היפר־ריאליסטיים"],
+    "3d-render": ["polished 3D render", "הדמיה תלת־ממדית מלוטשת"],
+  },
+  lighting: {
+    "soft-daylight": ["soft daylight", "אור יום רך"],
+    "hard-sunlight": ["hard sunlight, sharp shadows", "שמש ישירה, צללים חדים"],
+    "golden-hour": ["warm golden-hour light", "אור זהוב של שעת הזהב"],
+    "blue-hour": ["cool blue-hour light", "אור קריר של שעת הדמדומים"],
+    "overcast": ["diffuse overcast daylight", "אור יום מפוזר תחת עננות"],
+    "window-light": ["natural window light", "אור חלון טבעי"],
+    "softbox-studio": ["soft studio light", "אור סטודיו רך"],
+    "high-key": ["bright high-key lighting", "תאורת High Key בהירה"],
+    "low-key": ["dramatic low-key lighting", "תאורת Low Key דרמטית"],
+    "rim-light": ["rim lighting", "תאורת קווי מתאר"],
+    "backlighting": ["backlighting", "תאורה אחורית"],
+    "side-lighting": ["side lighting", "תאורת צד"],
+    "top-lighting": ["overhead light", "תאורה עילית"],
+    "direct-flash": ["direct flash", "פלאש ישיר"],
+    "neon-lighting": ["colored neon light", "אור ניאון צבעוני"],
+    "volumetric-light": ["visible volumetric light beams", "קרני אור נפחיות"],
+    "dramatic-studio": ["dramatic studio lighting", "תאורת סטודיו דרמטית"],
+    "product-beauty-lighting": ["sculpted product lighting", "תאורה המדגישה את צורת המוצר"],
+    "ambient-interior": ["realistic ambient interior light", "תאורת חלל רכה ומציאותית"],
+  },
+  angle: {
+    "eye-level": ["eye level", "גובה העיניים"],
+    "low-angle": ["low angle", "זווית נמוכה"],
+    "high-angle": ["high angle", "זווית גבוהה"],
+    "top-down": ["top down", "צילום מלמעלה"],
+    "45-degree": ["45 degree", "זווית של 45 מעלות"],
+    "front-view": ["front view", "חזיתית"],
+    "side-view": ["side view", "מהצד"],
+    "three-quarter": ["three quarter", "שלושה רבעים"],
+    "isometric": ["isometric", "איזומטרית"],
+    "dutch-angle": ["dutch angle", "זווית אלכסונית"],
+    "ground-level": ["ground level", "גובה הרצפה"],
+    "over-the-shoulder": ["over the shoulder", "מעבר לכתף"],
+    "point-of-view": ["point of view", "נקודת מבט אישית"],
+    "macro-perspective": ["macro perspective", "זווית תקריב"],
+  },
+  framing: {
+    "extreme-close-up": ["extreme close-up", "תקריב קיצוני"],
+    "close-up": ["close-up", "תקריב"],
+    "medium-shot": ["medium shot", "פריים בינוני"],
+    "wide-shot": ["wide shot", "פריים רחב"],
+    "full-product": ["entire product, uncropped", "המוצר בשלמותו, ללא חיתוך"],
+    "hero-shot": ["prominent hero shot", "פריים ראשי בולט"],
+    "detail-shot": ["isolated detail shot", "צילום תקריב של פרט"],
+    "environmental-shot": ["subject in environmental context", "הנושא בהקשר הסביבתי שלו"],
+  },
+  depth: {
+    "very-shallow": ["very shallow", "רדוד מאוד"],
+    "shallow": ["shallow", "רדוד"],
+    "medium": ["medium", "בינוני"],
+    "deep": ["deep", "עמוק"],
+    "maximum-sharpness": ["all key elements in focus", "כל האלמנטים החשובים חדים"],
+  },
+  composition: {
+    "centered": ["centered", "ממורכזת"],
+    "symmetrical": ["symmetrical", "סימטרית"],
+    "asymmetrical": ["asymmetrical", "אסימטרית"],
+    "rule-of-thirds": ["rule of thirds", "חוק השלישים"],
+    "negative-space": ["prominent negative space", "שטח שלילי דומיננטי"],
+    "diagonal": ["diagonal", "אלכסונית"],
+    "dynamic": ["dynamic", "דינמית"],
+    "layered-depth": ["layered depth", "עומק בשכבות"],
+    "minimal": ["minimal", "מינימליסטית"],
+    "geometric": ["geometric", "גאומטרית"],
+    "leading-lines": ["leading lines", "קווים מובילים"],
+    "frame-within-frame": ["frame within a frame", "מסגרת בתוך מסגרת"],
+    "balanced-editorial": ["balanced editorial layout", "פריסה מגזינית מאוזנת"],
+  },
+  palette: {
+    "neutral": ["neutral", "ניטרלית"],
+    "monochromatic": ["monochromatic", "מונוכרומטית"],
+    "black-white": ["black and white", "שחור ולבן"],
+    "warm": ["warm", "חמה"],
+    "cool": ["cool", "קרירה"],
+    "pastel": ["pastel", "פסטלית"],
+    "vibrant": ["vibrant", "רוויית צבע"],
+    "muted": ["muted", "מאופקת"],
+    "desaturated": ["desaturated", "ברוויה נמוכה"],
+    "earthy": ["earth tones", "גווני אדמה"],
+    "dark-moody": ["dark and moody", "כהה ואטמוספרית"],
+    "light-airy": ["light and airy", "בהירה ואוורירית"],
+    "high-contrast": ["high contrast", "ניגודיות גבוהה"],
+    "low-contrast": ["low contrast", "ניגודיות נמוכה"],
+    "complementary-colors": ["complementary colors", "צבעים משלימים"],
+    "analogous-colors": ["analogous colors", "צבעים סמוכים"],
+    "brand-colors": ["brand colors", "צבעי מותג"],
+  },
+  mood: {
+    "premium": ["premium", "יוקרתית"],
+    "elegant": ["elegant", "אלגנטית"],
+    "calm": ["calm", "רגועה"],
+    "energetic": ["energetic", "אנרגטית"],
+    "playful": ["playful", "משחקית"],
+    "bold": ["bold", "נועזת"],
+    "mysterious": ["mysterious", "מסתורית"],
+    "nostalgic": ["nostalgic", "נוסטלגית"],
+    "romantic": ["romantic", "רומנטית"],
+    "warm": ["warm", "חמה"],
+    "cold": ["cold", "קרה"],
+    "futuristic": ["futuristic", "עתידנית"],
+    "professional": ["professional", "מקצועית"],
+    "youthful": ["youthful", "צעירה"],
+    "sophisticated": ["sophisticated", "מתוחכמת"],
+    "raw": ["raw", "גולמית"],
+    "authentic": ["authentic", "אותנטית"],
+    "dreamy": ["dreamy", "חלומית"],
+    "dramatic": ["dramatic", "דרמטית"],
+    "fresh": ["fresh", "רעננה"],
+    "cozy": ["cozy", "נעימה ואינטימית"],
+    "adventurous": ["adventurous", "הרפתקנית"],
+    "powerful": ["powerful", "עוצמתית"],
+  },
 };
 const textPositions = {
   auto: ['אוטומטי','a clear area determined by the composition'],
@@ -3026,22 +3179,6 @@ const messageTypes = {
   launch: ['השקה','launch'], brand: ['תדמית','brand image'], custom: ['אחר','custom message']
 };
 const messageDetailFields = { promotion: 'promotionDetails', benefit: 'benefitDetails' };
-const typographyRules = [
-  ['Create a refined premium advertising layout.', 'צרו פריסה פרסומית מוקפדת.'],
-  ['Establish a clear typographic hierarchy.', 'קבעו היררכיה טיפוגרפית ברורה.'],
-  ['Make the main headline the dominant textual element.', 'הפכו את הכותרת הראשית לאלמנט הטקסטואלי הדומיננטי.'],
-  ['Use a significantly smaller and lighter secondary headline.', 'השתמשו בכותרת משנית קטנה וקלה יותר באופן ניכר.'],
-  ['Keep supporting copy restrained and readable.', 'שמרו על טקסט תומך מאופק וקריא.'],
-  ['Use a clean, structured alignment system.', 'השתמשו במערכת יישור נקייה ומובנית.'],
-  ['Maintain generous spacing between text groups.', 'שמרו על ריווח נדיב בין קבוצות טקסט.'],
-  ['Ensure strong contrast between typography and background.', 'שמרו על ניגודיות חזקה בין הטקסט לרקע.'],
-  ['Keep typography away from important product details.', 'הרחיקו את הטיפוגרפיה מפרטי מוצר חשובים.'],
-  ['Avoid unnecessary shadows, outlines, gradients, decorative effects, and generic advertising stickers.', 'הימנעו מצללים, קווי מתאר, מעברי צבע, אפקטים ותגי פרסום שאינם נחוצים.'],
-  ['Use a sophisticated editorial approach rather than a crowded promotional layout.', 'העדיפו גישה מגזינית מתוחכמת עם היררכיה וריווח.'],
-  ['Preserve exact spelling, punctuation, and language when text is provided.', 'שמרו על הכתיב, הפיסוק והשפה המדויקים של הטקסט שסופק.'],
-  ['For Hebrew, maintain correct RTL reading order and natural Hebrew letterforms.', 'בעברית, שמרו על סדר קריאה תקין מימין לשמאל וצורות אות טבעיות.'],
-  ['If a CTA is included, distinguish it through hierarchy and spacing rather than automatically placing it inside a button.', 'אם יש הנעה לפעולה, הבדילו אותה באמצעות היררכיה וריווח.']
-];
 const suppliedCopy = [['headline','Main headline','כותרת ראשית'], ['subhead','Secondary headline','כותרת משנה'], ['support','Supporting copy','טקסט משלים'], ['cta','CTA','CTA']];
 const effectiveDefaults = {
   objective:'product-photography', environment:'auto', style:'auto', ratio:'4:5', text:'none', textLanguage:'he',
@@ -3099,118 +3236,178 @@ function getPromptErrors(state) {
   return errors;
 }
 
+const PRODUCT_SUBJECTS = {
+  'בקבוק בושם': 'perfume bottle',
+  'בקבוק מים': 'water bottle',
+  'בקבוק שמפו': 'shampoo bottle',
+  'צנצנת קרם': 'cream jar',
+  'קופסת קרטון': 'cardboard box',
+  'שפופרת קרם': 'cream tube',
+  'פחית משקה': 'beverage can',
+  'כוס קפה': 'coffee cup',
+  'בקבוק': 'bottle',
+  'צנצנת': 'jar',
+  'שעון יד': 'wristwatch',
+  'כיסא': 'chair',
+  'תיק גב': 'backpack',
+  'נעליים': 'shoes',
+  'אוזניות': 'headphones',
+  'מחשב נייד': 'laptop'
+};
+const SUBJECT_DESCRIPTORS = {
+  'יוקרתי': 'luxury', 'יוקרתית': 'luxury', 'יוקרתיים': 'luxury', 'יוקרתיות': 'luxury',
+  'שחור': 'black', 'שחורה': 'black', 'שחורות': 'black',
+  'לבן': 'white', 'לבנה': 'white', 'לבנות': 'white',
+  'שקוף': 'clear', 'שקופה': 'clear', 'שקופות': 'clear',
+  'קטן': 'small', 'קטנה': 'small', 'קטנות': 'small',
+  'גדול': 'large', 'גדולה': 'large', 'גדולות': 'large',
+  'מינימליסטי': 'minimalist', 'מינימליסטית': 'minimalist'
+};
+const SUBJECT_ACCESSORIES = {
+  'פקק': 'cap', 'מכסה': 'lid', 'ידית': 'handle', 'רצועה': 'strap'
+};
+
+function getImageSubject(subject, hebrew) {
+  if (hebrew || !/[\u05D0-\u05EA]/u.test(subject)) return subject;
+
+  // Translate only a complete, unambiguous catalogue-style phrase. A partial
+  // translation could discard a brand name, a qualifier, or a visual constraint.
+  const phrase = subject.trim().replace(/[.!]$/u, '');
+  const noun = Object.keys(PRODUCT_SUBJECTS).find(key => phrase === key || phrase.startsWith(key + ' '));
+  if (noun) {
+    const rest = phrase.slice(noun.length).trimStart();
+    const withAccessory = rest.match(/^(?:(.+) )?עם (.+)$/u);
+    const accessory = withAccessory?.[2];
+    const descriptors = (withAccessory ? withAccessory[1] ?? '' : rest).split(/ +/u).filter(Boolean);
+    if (descriptors.every(word => Object.hasOwn(SUBJECT_DESCRIPTORS, word))
+        && (accessory === undefined || Object.hasOwn(SUBJECT_ACCESSORIES, accessory))) {
+      const translated = [...descriptors.map(word => SUBJECT_DESCRIPTORS[word]), PRODUCT_SUBJECTS[noun]].join(' ')
+        + (accessory ? ' with ' + SUBJECT_ACCESSORIES[accessory] : '');
+      return translated[0].toUpperCase() + translated.slice(1);
+    }
+  }
+  const separator = /[.!?…]\s*$/u.test(subject) ? ' ' : '. ';
+  return subject + separator + 'Use the original subject description above, preserving names and details';
+}
+
 function buildImagePrompt(state) {
   const hebrew = state.language === 'he';
   const t = (en, he) => hebrew ? he : en;
-  const section = (en, he, ...lines) => {
-    const body = lines.flat().filter(Boolean).join('\n');
-    return body ? t(en, he) + '\n' + body : '';
-  };
-  const setting = key => {
-    if (state[key] === 'custom') return state[key + 'Custom'];
-    const option = visualOptions[key].find(item => item.id === state[key]);
-    return option?.instruction ? option.instruction[hebrew ? 1 : 0] : '';
-  };
+  const label = (en, he, value) => value?.trim() ? t(en, he) + ': ' + value : '';
+  const setting = key => state[key] === 'custom' ? state[key + 'Custom'] : visualOptions[key][state[key]]?.[hebrew ? 1 : 0];
   const ref = key => state.references.includes(key);
   const hasText = state.text !== 'none';
-  const hasPromotion = state.messageType === 'promotion' && Boolean(state.promotionDetails?.trim());
-  const promotion = hasPromotion ? [
-    t('Promotion details (verbatim): ', 'פרטי המבצע (כלשונם): ') + state.promotionDetails,
-    hasText
-      ? t('Display these supplied promotion details as part of the advertising hierarchy. Use the typography settings below and count the details as supplied wording.',
-          'הציגו את פרטי המבצע כחלק מההיררכיה הפרסומית, בהתאם להגדרות הטיפוגרפיה שלהלן. התייחסו אליהם כחלק מהנוסח שסופק.')
-      : t('Use these details only to understand the visual objective. Do not render any added text or numbers in the image.',
-          'השתמשו בפרטים רק להבנת מטרת התמונה. אל תציגו בתמונה טקסט או מספרים נוספים.'),
-    t('Do not invent prices, discount percentages, dates, or terms that were not supplied.',
-      'אל תמציאו מחירים, אחוזי הנחה, תאריכים או תנאים שלא נמסרו.')
-  ] : [];
-  const benefit = state.messageType === 'benefit' && state.benefitDetails?.trim() ? [
-    t('Product benefit (verbatim): ', 'יתרון המוצר (כלשונו): ') + state.benefitDetails,
-    hasText
-      ? t('Present the supplied benefit as part of the advertising hierarchy, following the typography settings below. Treat it as supplied wording.',
-          'הציגו את היתרון שסופק כחלק מההיררכיה הפרסומית, בהתאם להגדרות הטיפוגרפיה שלהלן. התייחסו אליו כחלק מהנוסח שסופק.')
-      : t('Use this benefit only as visual context. Do not render added text or numbers in the image.',
-          'השתמשו ביתרון כהקשר חזותי בלבד. אל תציגו בתמונה טקסט או מספרים נוספים.'),
-    t('Do not invent benefits, figures, or product promises that were not supplied.',
-      'אל תמציאו יתרונות, נתונים או הבטחות מוצר שלא נמסרו.')
-  ] : [];
-  const customRatio = state.ratio === 'custom' ? state.width + ':' + state.height : state.ratio;
-  const accuracy = state.accuracy === 'auto' && ref('product') ? 'exact' : state.accuracy;
-  const product = {
-    exact: ref('product')
-      ? t("Treat the supplied product image as the authoritative reference. Preserve the product's exact recognizable design, shape, proportions, material appearance, color distribution, and packaging details. Change only the environment, lighting, camera framing, and other explicitly permitted aspects.", 'התייחסו לתמונת המוצר שסופקה כאל המקור הקובע. שמרו במדויק על העיצוב המזהה, הצורה, הפרופורציות, מראה החומרים, חלוקת הצבעים ופרטי האריזה. שנו רק את הסביבה, התאורה, הפריים והיבטים שהותרו במפורש.')
-      : t('Preserve precisely the product details described by the user. Without a product image, do not invent unrevealed details or imply an exact visual replica.', 'שמרו במדויק על פרטי המוצר שתוארו. בהיעדר תמונת מוצר, אל תמציאו פרטים שלא נמסרו ואל תטענו שמדובר בשחזור חזותי מדויק.'),
-    shape: t('Preserve the stated shape and proportions.', 'שמרו על הצורה והפרופורציות שנמסרו.'),
-    material: t('Preserve the stated colors, finish and material appearance.', 'שמרו על הצבעים, הגימור ומראה החומרים שנמסרו.'),
-    packaging: t('Preserve the packaging structure, supplied graphics and original identifying details.', 'שמרו על מבנה האריזה, הגרפיקה שסופקה והפרטים המקוריים המזהים.'),
-    creative: t('Allow creative reinterpretation of the described subject while preserving the essential concept and intended function.', 'אפשרו פרשנות יצירתית מחודשת תוך שמירה על הרעיון המרכזי והפונקציה המיועדת.')
-  }[accuracy];
-  const language = {
-    en: t('English','אנגלית'), he: t('Hebrew','עברית'), custom: state.customTextLanguage
-  }[state.textLanguage];
-  const text = state.text === 'none'
-    ? [
-      t('Do not generate any additional text, typography, headlines, captions, watermarks, or graphic overlays.', 'אל תיצרו טקסט נוסף, טיפוגרפיה, כותרות, כיתובים, סימני מים או שכבות גרפיות.'),
-      ref('product') && t('Preserve only original product markings that are explicitly required by the supplied product reference.', 'שמרו רק על סימוני המוצר המקוריים שנדרשים במפורש לפי רפרנס המוצר.'),
-      state.logo === 'original' && t('This restriction allows placement of the supplied original logo as specified below.', 'הגבלה זו מאפשרת למקם את הלוגו המקורי שסופק לפי ההנחיה שבהמשך.')
-    ]
-    : state.text === 'provided'
-      ? [t('Use only the exact supplied wording. Do not rewrite, translate, or add text.', 'השתמשו רק בנוסח המדויק שסופק. אל תשכתבו, תתרגמו או תוסיפו טקסט.'),
-        ...suppliedCopy.filter(([key]) => state[key]?.trim()).map(([key, en, he]) => t(en, he) + ': ' + state[key])]
-      : [
-        t('Suggest concise relevant copy. Do not invent prices, discounts, product claims, results, figures or promises. If facts are missing, use general brand messaging without unsupported claims.', 'הציעו קופי קצר ורלוונטי. אל תמציאו מחירים, הנחות, טענות מוצר, תוצאות, נתונים או הבטחות. כשחסרות עובדות, השתמשו במסר תדמיתי כללי ללא טענות שאינן מבוססות.'),
-        t('Message type: ', 'סוג המסר: ') + (state.messageType === 'custom' ? state.customMessageType : messageTypes[state.messageType][hebrew ? 0 : 1]),
-        state.message && t('Key message: ', 'מסר מרכזי: ') + state.message
-      ];
+  const medium = state.objective;
+  const setsMedium = ['custom', '3d-render', 'surreal', 'hyperrealistic'].includes(state.style);
+  const mockup = ['product-mockup', 'packaging-mockup'].includes(medium);
+  const photo = medium.endsWith('-photography') || ['portrait', 'product-lifestyle'].includes(medium);
+  let imageType = setting('objective');
 
-  const textPosition = textPositions[state.textPosition];
-  const area = (hasText || state.reserve === 'yes') && state.textPosition !== 'none' && t(
-    `${hasText ? 'Place the typography' : 'Reserve clean space for later text'} ${textPosition[1]}; keep this area free of key visual elements and clear of the subject.`,
-    `${hasText ? 'מקמו את הטיפוגרפיה' : 'השאירו מקום נקי לטקסט בעריכה'} (${textPosition[0]}). השאירו את האזור נקי מאלמנטים מרכזיים, בלי לכסות את הנושא.`
-  );
+  if (medium === '3d-product-render') imageType += t(', realistic materials', ', חומרים מציאותיים');
+  else if (mockup) imageType += t(', accurate proportions', ', פרופורציות מדויקות');
+  else if (photo && !setsMedium) {
+    imageType = medium === 'product-photography'
+      ? t('Premium commercial product photography, photorealistic', 'צילום מוצר מסחרי מוקפד ופוטוריאליסטי')
+      : imageType + t(', photorealistic', ', פוטוריאליסטי');
+  }
+
+  const brandPalette = state.palette === 'brand-colors';
+  const palette = brandPalette
+    ? (state.brandColors?.trim()
+      ? t('Use these brand colors over mood and reference palette: ', 'העדיפו את צבעי המותג האלה על פני האווירה ופלטת הרפרנס: ') + state.brandColors
+      : t('Use brand colors from the palette or brand guide if attached', 'השתמשו בצבעי המותג מפלטת הצבעים או מספר המותג אם צורפו'))
+    : label('Palette', 'פלטה', setting('palette'));
+
+  const accuracy = {
+    exact: t('Preserve the stated product identity exactly', 'שמרו במדויק על זהות המוצר שתוארה'),
+    shape: t('Preserve stated shape and proportions', 'שמרו על הצורה והפרופורציות שתוארו'),
+    material: t('Preserve stated colors, finish and materials', 'שמרו על הצבעים, הגימור והחומרים שתוארו'),
+    packaging: t('Preserve packaging and identifying details', 'שמרו על האריזה והפרטים המזהים'),
+    creative: t('Creative reinterpretation, retaining core function', 'פרשנות יצירתית תוך שמירה על הפונקציה המרכזית')
+  }[state.accuracy];
+  const chosenReferences = [
+    ref('product') && t('Use the attached product image if available as the source of truth for shape, proportions, materials, colors and markings', 'אם צורפה תמונת המוצר, היא המקור הקובע לצורה, לפרופורציות, לחומרים, לצבעים ולסימונים'),
+    ref('style') && t('Follow reference art direction if attached, without copying unrelated elements', 'אם צורף רפרנס סגנון, התאימו אליו את הארט דיירקשן בלי להעתיק פרטים לא קשורים'),
+    ref('composition') && t('Match reference composition if attached', 'התאימו לקומפוזיציית הרפרנס אם צורף'),
+    ref('lighting') && t('Match reference lighting if attached', 'התאימו לתאורת הרפרנס אם צורף'),
+    ref('palette') && !brandPalette && t('Use reference palette if attached', 'השתמשו בפלטת הרפרנס אם צורפה'),
+    ref('brand') && t('Follow the brand guide if attached', 'פעלו לפי ספר המותג אם צורף')
+  ];
+
+  const messageDetail = state[messageDetailFields[state.messageType]];
+  const hasMessageDetail = Boolean(messageDetail?.trim());
+  const promotion = state.messageType === 'promotion';
+  const messageLabel = promotion ? t('Offer', 'מבצע') : t('Product benefit', 'יתרון המוצר');
+  const messageType = state.messageType === 'custom'
+    ? state.customMessageType : messageTypes[state.messageType]?.[hebrew ? 0 : 1];
+  const textLanguage = { en: t('English', 'אנגלית'), he: t('Hebrew', 'עברית'), custom: state.customTextLanguage }[state.textLanguage];
+  const copyFields = state.text === 'provided' ? suppliedCopy.filter(([key]) => state[key]?.trim()) : [];
+  const optionalText = state.text === 'provided'
+    ? copyFields.map(([key, en, he]) => label(en, he, '“' + state[key] + '”'))
+    : state.text === 'suggested' ? [
+      label('Message', 'סוג המסר', messageType),
+      label('Key message', 'מסר מרכזי', state.message),
+      t('Suggest brief copy using supplied claims and terms only', 'הציעו קופי קצר המבוסס רק על תנאים וטענות שסופקו')
+    ] : [];
+  const text = hasText ? [
+    ...optionalText,
+    hasMessageDetail && messageLabel + ': “' + messageDetail + '”',
+    (state.text === 'provided' || hasMessageDetail) && t('Preserve supplied copy verbatim', 'שמרו על הנוסח שסופק כלשונו'),
+    label('Text language', 'שפת הטקסט', textLanguage),
+    t('Clear editorial type hierarchy: dominant headline, smaller secondary copy, strong contrast and spacing; keep product details visible', 'היררכיה טיפוגרפית מגזינית: כותרת מובילה, טקסט משני קטן, ניגודיות ומרווחים; השאירו את פרטי המוצר גלויים'),
+    (state.textLanguage === 'he' || /[\u05D0-\u05EA]/u.test([...copyFields.map(([key]) => state[key]), messageDetail].join(' ')))
+      && t('Natural Hebrew letterforms, RTL', 'צורות אות עבריות טבעיות וכתיבה מימין לשמאל')
+  ] : [
+    hasMessageDetail && t('Visual context only', 'הקשר חזותי בלבד') + ' (' + messageLabel + '): “' + messageDetail + '”'
+  ];
+
+  const position = textPositions[state.textPosition];
+  const textPlacement = state.textPosition !== 'none' && state.textPosition !== 'auto' && t(position[1], position[0]);
+  const area = hasText
+    ? (textPlacement && label('Text placement', 'מיקום הטקסט', textPlacement))
+    : (state.reserve === 'yes' && (t('Leave clean space for later typography', 'השאירו מקום נקי לטיפוגרפיה בעריכה') +
+      (textPlacement ? ' ' + textPlacement : '')));
+  const logoPlacement = state.logoPosition !== 'auto' && t(logoPositions[state.logoPosition][1], logoPositions[state.logoPosition][0]);
   const logo = state.logo === 'original'
-    ? [
-      t('Use the supplied original logo as a strict visual reference. Preserve its shape, proportions, typography, colors, and visual identity. Do not redesign, reinterpret, distort, or replace the logo.', 'השתמשו בלוגו המקורי כרפרנס חזותי מחייב. שמרו על הצורה, הפרופורציות, הטיפוגרפיה, הצבעים והזהות החזותית. אל תעצבו מחדש, תפרשו מחדש, תעוותו או תחליפו את הלוגו.'),
-      t('Place the logo ' + logoPositions[state.logoPosition][1] + ' and keep it clear of the subject and typography.', 'מקמו את הלוגו בהתאם לבחירה (' + logoPositions[state.logoPosition][0] + ') והרחק מהנושא ומהטיפוגרפיה.')
-    ]
-    : state.logo === 'reserve'
-      ? t('Do not generate a logo. Keep a clean area clear of the subject and typography for adding the original logo in editing.', 'אל תיצרו לוגו. השאירו שטח נקי מהנושא ומהטיפוגרפיה להוספת הלוגו המקורי בעריכה.')
-      : t('Do not add a new logo.', 'אל תוסיפו לוגו חדש.');
-  const palette = state.palette === 'brand-colors'
-    ? t('Treat the specified brand colors as fixed; mood must not override them.', 'התייחסו לצבעי המותג שנמסרו כקבועים. האווירה אינה גוברת עליהם.') + (state.brandColors ? ' ' + state.brandColors : '')
-    : ref('palette') && state.palette === 'auto' ? '' : setting('palette');
-  const referenceLines = Object.entries(references)
-    .filter(([key]) => ref(key) && (key !== 'product' || accuracy !== 'exact') && key !== 'logo')
-    .map(([key, item]) => key === 'palette' && state.palette === 'brand-colors'
-      ? t('Use the reference palette only to complement the specified brand colors.', 'השתמשו בפלטת הרפרנס רק כהשלמה לצבעי המותג שנמסרו.')
-      : item[hebrew ? 2 : 1]);
-  const stylized = ['surreal','vintage-film','documentary','3d-render'].includes(state.style)
-    || ['3d-product-render','abstract-visual'].includes(state.objective);
-  const quality = stylized
-    ? t('Create a visually coherent, professionally art-directed image. Keep lighting direction, visual hierarchy, scale and perspective internally consistent where appropriate to the chosen treatment. Allow intentional departures and effects belonging to the selected style. Avoid accidental artifacts, unnecessary clutter and unrelated decorations.', 'צרו תמונה לכידה ומבוימת במקצועיות. שמרו על עקביות פנימית של תאורה, היררכיה, קנה מידה ופרספקטיבה בהתאם לטיפול שנבחר. אפשרו חריגות ואפקטים מכוונים השייכים לסגנון. הימנעו מפגמים מקריים, עומס וקישוטים לא רלוונטיים.')
-    : t('Create a visually coherent, professionally art-directed image. Maintain believable proportions, accurate material behavior, natural textures, consistent lighting direction, realistic contact shadows, appropriate reflections, and clean visual hierarchy. Avoid unnecessary visual clutter, distorted geometry, inconsistent perspective, accidental artifacts, and unrelated decorative elements. Prioritize the subject and the intended visual communication.', 'צרו תמונה לכידה עם ארט דיירקשן מקצועי. שמרו על פרופורציות אמינות, תגובת חומר מדויקת, מרקמים טבעיים, כיוון תאורה עקבי, צללי מגע מציאותיים, השתקפויות מתאימות והיררכיה נקייה. הימנעו מעומס, גאומטריה מעוותת, פרספקטיבה לא עקבית, פגמים מקריים וקישוטים לא רלוונטיים. תנו עדיפות לנושא ולמסר החזותי.');
+    ? t('If attached, place the original logo unchanged (shape, proportions, typography, colors)', 'אם צורף לוגו מקורי, מקמו אותו ללא שינוי בצורה, בפרופורציות, בטיפוגרפיה ובצבעים')
+    : (state.logo === 'reserve' && t('Leave clean space for the original logo in editing', 'השאירו מקום נקי ללוגו המקורי בעריכה'));
+  const exclusions = !hasText && state.logo !== 'original'
+    ? (ref('product') ? t('No added text or logos', 'ללא תוספת טקסט או לוגו') : t('No text or logos', 'ללא טקסט או לוגו'))
+    : !hasText ? t('No added text', 'ללא טקסט נוסף') : state.logo !== 'original' && (ref('product') ? t('No added logo', 'ללא תוספת לוגו') : t('No logo', 'ללא לוגו'));
+  const claimIntegrity = (hasMessageDetail || (hasText && (promotion || state.messageType === 'benefit'))) && (promotion
+    ? t('No unsupported prices, discounts, dates or terms', 'ללא מחירים, הנחות, תאריכים או תנאים שלא נמסרו')
+    : t('No unsupported benefits, figures or promises', 'ללא יתרונות, נתונים או הבטחות שלא נמסרו'));
+  const markings = ref('product') && (!hasText || state.logo !== 'original')
+    && t('Keep only existing product markings visible in the attached reference, if available', 'אם צורף רפרנס מוצר, שמרו רק על הסימונים המקוריים המופיעים בו');
+  const model = { chatgpt: 'ChatGPT', gemini: 'Gemini', midjourney: 'Midjourney', flux: 'FLUX' }[state.model];
+  const ratio = state.ratio === 'custom' ? state.width + ':' + state.height : state.ratio;
+
   return [
-    section('MAIN OBJECTIVE','מטרה מרכזית',setting('objective')),
-    section('SUBJECT','נושא מרכזי',state.subject),
-    section('TARGET AUDIENCE','קהל יעד',state.audience && t('Adapt the visual language to the following audience without relying on stereotypes: ', 'התאימו את השפה החזותית לקהל הבא בלי להסתמך על סטריאוטיפים: ') + state.audience),
-    section('ENVIRONMENT','סביבה',setting('environment')),
-    section('VISUAL STYLE','סגנון חזותי',setting('style')),
-    section('CAMERA AND FRAMING','מצלמה ופריים',setting('angle'),setting('framing'),setting('depth')),
-    section('LIGHTING','תאורה',ref('lighting') && state.lighting === 'auto' ? '' : setting('lighting')),
-    section('COMPOSITION','קומפוזיציה',ref('composition') && state.composition === 'auto' ? '' : setting('composition')),
-    section('COLOR AND MOOD','צבעוניות ואווירה',palette,setting('mood')),
-    section('PRODUCT ACCURACY','דיוק המוצר',product),
-    section('TYPOGRAPHY AND LOGO','טיפוגרפיה ולוגו',[
-      ...[text].flat(), ...promotion, ...benefit,
-      hasText && t('Text language: ','שפת הטקסט: ') + language,
-      hasText && t('ART DIRECTION FOR TYPOGRAPHY','ארט דיירקשן לטיפוגרפיה'),
-      ...(hasText ? typographyRules.map(rule => t(...rule)) : []), area, ...[logo].flat()
-    ]),
-    section('REFERENCE INSTRUCTIONS','הנחיות רפרנס',referenceLines),
-    section('SPECIAL REQUIREMENTS','הנחיות מיוחדות',state.notes),
-    section('OUTPUT FORMAT','פורמט הפלט',t(`Compose the final image for an aspect ratio of ${customRatio}. Use the closest supported ratio if necessary and preserve the intended composition.`, `התאימו את הקומפוזיציה ליחס תמונה של ${customRatio}. במידת הצורך השתמשו ביחס הנתמך הקרוב ביותר ושמרו על הקומפוזיציה המבוקשת.`)),
-    section('QUALITY CONTROL','בקרת איכות',quality,t('Honor explicit requirements and supplied product or brand details first, then the relevant references, explicit professional settings, and automatic choices. Keep mood and style subordinate to required product accuracy, exact wording, framing and brand colors.', 'כבדו תחילה דרישות מפורשות ופרטי מוצר ומותג שסופקו, אחר כך רפרנסים, בחירות מקצועיות מפורשות ולבסוף בחירות אוטומטיות. התאימו את האווירה והסגנון לדיוק המוצר, לנוסח המדויק, לפריים ולצבעי המותג.'))
-  ].filter(Boolean).join('\n\n');
+    getImageSubject(state.subject, hebrew),
+    imageType,
+    label('Audience', 'קהל', state.audience),
+    label('Setting', 'סביבה', setting('environment')),
+    (medium !== '3d-product-render' || state.style !== '3d-render') && label('Style', 'סגנון', setting('style')),
+    label('Camera', 'מצלמה', setting('angle')),
+    label('Framing', 'פריים', setting('framing')),
+    label('Depth', 'עומק שדה', setting('depth')),
+    label('Lighting', 'תאורה', setting('lighting')),
+    label('Composition', 'קומפוזיציה', setting('composition')),
+    palette,
+    label('Mood', 'אווירה', setting('mood')),
+    accuracy,
+    ...chosenReferences,
+    ...text,
+    claimIntegrity,
+    area,
+    logo,
+    logo && logoPlacement && label('Logo placement', 'מיקום הלוגו', logoPlacement),
+    label('Requirements', 'דרישות', state.notes),
+    label('Aspect ratio', 'יחס תמונה', ratio),
+    label('Target model', 'מודל יעד', model),
+    exclusions,
+    markings
+  ].filter(Boolean).map(part => /[.!?…]\s*$/u.test(part) ? part : part + '.').join(' ');
 }
 
 const byId = id => document.getElementById(id);
