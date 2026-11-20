@@ -2,7 +2,7 @@
 <html lang="he" dir="rtl">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#F8F9FB">
   <meta name="description" content="הופכים רעיון ראשוני לבריף תוכן לריל, לסטורי או לפוסט בלינקדאין.">
   <title>Content Lab — מרעיון לבריף</title>
@@ -491,6 +491,7 @@
       text-align: start;
     }
     .tone-options strong { font-weight: 500; }
+    #tone-description { margin-block: 12px 0; text-align: start; line-height: 1.5; }
     .tone-options small { color: var(--text-secondary); font-size: 13px; font-weight: 400; line-height: 1.48; }
     .choice input:checked + span { background: var(--selection-bg); border-color: var(--selection-border); color: var(--text); }
     .choice input:focus-visible + span { outline: 2px solid var(--focus-ring); outline-offset: 3px; }
@@ -1382,6 +1383,22 @@
         padding-block-start: clamp(36px, 8svh, 64px);
       }
     }
+    @media (max-width: 767px), (max-width: 1039px) and (max-height: 520px) and (pointer: coarse) {
+      .shell {
+        --mobile-gutter: 20px;
+        padding-block-start: 50px;
+        padding-block-start: calc(50px + env(safe-area-inset-top, 0px));
+        padding-left: max(var(--mobile-gutter), env(safe-area-inset-left, 0px));
+        padding-right: max(var(--mobile-gutter), env(safe-area-inset-right, 0px));
+      }
+      .workspace {
+        padding-block-start: clamp(150px, 24vh, 300px);
+        padding-block-start: clamp(150px, 24dvh, 300px);
+      }
+    }
+    @media (max-width: 500px) {
+      .shell { --mobile-gutter: 16px; }
+    }
     @media (max-width: 379px) {
       .visual-picker > summary, .native-picker { padding-inline: 12px; }
       .dropdown-name { gap: 8px; }
@@ -1621,9 +1638,10 @@
             </div>
           </div>
           <div class="form-row">
-            <fieldset>
+            <fieldset aria-describedby="tone-description">
               <legend class="form-label">מה הסגנון?</legend>
               <div id="tone-options" class="choices tone-options"></div>
+              <p id="tone-description" class="help" aria-live="polite" aria-atomic="true"></p>
             </fieldset>
           </div>
           <details class="visual-advanced" id="content-advanced">
@@ -2147,7 +2165,10 @@
     let currentDraft = '';
 
     const toneOptions = byId('tone-options');
-    for (const [tone, { label, description }] of Object.entries(TONE_PRESETS)) {
+    const toneDescription = byId('tone-description');
+    toneDescription.textContent = TONE_PRESETS.natural.description;
+
+    for (const [tone, { label }] of Object.entries(TONE_PRESETS)) {
       const option = document.createElement('label');
       option.className = 'choice';
       const radio = document.createElement('input');
@@ -2160,12 +2181,8 @@
       const title = document.createElement('strong');
       title.id = `tone-${tone}-label`;
       title.textContent = label;
-      const hint = document.createElement('small');
-      hint.id = `tone-${tone}-description`;
-      hint.textContent = description;
       radio.setAttribute('aria-labelledby', title.id);
-      radio.setAttribute('aria-describedby', hint.id);
-      card.append(title, hint);
+      card.append(title);
       option.append(radio, card);
       toneOptions.append(option);
     }
@@ -2775,6 +2792,8 @@
       const goalHelp = byId('goal-help');
       const nextHelp = (goals[draft.goal] ?? goals.value).help;
       if (goalHelp.textContent !== nextHelp) goalHelp.textContent = nextHelp;
+      const nextTone = (TONE_PRESETS[draft.tone] ?? TONE_PRESETS.natural).description;
+      if (toneDescription.textContent !== nextTone) toneDescription.textContent = nextTone;
       if (topic.value.trim()) setTopicError(false);
       if (currentBrief) {
         const stale = JSON.stringify(draft) !== currentDraft;
@@ -3812,9 +3831,7 @@ syncConditionals();
     return help;
   }
 
-  const tones = document.getElementById('tone-options');
-  const describedChoices = [...tones.children, ...slang.querySelectorAll('.choice')];
-  for (const option of describedChoices) {
+  for (const option of slang.querySelectorAll('.choice')) {
     const title = option.querySelector('strong');
     const description = option.querySelector('small');
     const chip = document.createElement('div');
